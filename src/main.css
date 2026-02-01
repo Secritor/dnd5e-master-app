@@ -1,0 +1,81 @@
+/* === CSS Reset === */
+
+/* Box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove default body styles */
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+/* Remove default margins */
+body {
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Remove list styles */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Remove default block spacing */
+blockquote,
+figure,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+/* Remove link underline & color */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Reset buttons and inputs */
+button,
+input,
+select,
+textarea {
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+}
+
+/* Remove button focus outline (you can add custom later) */
+button:focus,
+button:focus-visible {
+  outline: none;
+}
+
+/* Images behave predictably */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}

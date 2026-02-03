@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import Card from "../components/Card.vue";
-import { dndCampaigns } from "../mock-data/official-dnd-compaign";
+import Card from '../components/Card.vue';
+import { dndCampaigns } from '../mock-data/official-dnd-compaign';
 </script>
 
 <template>
-  <section class="company-container">
-    <h1>DnD : Официальные компании</h1>
-    <div class="company-card-group">
+  <section class="compaigh-container">
+    <h1 class="compaigh-title">DnD : Официальные компании</h1>
+    <div class="compaigh-card-group">
       <Card
         v-for="(campaign, index) in dndCampaigns"
         :key="index"
@@ -26,14 +26,20 @@ import { dndCampaigns } from "../mock-data/official-dnd-compaign";
   padding: 0;
 }
 
-.company-container {
+.compaigh-container {
   margin: 0 auto;
   padding: 0 50px;
   text-align: left;
+  font-family: 'Montserrat', sans-serif;
 }
-.company-card-group {
+.compaigh-card-group {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
   gap: 20px;
+}
+.compaigh-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 15px;
 }
 </style>

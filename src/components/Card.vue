@@ -7,54 +7,44 @@ const props = defineProps<{
   compaignMood: string[];
 }>();
 
-const clipPaths = [generateTornEdgePoints(0)];
-
 const levelRange = `${props.playerLevelCount[0]} - ${props.playerLevelCount[1]}`;
-const moodTags = props.compaignMood.join(", ");
-// Важно: добавить polygon()
-const randomIndex = Math.floor(Math.random() * clipPaths.length);
-const clipPath = `polygon(${clipPaths[randomIndex]})`;
-
-function generateTornEdgePoints(numPoints = 30) {
-  let points = [];
-  for (let i = 0; i <= numPoints; i++) {
-    const x = (i * (100 / numPoints)).toFixed(2) + "%";
-    const y = (Math.random() * 5).toFixed(2) + "%"; // небольшое хаотичное смещение
-    points.push(`${x} ${y}`);
-  }
-  return points.join(", ");
-}
+const moodTags = props.compaignMood.join(', ');
 </script>
 
 <template>
-  <div class="card-container" :style="{ clipPath }">
+  <div class="card-container">
     <img :src="props.thumbnailImage" alt="image thumbnail" class="card-image" />
     <div class="card-short-description">
-      <h2>{{ props.cardTitle }}</h2>
-      <p><strong>Уровни игроков:</strong> {{ levelRange }}</p>
-      <p><strong>Настроение:</strong> {{ moodTags }}</p>
-      <p>{{ props.description }}</p>
+      <h2 class="card-title">{{ props.cardTitle }}</h2>
+      <p class="card-player-level"><strong>Уровни игроков:</strong> {{ levelRange }}</p>
+      <p class="card-tags"><strong>Настроение:</strong> {{ moodTags }}</p>
+      <p class="card-description">{{ props.description }}</p>
     </div>
   </div>
 </template>
 
 <style scoped>
 .card-container {
-  position: relative; /* важно для clip-path */
+  font-family: 'Montserrat', sans-serif;
   display: flex;
   flex-direction: row;
   gap: 20px;
-  padding: 25px;
+  padding: 20px;
   height: 400px;
+  /* border: 20px solid;
+  border-image: linear-gradient(135deg, #8b5e3c, #a67c52, #8b5e3c) 1; */
 
   /* убрать border-radius или перенести в clip-path */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 
   /* состаренная бумага */
-  background-image: url("../assets/old-paper-texture.jpg");
+  /* background-image: url("../assets/wrapper.jpeg");
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
+  /* тёмный оверлей */
+  /* background-color: rgba(0, 0, 0, 0.2);
+  background-blend-mode: multiply; */
 }
 .card-short-description {
   display: flex;
@@ -81,5 +71,15 @@ button {
   max-width: 270px;
   max-height: 400px;
   border-radius: 15px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.card-description {
+  font-size: 14px;
+  font-weight: 300;
 }
 </style>

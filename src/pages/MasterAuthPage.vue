@@ -10,16 +10,12 @@ const email = ref("master@mail");
 const password = ref("12345");
 
 function submit() {
-  // 🔹 FAKE LOGIN
   if (!email.value || !password.value) return;
-
   console.log({
     mode: isLogin.value ? "login" : "register",
     email: email.value,
     password: password.value,
   });
-
-  // 🔹 Переход в пространство мастера
   router.push("/master");
 }
 </script>

@@ -1,0 +1,1 @@
+import{_ as s,c,a as n,o}from"./index-DjTcSIdw.js";const t={},a={class:"page"};function r(l,e){return o(),c("main",a,[...e[0]||(e[0]=[n("h1",null,"NPC Archive",-1),n("p",null,"In development",-1)])])}const p=s(t,[["render",r]]);export{p as default};

@@ -1,0 +1,1 @@
+import{_ as n,c as o,a as s,o as t}from"./index-B5oIf4Wo.js";const a={},c={class:"page"};function l(r,e){return t(),o("main",c,[...e[0]||(e[0]=[s("h1",null,"Spells Archive",-1),s("p",null,"In development",-1)])])}const _=n(a,[["render",l]]);export{_ as default};

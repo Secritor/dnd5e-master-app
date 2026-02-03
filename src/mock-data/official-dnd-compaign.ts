@@ -47,7 +47,7 @@ export const dndCampaigns: dndCampaignsItem[] = [
   },
   {
     cardTitle: 'The Rise of Tiamat',
-    thumbnailImage: 'public/compaign-images/the rise of tiahmat.jpg',
+    thumbnailImage: 'compaign-images/the rise of tiahmat.jpg',
     description:
       'Прямое продолжение истории о культе Дракона, где ставки становятся по-настоящему высокими. Герои взаимодействуют с могущественными фракциями, принимают стратегические решения и участвуют в судьбоносных сражениях. Кампания сочетает политические интриги, эпические битвы и ощущение надвигающегося апокалипсиса, ведущего к финальному столкновению с Тиамат.',
     playerLevelCount: [8, 15],
@@ -55,7 +55,7 @@ export const dndCampaigns: dndCampaignsItem[] = [
   },
   {
     cardTitle: 'Princes of the Apocalypse',
-    thumbnailImage: 'public/compaign-images/PrincesOfTheApocalypse.webp',
+    thumbnailImage: 'compaign-images/PrincesOfTheApocalypse.webp',
     description:
       'Мир стоит на пороге катастрофы: четыре элементальных культа стремятся уничтожить цивилизацию во имя стихий. Герои исследуют разрушенные поселения, древние руины и масштабные подземелья, постепенно раскрывая структуру врага. Кампания предлагает нелинейное прохождение, атмосферу надвигающегося конца света и множество сложных боевых столкновений.',
     playerLevelCount: [1, 15],
@@ -63,7 +63,7 @@ export const dndCampaigns: dndCampaignsItem[] = [
   },
   {
     cardTitle: 'Out of the Abyss',
-    thumbnailImage: 'public/compaign-images/out of the abyss.webp',
+    thumbnailImage: 'compaign-images/out of the abyss.webp',
     description:
       'Мрачное и необычное приключение, начинающееся с плена в Подземье. Герои вынуждены выживать в мире безумия, демонов и постоянной угрозы. Кампания делает упор на психологическое давление, нехватку ресурсов и странные встречи. По мере развития истории игроки оказываются втянутыми в конфликт демонических принцев.',
     playerLevelCount: [1, 15],
@@ -71,7 +71,7 @@ export const dndCampaigns: dndCampaignsItem[] = [
   },
   {
     cardTitle: 'Curse of Strahd',
-    thumbnailImage: 'public/compaign-images/curse-of-strahd_Digital_01.webp',
+    thumbnailImage: 'compaign-images/curse-of-strahd_Digital_01.webp',
     description:
       'Готический хоррор в замкнутом мире Баровии, где над всем властвует древний вампир Страд фон Зарович. Кампания наполнена мрачной атмосферой, трагическими персонажами и моральными дилеммами. Игроки исследуют проклятые деревни, древние замки и сталкиваются с постоянным ощущением безысходности и наблюдения со стороны Страда.',
     playerLevelCount: [1, 10],
@@ -79,7 +79,7 @@ export const dndCampaigns: dndCampaignsItem[] = [
   },
   {
     cardTitle: 'Storm King’s Thunder',
-    thumbnailImage: 'public/compaign-images/Storm King’s Thunder.jpg',
+    thumbnailImage: 'compaign-images/Storm King’s Thunder.jpg',
     description:
       'Мир Фаэруна охвачен хаосом: гиганты выходят из-под контроля и угрожают королевствам. Герои путешествуют по огромным регионам, заключают союзы и раскрывают причины конфликта. Кампания масштабная и эпическая, с упором на исследования, крупные сражения и постепенное вовлечение в дела богов и титанов.',
     playerLevelCount: [1, 11],
@@ -87,7 +87,7 @@ export const dndCampaigns: dndCampaignsItem[] = [
   },
   {
     cardTitle: 'Tomb of Annihilation',
-    thumbnailImage: 'public/compaign-images/Tomb of Annihilation-cut.jpg',
+    thumbnailImage: 'compaign-images/Tomb of Annihilation-cut.jpg',
     description:
       'Опасное приключение в диких джунглях Чульта, где над миром нависло проклятие смерти. Кампания сочетает исследование, выживание, смертельно опасные ловушки и один из самых известных данжей в истории D&D. Атмосфера постоянной угрозы и неизвестности делает каждое решение игроков критически важным.',
     playerLevelCount: [1, 11],
@@ -95,7 +95,7 @@ export const dndCampaigns: dndCampaignsItem[] = [
   },
   {
     cardTitle: 'Waterdeep: Dragon Heist',
-    thumbnailImage: 'public/compaign-images/Waterdeep Dragon Heist.jpg',
+    thumbnailImage: 'compaign-images/Waterdeep Dragon Heist.jpg',
     description:
       'Городская кампания, сосредоточенная на интригах, расследованиях и социальном взаимодействии. Водяная Глубина становится живым персонажем истории, полной тайных обществ, преступных синдикатов и политических игр. Кампания почти не про классические подземелья, делая акцент на диалогах, выборе союзников и последствиях решений.',
     playerLevelCount: [1, 5],
@@ -103,7 +103,7 @@ export const dndCampaigns: dndCampaignsItem[] = [
   },
   {
     cardTitle: 'Waterdeep: Dungeon of the Mad Mage',
-    thumbnailImage: 'public/compaign-images/Waterdeep Dungeon of the Mad Mage.jpg',
+    thumbnailImage: 'compaign-images/Waterdeep Dungeon of the Mad Mage.jpg',
     description:
       'Гигантский мегаданж, расположенный под Водяной Глубиной. Игроки исследуют десятки уровней Ундермаунтена, каждый со своей темой, врагами и тайнами. Кампания рассчитана на любителей подземелий, тактических боёв и долгосрочного прогресса персонажей, с минимальным акцентом на социальные сцены.',
     playerLevelCount: [5, 20],
@@ -111,7 +111,7 @@ export const dndCampaigns: dndCampaignsItem[] = [
   },
   {
     cardTitle: 'Baldur’s Gate: Descent into Avernus',
-    thumbnailImage: 'public/compaign-images/Baldur’s Gate Descent into Avernus.jpg',
+    thumbnailImage: 'compaign-images/Baldur’s Gate Descent into Avernus.jpg',
     description:
       'История начинается в Балдур’s Gate и постепенно приводит героев в первый круг ада — Авернус. Кампания мрачная и драматичная, с темами сделок с дьяволами, морального выбора и отчаяния. Игроки управляют адскими машинами, сталкиваются с демонами и решают судьбы целых городов.',
     playerLevelCount: [1, 13],
@@ -119,7 +119,7 @@ export const dndCampaigns: dndCampaignsItem[] = [
   },
   {
     cardTitle: 'Icewind Dale: Rime of the Frostmaiden',
-    thumbnailImage: 'public/compaign-images/Icewind Dale Rime of the Frostmaiden.webp',
+    thumbnailImage: 'compaign-images/Icewind Dale Rime of the Frostmaiden.webp',
     description:
       'Суровое приключение в землях вечной зимы, где холод — такой же враг, как и монстры. Кампания делает упор на выживание, изоляцию и постепенное раскрытие древних тайн. Атмосфера безысходности и одиночества усиливается нелинейной структурой и множеством побочных историй.',
     playerLevelCount: [1, 12],
@@ -127,7 +127,7 @@ export const dndCampaigns: dndCampaignsItem[] = [
   },
   {
     cardTitle: 'Tales from the Yawning Portal',
-    thumbnailImage: 'public/compaign-images/Tales from the Yawning Portal.jpg',
+    thumbnailImage: 'compaign-images/Tales from the Yawning Portal.jpg',
     description:
       'Сборник классических подземелий, адаптированных под пятую редакцию. Каждое приключение можно использовать отдельно или связать в общую кампанию. Это отличный выбор для мастеров, желающих познакомить игроков с культовыми данжами D&D, сфокусировавшись на исследовании, ловушках и тактических боях.',
     playerLevelCount: [1, 15],
@@ -135,7 +135,7 @@ export const dndCampaigns: dndCampaignsItem[] = [
   },
   {
     cardTitle: 'Dragon of Icespire Peak',
-    thumbnailImage: 'public/compaign-images/Dragon of Icespire Peak-cut.jpg',
+    thumbnailImage: 'compaign-images/Dragon of Icespire Peak-cut.jpg',
     description:
       'Дружелюбная кампания для новичков с модульной структурой заданий. Герои берут контракты, защищают поселения и постепенно сталкиваются с угрозой ледяного дракона. Кампания проста в освоении, легко масштабируется и отлично подходит для первых шагов в D&D.',
     playerLevelCount: [1, 6],
@@ -143,7 +143,7 @@ export const dndCampaigns: dndCampaignsItem[] = [
   },
   {
     cardTitle: 'Ghosts of Saltmarsh',
-    thumbnailImage: 'public/compaign-images/Ghosts of Saltmarsh.jpg',
+    thumbnailImage: 'compaign-images/Ghosts of Saltmarsh.jpg',
     description:
       'Морские приключения, вдохновлённые классическими модулями. Игроки исследуют прибрежные деревни, острова и затонувшие корабли, сталкиваясь с пиратами и древними тайнами. Кампания сочетает морскую романтику, исследование и элементы хоррора, предлагая гибкую структуру для мастера.',
     playerLevelCount: [1, 12],
@@ -151,7 +151,7 @@ export const dndCampaigns: dndCampaignsItem[] = [
   },
   {
     cardTitle: 'Critical Role: Call of the Netherdeep',
-    thumbnailImage: 'public/compaign-images/Critical Role Call of the Netherdeep-cut.jpg',
+    thumbnailImage: 'compaign-images/Critical Role Call of the Netherdeep-cut.jpg',
     description:
       'Эпическая история, происходящая в мире Exandria. Кампания делает сильный акцент на персонажах, их мотивации и эмоциональных конфликтах. Игроки участвуют в гонке за древней силой, принимают сложные решения и сталкиваются с последствиями своих выборов в насыщенном лором мире.',
     playerLevelCount: [3, 12],
@@ -159,7 +159,7 @@ export const dndCampaigns: dndCampaignsItem[] = [
   },
   {
     cardTitle: 'Candlekeep Mysteries',
-    thumbnailImage: 'public/compaign-images/Candlekeep Mysteries-cut.jpeg',
+    thumbnailImage: 'compaign-images/Candlekeep Mysteries-cut.jpeg',
     description:
       'Сборник коротких приключений, объединённых легендарной библиотекой Candlekeep. Каждая история начинается с загадочной книги и предлагает уникальный сюжет. Кампания идеально подходит для эпизодической игры, сочетая детектив, мистику и разнообразные жанры в компактных сценариях.',
     playerLevelCount: [1, 16],
@@ -167,7 +167,7 @@ export const dndCampaigns: dndCampaignsItem[] = [
   },
   {
     cardTitle: 'Journeys through the Radiant Citadel',
-    thumbnailImage: 'public/compaign-images/Journeys through the Radiant Citadel-cut.jpg',
+    thumbnailImage: 'compaign-images/Journeys through the Radiant Citadel-cut.jpg',
     description:
       'Антология приключений, вдохновлённых разными культурами и мифами. Герои путешествуют через сияющую Цитадель в уникальные миры, каждый со своей атмосферой и проблемами. Кампания делает упор на разнообразие, социальные конфликты и сказочное приключенческое настроение.',
     playerLevelCount: [3, 10],
@@ -175,7 +175,7 @@ export const dndCampaigns: dndCampaignsItem[] = [
   },
   {
     cardTitle: 'Keys from the Golden Vault',
-    thumbnailImage: 'public/compaign-images/Keys from the Golden Vault-cut.jpg',
+    thumbnailImage: 'compaign-images/Keys from the Golden Vault-cut.jpg',
     description:
       'Серия приключений в жанре ограблений. Игроки планируют сложные операции, проникают в охраняемые места и решают головоломки. Кампания поощряет нестандартное мышление, скрытность и командную работу, предлагая альтернативу классическому «бой-данж-лут» стилю.',
     playerLevelCount: [5, 12],
@@ -183,7 +183,7 @@ export const dndCampaigns: dndCampaignsItem[] = [
   },
   {
     cardTitle: 'Phandelver and Below: The Shattered Obelisk',
-    thumbnailImage: 'public/compaign-images/Phandelver and Below The Shattered Obelisk.jpeg',
+    thumbnailImage: 'compaign-images/Phandelver and Below The Shattered Obelisk.jpeg',
     description:
       'Продолжение истории Фандалина, расширяющее события Lost Mine of Phandelver. Кампания добавляет элементы космического ужаса и более глубокие подземелья. Знакомые места обретают новую угрозу, а приключение становится мрачнее и сложнее, сохраняя дух исследования и героизма.',
     playerLevelCount: [4, 10],

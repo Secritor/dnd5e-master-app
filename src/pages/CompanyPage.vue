@@ -1,50 +1,49 @@
 <script lang="ts" setup>
 import Card from '../components/Card.vue';
 import { dndCampaigns } from '../mock-data/official-dnd-compaign';
-import Multiselect from 'vue-multiselect';
 import { ref, computed } from 'vue';
-import type { CampaignsMoodTags } from '../mock-data/official-dnd-compaign';
-const allMoods: CampaignsMoodTags[] = [
-  'Мрачное',
-  'Готическое',
-  'Тревожное',
-  'Жуткая',
-  'Сказочное',
-  'Мистическое',
-  'Загадочное',
-  'Драматическое',
-  'Хаотичное',
-  'Героическое',
-  'Эпическое',
-  'Комедийное',
-  'Абсурдное',
-  'Немного экшена',
-  'Для новичков',
-  'Детективное',
-  'Хоррор',
-  'Политическое',
-  'Планарное',
-  'Напряженное',
-  'Опасное',
-];
+// import type { CampaignsMoodTags } from '../mock-data/official-dnd-compaign';
+// const allMoods: CampaignsMoodTags[] = [
+//   'Мрачное',
+//   'Готическое',
+//   'Тревожное',
+//   'Жуткая',
+//   'Сказочное',
+//   'Мистическое',
+//   'Загадочное',
+//   'Драматическое',
+//   'Хаотичное',
+//   'Героическое',
+//   'Эпическое',
+//   'Комедийное',
+//   'Абсурдное',
+//   'Немного экшена',
+//   'Для новичков',
+//   'Детективное',
+//   'Хоррор',
+//   'Политическое',
+//   'Планарное',
+//   'Напряженное',
+//   'Опасное',
+// ];
 
 const searchQuery = ref('');
-const moodQuery = ref('');
-const minLevel = ref(1);
-const maxLevel = ref(20);
-const selectedMoods = ref<string[]>([]);
+// const moodQuery = ref('');
+// const minLevel = ref(1);
+// const maxLevel = ref(20);
+// const selectedMoods = ref<string[]>([]);
 
 const filteredCampaigns = computed(() => {
   return dndCampaigns.filter((campaign) => {
-    const [campaignMin, campaignMax] = campaign.playerLevelCount;
+    // const [campaignMin, campaignMax] = campaign.playerLevelCount;
 
-    const matchesLevel = campaignMin >= minLevel.value && campaignMax <= maxLevel.value;
+    // const matchesLevel = campaignMin >= minLevel.value && campaignMax <= maxLevel.value;
 
     const matchesTitle = campaign.cardTitle.toLowerCase().includes(searchQuery.value.toLowerCase());
 
-    const matchesMood = !moodQuery.value || campaign.compaignMood.includes(moodQuery.value);
+    // const matchesMood = !moodQuery.value || campaign.compaignMood.includes(moodQuery.value);
 
-    return matchesLevel && matchesTitle;
+    return matchesTitle;
   });
 });
 </script>

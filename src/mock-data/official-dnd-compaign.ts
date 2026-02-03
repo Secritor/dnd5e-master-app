@@ -189,4 +189,11 @@ export const dndCampaigns: dndCampaignsItem[] = [
     playerLevelCount: [4, 10],
     compaignMood: ['Мрачное', 'Загадочное', 'Опасное'],
   },
+  {
+    cardTitle: 'Опричнина',
+    thumbnailImage: 'compaign-images/Oprichnina.webp',
+    description: 'Блять это Опричнина, понял? Тебя ебет что тут происходит??',
+    playerLevelCount: [4, 10],
+    compaignMood: ['Мрачное', 'Загадочное', 'Опасное'],
+  },
 ];

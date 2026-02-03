@@ -1,9 +1,5 @@
-<script setup lang="ts">
-import ChosePage from "./components/chosePage.vue";
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <ChosePage />
+  <router-view />
 </template>
-
-<style></style>

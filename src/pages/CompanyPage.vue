@@ -1,76 +1,60 @@
 <script lang="ts" setup>
 import Card from '../components/Card.vue';
 import { dndCampaigns } from '../mock-data/official-dnd-compaign';
-import { ref, computed } from 'vue';
-// import type { CampaignsMoodTags } from '../mock-data/official-dnd-compaign';
-// const allMoods: CampaignsMoodTags[] = [
-//   'Мрачное',
-//   'Готическое',
-//   'Тревожное',
-//   'Жуткая',
-//   'Сказочное',
-//   'Мистическое',
-//   'Загадочное',
-//   'Драматическое',
-//   'Хаотичное',
-//   'Героическое',
-//   'Эпическое',
-//   'Комедийное',
-//   'Абсурдное',
-//   'Немного экшена',
-//   'Для новичков',
-//   'Детективное',
-//   'Хоррор',
-//   'Политическое',
-//   'Планарное',
-//   'Напряженное',
-//   'Опасное',
-// ];
+import { ref, computed, watch } from 'vue';
+import Multiselect from '../components/Multiselect.vue';
+import Input from '../components/Input.vue';
+import InputNumber from '../components/InputNumber.vue';
+// import Skeleton from '../components/Skeleton.vue';
 
 const searchQuery = ref('');
-// const moodQuery = ref('');
-// const minLevel = ref(1);
-// const maxLevel = ref(20);
-// const selectedMoods = ref<string[]>([]);
+const selectedMoods = ref<string[]>([]);
+const selectedMinLevel = ref(1);
+const selectedMaxLevel = ref(20);
 
-const filteredCampaigns = computed(() => {
-  return dndCampaigns.filter((campaign) => {
-    // const [campaignMin, campaignMax] = campaign.playerLevelCount;
-
-    // const matchesLevel = campaignMin >= minLevel.value && campaignMax <= maxLevel.value;
-
-    const matchesTitle = campaign.cardTitle.toLowerCase().includes(searchQuery.value.toLowerCase());
-
-    // const matchesMood = !moodQuery.value || campaign.compaignMood.includes(moodQuery.value);
-
-    return matchesTitle;
-  });
+watch([selectedMinLevel, selectedMaxLevel], ([min, max]) => {
+  if (min > max) selectedMaxLevel.value = min;
 });
+const filteredCampaigns = computed(() =>
+  dndCampaigns.filter((campaign) => {
+    const matchesTitle = campaign.cardTitle
+      .toLocaleLowerCase()
+      .includes(searchQuery.value.toLocaleLowerCase());
+    const matchesMood =
+      selectedMoods.value.length === 0 ||
+      selectedMoods.value.some((mood) => campaign.compaignMood.includes(mood));
+
+    const [campaignMin, campaignMax] = campaign.playerLevelCount ?? [undefined, undefined];
+    const matchesLevel =
+      campaignMin !== undefined &&
+      campaignMax !== undefined &&
+      campaignMin >= selectedMinLevel.value &&
+      campaignMax <= selectedMaxLevel.value;
+
+    return matchesTitle && matchesMood && matchesLevel;
+  })
+);
 </script>
 
 <template>
   <section class="compaigh-container">
     <h1 class="compaigh-title">DnD : Официальные компании</h1>
-    <!-- ФИЛЬТРЫ -->
+
     <div class="filters">
-      <input v-model="searchQuery" type="text" placeholder="Поиск по названию..." />
-
-      <!-- <div class="level-filter">
-        <label>
-          Уровень от:
-          <input type="number" v-model.number="minLevel" min="1" max="20" />
-        </label>
-
-        <label>
-          до:
-          <input type="number" v-model.number="maxLevel" min="1" max="20" />
-        </label>
-      </div> -->
+      <Input placeholder="Найти компанию..." v-model="searchQuery" />
+      <Multiselect v-model="selectedMoods" />
+      <div class="compaign-level-filter">
+        <p>Укажите уровни персонажей</p>
+        <span>с :</span>
+        <InputNumber v-model="selectedMinLevel" />
+        <span>по :</span>
+        <InputNumber v-model="selectedMaxLevel" />
+      </div>
     </div>
     <div class="compaigh-card-group">
       <Card
-        v-for="(campaign, index) in filteredCampaigns"
-        :key="index"
+        v-for="campaign in filteredCampaigns"
+        :key="campaign.cardTitle"
         :thumbnailImage="campaign.thumbnailImage"
         :description="campaign.description"
         :cardTitle="campaign.cardTitle"
@@ -120,6 +104,14 @@ const filteredCampaigns = computed(() => {
 
 .level-filter {
   display: flex;
+  gap: 10px;
+}
+
+.compaign-level-filter {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: row;
   gap: 10px;
 }
 </style>

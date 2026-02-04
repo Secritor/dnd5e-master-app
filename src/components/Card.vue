@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import Scroll from './Scroll.vue';
 const props = defineProps<{
   thumbnailImage: string;
   description: string;
@@ -18,7 +19,9 @@ const moodTags = props.compaignMood.join(', ');
       <h2 class="card-title">{{ props.cardTitle }}</h2>
       <p class="card-player-level"><strong>Уровни игроков:</strong> {{ levelRange }}</p>
       <p class="card-tags"><strong>Настроение:</strong> {{ moodTags }}</p>
-      <p class="card-description">{{ props.description }}</p>
+      <Scroll children-style="  font-size: 16px; font-weight: 300;">
+        {{ props.description }}
+      </Scroll>
     </div>
   </div>
 </template>
@@ -31,20 +34,7 @@ const moodTags = props.compaignMood.join(', ');
   gap: 20px;
   padding: 20px;
   height: 400px;
-  /* border: 20px solid;
-  border-image: linear-gradient(135deg, #8b5e3c, #a67c52, #8b5e3c) 1; */
-
-  /* убрать border-radius или перенести в clip-path */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-
-  /* состаренная бумага */
-  /* background-image: url("../assets/wrapper.jpeg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat; */
-  /* тёмный оверлей */
-  /* background-color: rgba(0, 0, 0, 0.2);
-  background-blend-mode: multiply; */
 }
 .card-short-description {
   display: flex;

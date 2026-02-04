@@ -1,0 +1,1 @@
+import{_ as t,c as n,a,o}from"./index-6I0RRA0r.js";const r={},s={style:{"min-height":"100vh",display:"grid","place-items":"center"}};function c(l,e){return o(),n("main",s,[...e[0]||(e[0]=[a("h1",null,"Player Mode - in development",-1)])])}const d=t(r,[["render",c]]);export{d as default};

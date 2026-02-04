@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useRouter } from "vue-router";
-import { i18n } from "../i18n";
-import { watch, ref } from "vue";
+import { useRouter } from 'vue-router';
+import { i18n } from '../i18n';
+import { watch, ref } from 'vue';
 const router = useRouter();
-const language = ref<"ru" | "en">("ru");
+const language = ref<'ru' | 'en'>('ru');
 
 function handlePath(path: string): void {
   router.push(path);
@@ -13,26 +13,26 @@ watch(language, (value) => {
   setLanguage(value);
 });
 
-function setLanguage(lang: "ru" | "en") {
+function setLanguage(lang: 'ru' | 'en') {
   i18n.global.locale = lang;
 }
 </script>
 
 <template>
   <main class="mode-select">
-    <h1>{{ $t("modeSelect.title") }}</h1>
+    <h1>{{ $t('modeSelect.title') }}</h1>
 
     <div class="buttons">
       <button class="mode-button" @click="handlePath('/player')">
-        {{ $t("modeSelect.playerRole") }}
+        {{ $t('modeSelect.playerRole') }}
       </button>
 
       <button class="mode-button primary" @click="handlePath('/master/auth')">
-        {{ $t("modeSelect.masterRole") }}
+        {{ $t('modeSelect.masterRole') }}
       </button>
 
       <button class="mode-button" @click="handlePath('/company')">
-        {{ $t("modeSelect.company") }}
+        {{ $t('modeSelect.company') }}
       </button>
     </div>
     <select v-model="language">
@@ -44,6 +44,7 @@ function setLanguage(lang: "ru" | "en") {
 
 <style scoped>
 .mode-select {
+  font-family: 'Montserrat', sans-serif;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -62,11 +63,18 @@ function setLanguage(lang: "ru" | "en") {
   font-size: 18px;
   cursor: pointer;
   border: 1px solid #444;
+  background-color: inherit;
   border-radius: 8px;
 }
+.mode-button:hover {
+  border-color: #c75e2d;
+}
 
-.mode-button.primary {
-  border-color: #7a5cff;
-  font-weight: 600;
+button {
+  border: 1p solid rgba(10, 9, 9, 0.63);
+  border-radius: 4px;
+  color: rgb(0, 0, 0);
+  font-size: 14px;
+  font-weight: 400;
 }
 </style>

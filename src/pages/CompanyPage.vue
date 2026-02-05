@@ -41,7 +41,7 @@ const filteredCampaigns = computed(() =>
     <h1 class="compaigh-title">DnD : Официальные компании</h1>
 
     <div class="filters">
-      <Input placeholder="Найти компанию..." v-model="searchQuery" />
+      <Input type="text" placeholder="Найти компанию..." v-model="searchQuery" />
       <Multiselect v-model="selectedMoods" />
       <div class="compaign-level-filter">
         <p>Укажите уровни персонажей</p>

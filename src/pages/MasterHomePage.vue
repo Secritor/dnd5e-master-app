@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { useRouter } from "vue-router";
-import { useCampaignStore } from "../stores/campaign.store";
-import { ref } from "vue";
+import { useRouter } from 'vue-router';
+import { useCampaignStore } from '../stores/campaign.store';
+import { ref } from 'vue';
 
 const router = useRouter();
 const campaignStore = useCampaignStore();
 
-const newCampaignName = ref("");
+const newCampaignName = ref('');
 
 function createCampaign() {
   if (!newCampaignName.value.trim()) return;
   campaignStore.addCampaign(newCampaignName.value);
-  newCampaignName.value = "";
+  newCampaignName.value = '';
 }
 
 function openCampaign(id: string) {
@@ -23,7 +23,6 @@ function openCampaign(id: string) {
   <main class="master-home">
     <h1>Пространство мастера</h1>
 
-    <!-- Кампании -->
     <section class="card">
       <h2>Кампании</h2>
 
@@ -38,22 +37,16 @@ function openCampaign(id: string) {
       </ul>
 
       <div class="new-campaign">
-        <input
-          v-model="newCampaignName"
-          placeholder="Название новой кампании"
-        />
+        <input v-model="newCampaignName" placeholder="Название новой кампании" />
         <button @click="createCampaign">Создать</button>
       </div>
     </section>
 
-    <!-- Архивы -->
     <section class="card">
       <h2>Архивы</h2>
 
       <div class="archives">
-        <button @click="router.push('/master/spells')">
-          📜 Заклинания и умения
-        </button>
+        <button @click="router.push('/master/spells')">📜 Заклинания и умения</button>
 
         <button @click="router.push('/master/npcs')">👹 NPC</button>
       </div>

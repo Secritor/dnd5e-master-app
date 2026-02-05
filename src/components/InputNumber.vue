@@ -26,15 +26,13 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: number | null): void;
 }>();
 
-// локальная копия для внутреннего v-model
+
 const innerValue = ref<number | null>(props.modelValue ?? null);
 
-// следим за локальной копией и пушим наружу
 watch(innerValue, (val) => {
   emit('update:modelValue', val);
 });
 
-// если родитель изменит modelValue, обновляем локальное состояние
 watch(
   () => props.modelValue,
   (val) => {

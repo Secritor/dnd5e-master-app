@@ -2,7 +2,7 @@
   <NSpace vertical>
     <NInput
       v-model:value="value"
-      type="text"
+      :type="props.type"
       :placeholder="props.placeholder"
       class="custom-input"
       @input="onInput"
@@ -13,6 +13,7 @@
 <script setup lang="ts">
 const props = defineProps<{
   placeholder: string;
+  type: 'textarea' | 'text' | 'password' | undefined;
 }>();
 import { ref } from 'vue';
 import { NSpace, NInput } from 'naive-ui';

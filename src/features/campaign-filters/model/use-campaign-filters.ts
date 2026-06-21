@@ -23,5 +23,8 @@ export const useCampaignFiltersStore = create<CampaignFiltersState>((set, get) =
     const { maxLevel } = get();
     set({ minLevel, maxLevel: minLevel > maxLevel ? minLevel : maxLevel });
   },
-  setMaxLevel: (maxLevel) => set({ maxLevel }),
+  setMaxLevel: (maxLevel) => {
+    const { minLevel } = get();
+    set({ maxLevel, minLevel: maxLevel < minLevel ? maxLevel : minLevel });
+  },
 }));

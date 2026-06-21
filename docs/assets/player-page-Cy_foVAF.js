@@ -1,0 +1,1 @@
+import{j as e}from"./index-BDJEZixk.js";function r(){return e.jsx("main",{className:"grid min-h-screen place-items-center",children:e.jsx("h1",{className:"text-2xl font-semibold",children:"Player Mode — in development"})})}export{r as PlayerPage};

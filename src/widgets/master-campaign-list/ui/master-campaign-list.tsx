@@ -1,15 +1,17 @@
+import { useTranslation } from 'react-i18next';
 import { useCampaignStore } from '@/entities/campaign/model/campaign-store';
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui/card';
-import { CreateCampaignForm } from '@/features/create-campaign/ui/create-campaign-form';
+import { CreateCampaignForm } from '@/features/create-campaign';
 
 export function MasterCampaignList() {
+  const { t } = useTranslation();
   const campaigns = useCampaignStore((s) => s.campaigns);
   const selectCampaign = useCampaignStore((s) => s.selectCampaign);
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Кампании</CardTitle>
+        <CardTitle>{t('masterHome.campaigns')}</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <ul className="flex flex-col gap-2">
@@ -25,7 +27,7 @@ export function MasterCampaignList() {
             </li>
           ))}
           {campaigns.length === 0 && (
-            <li className="text-sm text-muted-foreground">Пока нет кампаний</li>
+            <li className="text-sm text-muted-foreground">{t('campaignList.empty')}</li>
           )}
         </ul>
         <CreateCampaignForm />

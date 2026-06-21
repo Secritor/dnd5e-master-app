@@ -2,15 +2,16 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button } from '@/shared/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui/card';
+import { PageTitle } from '@/shared/ui/page-title';
 import { MasterCampaignList } from '@/widgets/master-campaign-list/ui/master-campaign-list';
-import { InitiativeTracker } from '@/widgets/initiative-tracker/ui/initiative-tracker';
+// import { InitiativeTracker } from '@/widgets/initiative-tracker/ui/initiative-tracker';
 
 export function MasterHomePage() {
   const { t } = useTranslation();
 
   return (
-    <main className="flex min-h-screen flex-col gap-8 p-8">
-      <h1 className="text-3xl font-bold">{t('masterHome.title')}</h1>
+    <main className="flex min-h-screen flex-col gap-4 p-8">
+      <PageTitle>{t('masterHome.title')}</PageTitle>
 
       <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
         <MasterCampaignList />
@@ -30,7 +31,7 @@ export function MasterHomePage() {
             </CardContent>
           </Card>
 
-          <InitiativeTracker />
+          {/* <InitiativeTracker /> */}
         </div>
       </div>
     </main>

@@ -17,11 +17,10 @@ export function filterOfficialCampaigns(
     const matchesTitle = campaign.cardTitle.toLocaleLowerCase().includes(query);
     const matchesMood =
       selectedMoods.length === 0 ||
-      selectedMoods.some((mood) => campaign.compaignMood.includes(mood));
+      selectedMoods.every((mood) => campaign.compaignMood.includes(mood));
 
     const [campaignMin, campaignMax] = campaign.playerLevelCount;
-    const matchesLevel =
-      campaignMin >= minLevel && campaignMax <= maxLevel;
+    const matchesLevel = campaignMax >= minLevel && campaignMin <= maxLevel;
 
     return matchesTitle && matchesMood && matchesLevel;
   });

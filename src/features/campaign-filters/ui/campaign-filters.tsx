@@ -1,9 +1,12 @@
+import { useTranslation } from 'react-i18next';
 import { CAMPAIGN_MOOD_TAGS } from '@/entities/campaign';
 import { Input } from '@/shared/ui/input';
 import { Label } from '@/shared/ui/label';
+import { ScrollArea } from '@/shared/ui/scroll-area';
 import { useCampaignFiltersStore } from '../model/use-campaign-filters';
 
 export function CampaignFilters() {
+  const { t } = useTranslation();
   const searchQuery = useCampaignFiltersStore((s) => s.searchQuery);
   const selectedMoods = useCampaignFiltersStore((s) => s.selectedMoods);
   const minLevel = useCampaignFiltersStore((s) => s.minLevel);
@@ -23,41 +26,41 @@ export function CampaignFilters() {
 
   return (
     <div className="flex flex-wrap items-end gap-4">
-      <div className="min-w-[220px] flex-1 space-y-2">
-        <Label htmlFor="search">Поиск</Label>
+      <div className="min-w-55 flex-1 space-y-2">
+        <Label htmlFor="search">{t('campaignFilters.search')}</Label>
         <Input
           id="search"
           type="text"
-          placeholder="Найти компанию..."
+          placeholder={t('campaignFilters.searchPlaceholder')}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-      </div>
 
-      <div className="space-y-2">
-        <Label>Настроение кампании</Label>
-        <div className="flex max-h-24 max-w-md flex-wrap gap-2 overflow-y-auto rounded-md border border-border p-2">
-          {CAMPAIGN_MOOD_TAGS.map((tag: string) => (
-            <button
-              key={tag}
-              type="button"
-              onClick={() => toggleMood(tag)}
-              className={`rounded-md border px-2 py-1 text-xs transition-colors ${
-                selectedMoods.includes(tag)
-                  ? 'border-primary bg-primary/20 text-primary'
-                  : 'border-border hover:border-primary/50'
-              }`}
-            >
-              {tag}
-            </button>
-          ))}
-        </div>
+        <Label>{t('campaignFilters.mood')}</Label>
+        <ScrollArea className="h-18 rounded-md border border-border">
+          <div className="flex flex-wrap gap-2 p-2">
+            {CAMPAIGN_MOOD_TAGS.map((tag: string) => (
+              <button
+                key={tag}
+                type="button"
+                onClick={() => toggleMood(tag)}
+                className={`h-fit rounded-md border px-2 py-1 text-xs transition-colors ${
+                  selectedMoods.includes(tag)
+                    ? 'border-primary bg-primary/20 text-primary'
+                    : 'border-border hover:border-primary/50'
+                }`}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        </ScrollArea>
       </div>
 
       <div className="flex items-end gap-2">
         <div className="space-y-2">
-          <Label>Уровни персонажей</Label>
-          <p className="text-xs text-muted-foreground">с / по</p>
+          <Label>{t('campaignFilters.levels')}</Label>
+          <p className="text-xs text-muted-foreground">{t('campaignFilters.levelsRange')}</p>
         </div>
         <Input
           type="number"

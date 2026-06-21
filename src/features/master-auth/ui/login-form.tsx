@@ -6,7 +6,11 @@ import { Input } from '@/shared/ui/input';
 import { Label } from '@/shared/ui/label';
 import { loginSchema, type LoginFormValues } from '../model/schemas';
 
-export function LoginForm() {
+interface LoginFormProps {
+  onSuccess?: () => void;
+}
+
+export function LoginForm({ onSuccess }: LoginFormProps) {
   const navigate = useNavigate();
   const {
     register,
@@ -18,6 +22,7 @@ export function LoginForm() {
   });
 
   const onSubmit = handleSubmit(() => {
+    onSuccess?.();
     navigate('/master');
   });
 

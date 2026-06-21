@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import {
   createColumnHelper,
   flexRender,
@@ -5,22 +6,23 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { useQuery } from '@tanstack/react-query';
-import { fetchSpells } from '@/entities/spell/api/fetch-spells';
-import type { Spell } from '@/entities/spell/model/types';
+import { fetchSpells, type Spell } from '@/entities/spell';
 
 const columnHelper = createColumnHelper<Spell>();
 
-const columns = [
-  columnHelper.accessor('name', { header: 'Название' }),
-  columnHelper.accessor('level', { header: 'Уровень' }),
-  columnHelper.accessor('school', { header: 'Школа' }),
-];
-
 export function SpellsTable() {
-  const { data = [], isLoading } = useQuery({
+  const { t } = useTranslation();
+
+  const { data = [], isLoading, isError } = useQuery({
     queryKey: ['spells'],
     queryFn: fetchSpells,
   });
+
+  const columns = [
+    columnHelper.accessor('name', { header: t('archive.colName') }),
+    columnHelper.accessor('level', { header: t('archive.colLevel') }),
+    columnHelper.accessor('school', { header: t('archive.colSchool') }),
+  ];
 
   const table = useReactTable({
     data,
@@ -28,7 +30,8 @@ export function SpellsTable() {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  if (isLoading) return <p className="text-muted-foreground">Загрузка...</p>;
+  if (isLoading) return <p className="text-muted-foreground">{t('common.loading')}</p>;
+  if (isError) return <p className="text-destructive">{t('archive.errorSpells')}</p>;
 
   return (
     <div className="w-full overflow-hidden rounded-lg border border-border">

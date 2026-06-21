@@ -1,12 +1,17 @@
+import { useTranslation } from 'react-i18next';
+import { PageTitle } from '@/shared/ui/page-title';
+
 interface ArchivePlaceholderPageProps {
-  title: string;
+  titleKey: string;
 }
 
-export function ArchivePlaceholderPage({ title }: ArchivePlaceholderPageProps) {
+export function ArchivePlaceholderPage({ titleKey }: ArchivePlaceholderPageProps) {
+  const { t } = useTranslation();
+
   return (
-    <main className="grid min-h-screen place-items-center">
-      <h1 className="text-2xl font-semibold">{title}</h1>
-      <p className="text-muted-foreground">In development</p>
+    <main className="flex min-h-screen flex-col items-center justify-center gap-4">
+      <PageTitle>{t(titleKey)}</PageTitle>
+      <p className="text-muted-foreground">{t('common.inDevelopment')}</p>
     </main>
   );
 }

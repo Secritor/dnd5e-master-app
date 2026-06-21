@@ -1,0 +1,1 @@
+import{j as e}from"./index-BDJEZixk.js";function n({title:r}){return e.jsxs("main",{className:"grid min-h-screen place-items-center",children:[e.jsx("h1",{className:"text-2xl font-semibold",children:r}),e.jsx("p",{className:"text-muted-foreground",children:"In development"})]})}export{n as ArchivePlaceholderPage};

@@ -5,9 +5,11 @@ export const en = {
   },
   masterHome: {
     title: 'Master Dashboard',
+    welcome: 'Welcome',
     createCampaign: 'Create Campaign',
     campaigns: 'Campaigns',
     archives: 'Archives',
+    tools: 'Quick Access',
     spells: 'Spells & Skills',
     npcs: 'NPCs',
   },
@@ -15,6 +17,12 @@ export const en = {
     playerRole: 'Player',
     masterRole: 'Master',
     company: 'Company',
+    title: 'Choose Your Path',
+    lede: 'Your world. Your stories. Your adventure.',
+    playerDesc: 'Track characters, rolls and notes in your adventures.',
+    masterDesc: 'Create and run campaigns, NPCs and knowledge archives.',
+    companyDesc: 'Explore official D&D 5e modules with ready lore.',
+    enter: 'Enter',
   },
   masterAuth: {
     title: 'Master Login',
@@ -24,6 +32,7 @@ export const en = {
   },
   company: {
     title: 'DnD: Official Campaigns',
+    eyebrow: 'DnD · Official Campaigns',
   },
   archive: {
     spellsTitle: 'Spells Archive',

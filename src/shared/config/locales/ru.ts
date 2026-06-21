@@ -5,9 +5,11 @@ export const ru = {
   },
   masterHome: {
     title: 'Пространство мастера',
+    welcome: 'Добро пожаловать',
     createCampaign: 'Создать кампанию',
     campaigns: 'Кампании',
     archives: 'Архивы',
+    tools: 'Быстрый доступ',
     spells: 'Заклинания и умения',
     npcs: 'NPC',
   },
@@ -15,6 +17,12 @@ export const ru = {
     playerRole: 'Игрок',
     masterRole: 'Мастер',
     company: 'Компании',
+    title: 'Выбери свой путь',
+    lede: 'Ваш мир. Ваши истории. Ваше приключение.',
+    playerDesc: 'Веди персонажей, броски и заметки в своих приключениях.',
+    masterDesc: 'Создавай и веди кампании, NPC и архивы знаний.',
+    companyDesc: 'Изучи официальные модули D&D 5e с готовым лором.',
+    enter: 'Войти',
   },
   masterAuth: {
     title: 'Вход мастера',
@@ -24,6 +32,7 @@ export const ru = {
   },
   company: {
     title: 'DnD: Официальные компании',
+    eyebrow: 'DnD · Официальные компании',
   },
   archive: {
     spellsTitle: 'Архив заклинаний',

@@ -2,80 +2,443 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ── Tailwind theme — maps CSS variables to utility classes ── */
 @theme inline {
-  --font-sans: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
+  /* Fonts */
+  --font-sans:    'Montserrat', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Cinzel', 'Trajan Pro', Georgia, serif;
+  --font-body:    'Crimson Pro', 'Crimson Text', Georgia, serif;
+  --font-flavor:  'IM Fell English', 'Crimson Pro', Georgia, serif;
+
+  /* Radius — iron-bound */
+  --radius-sm:  2px;
+  --radius-md:  3px;
+  --radius-lg:  4px;
+  --radius-xl:  4px;
+  --radius-2xl: 4px;
+  --radius-3xl: 4px;
+
+  /* Shadcn semantic → Tailwind utilities */
+  --color-background:         var(--background);
+  --color-foreground:         var(--foreground);
+  --color-card:               var(--card);
+  --color-card-foreground:    var(--card-foreground);
+  --color-popover:            var(--popover);
   --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
+  --color-primary:            var(--primary);
   --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
+  --color-secondary:          var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-dnd-gold: var(--dnd-gold);
+  --color-muted:              var(--muted);
+  --color-muted-foreground:   var(--muted-foreground);
+  --color-accent:             var(--accent);
+  --color-accent-foreground:  var(--accent-foreground);
+  --color-destructive:        var(--destructive);
+  --color-border:             var(--border);
+  --color-input:              var(--input);
+  --color-ring:               var(--ring);
+
+  /* DnD palette → Tailwind utilities */
+  --color-gold-300: var(--gold-300);
+  --color-gold-400: var(--gold-400);
+  --color-gold-500: var(--gold-500);
+  --color-gold-600: var(--gold-600);
+  --color-gold-700: var(--gold-700);
+  --color-ink-100:  var(--ink-100);
+  --color-ink-300:  var(--ink-300);
+  --color-ink-500:  var(--ink-500);
+  --color-ink-900:  var(--ink-900);
+  --color-ember-400: var(--ember-400);
+  --color-ember-500: var(--ember-500);
+  --color-dnd-gold:  var(--dnd-gold);
   --color-dnd-ember: var(--dnd-ember);
 }
 
+/* ── D&D Design System raw tokens ── */
 :root {
-  --radius: 0.625rem;
-  --background: oklch(0.12 0.01 280);
-  --foreground: oklch(0.95 0.01 90);
-  --card: oklch(0.16 0.015 280);
-  --card-foreground: oklch(0.95 0.01 90);
-  --popover: oklch(0.16 0.015 280);
-  --popover-foreground: oklch(0.95 0.01 90);
-  --primary: oklch(0.72 0.14 65);
-  --primary-foreground: oklch(0.15 0.02 280);
-  --secondary: oklch(0.22 0.02 280);
-  --secondary-foreground: oklch(0.92 0.01 90);
-  --muted: oklch(0.22 0.02 280);
-  --muted-foreground: oklch(0.65 0.02 90);
-  --accent: oklch(0.55 0.16 35);
-  --accent-foreground: oklch(0.98 0.01 90);
-  --destructive: oklch(0.55 0.2 25);
-  --border: oklch(0.28 0.02 280);
-  --input: oklch(0.28 0.02 280);
-  --ring: oklch(0.72 0.14 65);
-  --dnd-gold: oklch(0.72 0.14 65);
-  --dnd-ember: oklch(0.55 0.16 35);
+  /* Stone & charcoal */
+  --stone-950: #0d0c0b;
+  --stone-900: #14110f;
+  --stone-850: #1a1714;
+  --stone-800: #221d18;
+  --stone-700: #2c2620;
+  --stone-600: #3a322a;
+  --stone-500: #4a4036;
+  --stone-400: #6b5f50;
+
+  /* Parchment & leather */
+  --parchment-100: #efe2c4;
+  --parchment-200: #e3d2ab;
+  --parchment-300: #d8c191;
+  --parchment-400: #c8a96e;
+  --parchment-500: #b0925c;
+  --leather-700: #5a4632;
+  --leather-800: #463525;
+  --walnut-900: #2a1d12;
+
+  /* Gold */
+  --gold-300: #d9b870;
+  --gold-400: #c79a4a;
+  --gold-500: #a07830;
+  --gold-600: #836027;
+  --gold-700: #5f461d;
+
+  /* Ember / crimson */
+  --ember-400: #b8472f;
+  --ember-500: #8b1a1a;
+  --ember-600: #6e1414;
+  --rust-500:  #6b4226;
+  --rust-600:  #533321;
+
+  /* Inks (text) */
+  --ink-100: #f0e8d8;
+  --ink-300: #cabfa9;
+  --ink-500: #8c8068;
+  --ink-800: #3c2f1c;
+  --ink-900: #2a2114;
+
+  /* Status */
+  --status-ready:  #6a7d3f;
+  --status-warn:   #b5862f;
+  --status-info:   #4a6a82;
+  --status-danger: #8b1a1a;
+
+  /* Typography */
+  --text-display-xl: 64px;
+  --text-display-lg: 48px;
+  --text-display-md: 34px;
+  --text-display-sm: 24px;
+  --text-body-lg: 20px;
+  --text-body-md: 17px;
+  --text-body-sm: 15px;
+  --text-ui-md: 14px;
+  --text-ui-sm: 12px;
+  --text-ui-xs: 11px;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-black: 900;
+  --leading-tight: 1.1;
+  --leading-snug: 1.3;
+  --leading-normal: 1.55;
+  --leading-relaxed: 1.7;
+  --tracking-cap: 0.08em;
+  --tracking-wide: 0.18em;
+  --tracking-normal: 0;
+
+  /* Spacing */
+  --space-1: 4px;   --space-2: 8px;   --space-3: 12px;
+  --space-4: 16px;  --space-5: 20px;  --space-6: 24px;
+  --space-8: 32px;  --space-10: 40px; --space-12: 48px;
+  --space-16: 64px; --space-20: 80px;
+
+  /* Shadows — candle-lit */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.5);
+  --shadow-md: 0 3px 8px rgba(0,0,0,0.55);
+  --shadow-lg: 0 10px 28px rgba(0,0,0,0.6);
+  --shadow-xl: 0 22px 60px rgba(0,0,0,0.7);
+  --shadow-inset: inset 0 1px 0 rgba(217,184,112,0.08), inset 0 -2px 6px rgba(0,0,0,0.5);
+  --ring-gold: 0 0 0 1px rgba(160,120,48,0.55);
+  --glow-ember: 0 0 40px rgba(184,71,47,0.25);
+
+  /* Materials */
+  --mat-stone:
+    radial-gradient(120% 80% at 30% 0%, rgba(58,50,42,0.45) 0%, rgba(0,0,0,0) 55%),
+    radial-gradient(100% 90% at 90% 100%, rgba(10,9,8,0.6) 0%, rgba(0,0,0,0) 60%),
+    linear-gradient(180deg, #1a1714 0%, #14110f 60%, #0f0d0b 100%);
+  --mat-parchment:
+    radial-gradient(140% 120% at 0% 0%, rgba(239,226,196,0.9) 0%, rgba(0,0,0,0) 45%),
+    radial-gradient(120% 120% at 100% 100%, rgba(150,120,75,0.55) 0%, rgba(0,0,0,0) 55%),
+    linear-gradient(165deg, #d8c191 0%, #c8a96e 55%, #b78f54 100%);
+  --mat-leather:
+    radial-gradient(130% 100% at 50% 0%, rgba(90,70,50,0.5) 0%, rgba(0,0,0,0) 60%),
+    linear-gradient(180deg, #4a3826 0%, #36281a 100%);
+  --mat-walnut:
+    repeating-linear-gradient(96deg, rgba(0,0,0,0.18) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,0) 9px),
+    linear-gradient(180deg, #3a2817 0%, #271a0f 100%);
+  --mat-iron:
+    linear-gradient(180deg, #3a322a 0%, #2a231d 48%, rgba(32,25,20,0) 49%, #1d1712 100%),
+    linear-gradient(180deg, #312a23 0%, #211b16 100%);
+  --mat-gold:
+    linear-gradient(180deg, #d9b870 0%, #b58a3c 46%, #a07830 54%, #7e5e24 100%);
+
+  /* ── Shadcn semantic layer → Tailwind utilities ── */
+  --background:           var(--stone-900);
+  --foreground:           var(--ink-100);
+  --card:                 var(--stone-700);
+  --card-foreground:      var(--ink-100);
+  --popover:              var(--stone-800);
+  --popover-foreground:   var(--ink-100);
+  --primary:              var(--gold-500);
+  --primary-foreground:   var(--ink-900);
+  --secondary:            var(--stone-800);
+  --secondary-foreground: var(--ink-300);
+  --muted:                var(--stone-700);
+  --muted-foreground:     var(--ink-500);
+  --accent:               var(--rust-500);
+  --accent-foreground:    var(--ink-100);
+  --destructive:          var(--ember-500);
+  --border:               var(--stone-600);
+  --input:                var(--stone-600);
+  --ring:                 var(--gold-600);
+  --dnd-gold:             var(--gold-400);
+  --dnd-ember:            var(--ember-400);
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-
-  html,
-  body {
+  html, body {
     height: 100%;
     overflow: hidden;
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply font-sans antialiased;
     margin: 0;
+    background: var(--mat-stone);
+    background-color: var(--stone-900);
+    color: var(--ink-100);
   }
 
   #root {
     height: 100%;
   }
 
+  * {
+    @apply border-border;
+  }
+
   button:not(:disabled),
   [role='button']:not(:disabled) {
     cursor: pointer;
   }
+
+  /* ── Material utilities ── */
+  .mat-stone     { background: var(--mat-stone); background-color: var(--stone-900); }
+  .mat-parchment { background: var(--mat-parchment); color: var(--ink-900); }
+  .mat-leather   { background: var(--mat-leather); }
+  .mat-walnut    { background: var(--mat-walnut); }
+  .mat-iron      { background: var(--mat-iron); }
+  .mat-gold      { background: var(--mat-gold); color: var(--ink-900); }
+
+  /* Engraved gilt frame */
+  .frame-gilt {
+    box-shadow:
+      inset 0 0 0 1px rgba(160,120,48,0.5),
+      inset 0 0 0 4px rgba(13,12,11,0.85),
+      inset 0 0 0 5px rgba(160,120,48,0.28);
+  }
+
+  /* Ornate chapter-break divider */
+  .rule-ornate {
+    height: 1px;
+    border: none;
+    background: linear-gradient(90deg, transparent, var(--gold-600) 18%, var(--gold-500) 50%, var(--gold-600) 82%, transparent);
+    opacity: 0.7;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   D&D Master App — page CSS (ported from design system ui_kits)
+   ════════════════════════════════════════════════════════════ */
+
+/* ── App shell ── */
+.dnd-app {
+  min-height: 100%;
+  font-family: var(--font-sans);
+  background: var(--mat-stone);
+  background-color: var(--stone-900);
+  color: var(--ink-100);
+}
+
+/* ── Mode select ── */
+.dnd-mode {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 64px 24px;
+  background:
+    radial-gradient(80% 60% at 50% 0%, rgba(160,120,48,0.10), transparent 60%),
+    var(--mat-stone);
+  background-color: var(--stone-950);
+}
+.dnd-mode__inner { text-align: center; max-width: 960px; width: 100%; }
+.dnd-mode__eyebrow {
+  font-size: 12px; letter-spacing: 0.34em; color: var(--gold-500);
+  font-weight: 700; margin: 0 0 14px; text-transform: uppercase;
+}
+.dnd-mode__title {
+  font-family: var(--font-display); font-weight: 900; font-size: 52px;
+  color: var(--gold-300); margin: 0; letter-spacing: 0.03em;
+}
+.dnd-mode__lede {
+  font-family: var(--font-flavor); font-style: italic; font-size: 20px;
+  color: var(--ink-300); margin: 12px 0 44px;
+}
+.dnd-mode__grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+.dnd-mode__card {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 12px; text-align: center; padding: 36px 24px 26px; cursor: pointer;
+  background: var(--mat-stone); background-color: var(--stone-700);
+  border: 1px solid var(--stone-600); border-radius: 4px;
+  box-shadow: var(--shadow-md);
+  transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+.dnd-mode__card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold-600);
+  box-shadow: var(--ring-gold), var(--shadow-lg);
+}
+.dnd-mode__card.is-primary {
+  border-color: var(--gold-600);
+  box-shadow: var(--ring-gold), var(--shadow-lg);
+}
+.dnd-mode__icon {
+  width: 64px; height: 64px; display: grid; place-items: center;
+  color: var(--gold-400); background: var(--mat-iron);
+  border: 1px solid var(--gold-700); border-radius: 4px;
+  box-shadow: inset 0 0 18px rgba(160,120,48,0.12);
+}
+.dnd-mode__name {
+  font-family: var(--font-display); font-weight: 700; font-size: 24px;
+  color: var(--ink-100); letter-spacing: 0.05em;
+}
+.dnd-mode__desc {
+  font-family: var(--font-body); font-size: 15px;
+  line-height: 1.5; color: var(--ink-300);
+}
+.dnd-mode__enter {
+  margin-top: 6px; display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--gold-400); font-weight: 600;
+}
+
+/* ── Master dashboard ── */
+.dnd-dash { max-width: 1320px; margin: 0 auto; padding: 36px 32px 80px; }
+.dnd-dash__head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 32px; flex-wrap: wrap; margin-bottom: 28px;
+}
+.dnd-dash__eyebrow {
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold-500); font-weight: 700; margin: 0 0 6px;
+}
+.dnd-dash__title {
+  font-family: var(--font-display); font-weight: 800; font-size: 38px;
+  color: var(--ink-100); margin: 0; letter-spacing: 0.02em;
+}
+.dnd-dash__cols {
+  display: grid; grid-template-columns: 1fr 340px; gap: 32px; align-items: start;
+}
+.dnd-dash__side { display: flex; flex-direction: column; gap: 22px; }
+
+.dnd-camplist { display: flex; flex-direction: column; gap: 16px; margin-top: 18px; }
+.dnd-camp {
+  display: grid; grid-template-columns: 132px 1fr 28px;
+  align-items: stretch; padding: 0; overflow: hidden;
+}
+.dnd-camp__art {
+  background-size: cover; background-position: center; min-height: 132px;
+  display: grid; place-items: center; color: var(--ink-500);
+  border-right: 1px solid var(--gold-700);
+}
+.dnd-camp__body { padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; }
+.dnd-camp__top { display: flex; align-items: center; gap: 12px; justify-content: space-between; }
+.dnd-camp__name {
+  font-family: var(--font-display); font-weight: 700; font-size: 21px;
+  color: var(--gold-300); margin: 0; letter-spacing: 0.02em;
+}
+.dnd-camp__meta { font-family: var(--font-body); font-size: 15px; color: var(--ink-300); margin: 0; }
+.dnd-camp__date { color: var(--ink-100); }
+.dnd-camp__tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.dnd-camp__go { align-self: center; color: var(--ink-500); width: 22px; height: 22px; margin-right: 10px; }
+.dnd-camp:hover .dnd-camp__go { color: var(--gold-400); }
+
+.dnd-tools { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+.dnd-tool {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  padding: 18px 10px; cursor: pointer;
+  background: var(--mat-iron); border: 1px solid var(--stone-600); border-radius: 4px;
+  transition: border-color .14s ease, transform .08s ease;
+}
+.dnd-tool:hover { border-color: var(--gold-600); transform: translateY(-2px); }
+.dnd-tool__icon {
+  width: 44px; height: 44px; display: grid; place-items: center; color: var(--gold-400);
+  background: radial-gradient(circle at 50% 35%, rgba(160,120,48,0.18), transparent 70%);
+  border-radius: 3px;
+}
+.dnd-tool__label { font-size: 12px; color: var(--ink-100); font-weight: 600; letter-spacing: 0.03em; }
+
+.dnd-archcard { padding: 20px; }
+.dnd-archcard__title {
+  font-family: var(--font-display); font-weight: 700; font-size: 20px;
+  color: var(--gold-300); margin: 0 0 8px;
+}
+.dnd-archcard__desc {
+  font-family: var(--font-body); font-size: 15px; line-height: 1.5;
+  color: var(--ink-300); margin: 0 0 16px;
+}
+.dnd-archcard__btns { display: flex; flex-direction: column; gap: 8px; }
+
+/* ── Campaign archive ── */
+.dnd-arch { max-width: 1320px; margin: 0 auto; padding: 28px 32px 80px; }
+.dnd-arch__head { display: flex; align-items: center; gap: 18px; margin-bottom: 24px; }
+.dnd-arch__eyebrow {
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold-500); font-weight: 700; margin: 0 0 4px;
+}
+.dnd-arch__title {
+  font-family: var(--font-display); font-weight: 800; font-size: 34px;
+  color: var(--ink-100); margin: 0;
+}
+.dnd-arch__filters {
+  display: flex; gap: 24px; align-items: flex-start;
+  padding: 20px; margin-bottom: 28px;
+  background: var(--stone-800); border: 1px solid var(--stone-600);
+  border-radius: 4px; box-shadow: var(--shadow-inset); flex-wrap: wrap;
+}
+.dnd-arch__search { min-width: 260px; flex: 1; }
+.dnd-arch__moods { flex: 2; min-width: 320px; }
+.dnd-arch__moodlabel {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--gold-300);
+  display: block; margin-bottom: 8px;
+}
+.dnd-arch__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.dnd-modcard { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
+.dnd-modcard__art {
+  height: 168px; background-size: cover; background-position: center;
+  position: relative; border-bottom: 1px solid var(--gold-700); filter: saturate(0.88);
+}
+.dnd-modcard__art::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(13,12,11,0.7));
+}
+.dnd-modcard__lvl { position: absolute; top: 10px; right: 10px; z-index: 2; }
+.dnd-modcard__body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; }
+.dnd-modcard__name {
+  font-family: var(--font-display); font-weight: 700; font-size: 20px;
+  color: var(--gold-300); margin: 0; letter-spacing: 0.02em;
+}
+.dnd-modcard__desc {
+  font-family: var(--font-body); font-size: 14px; line-height: 1.5;
+  color: var(--ink-300); margin: 0;
+}
+.dnd-modcard__tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.dnd-arch__empty {
+  grid-column: 1 / -1; text-align: center; font-family: var(--font-flavor);
+  font-style: italic; font-size: 18px; color: var(--ink-500); padding: 40px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+  .dnd-dash__cols { grid-template-columns: 1fr; }
+  .dnd-arch__grid { grid-template-columns: repeat(2, 1fr); }
+  .dnd-mode__grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .dnd-arch__grid { grid-template-columns: 1fr; }
+  .dnd-mode__title { font-size: 36px; }
 }

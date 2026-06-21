@@ -30,7 +30,7 @@ export function PageTitle({ children }: PageTitleProps) {
         </svg>
       </button>
 
-      <h1 className="text-3xl font-bold tracking-wide text-dnd-gold drop-shadow">
+      <h1 className="font-display text-3xl font-bold tracking-wide text-gold-300 drop-shadow">
         {children}
       </h1>
     </div>

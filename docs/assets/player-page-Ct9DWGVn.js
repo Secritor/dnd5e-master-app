@@ -1,0 +1,1 @@
+import{e as n,j as e}from"./index-BqHKiwTl.js";import{P as r}from"./page-title-DUHJmERA.js";function i(){const{t}=n();return e.jsxs("main",{className:"flex min-h-screen flex-col items-center justify-center gap-4",children:[e.jsx(r,{children:t("player.title")}),e.jsx("p",{className:"text-muted-foreground",children:t("common.inDevelopment")})]})}export{i as PlayerPage};

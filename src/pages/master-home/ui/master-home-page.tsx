@@ -10,7 +10,7 @@ export function MasterHomePage() {
   const { t } = useTranslation();
 
   return (
-    <main className="flex min-h-screen flex-col gap-4 p-8">
+    <main className="flex min-h-screen mx-auto max-w-[1400px] flex-col gap-4 p-8">
       <PageTitle>{t('masterHome.title')}</PageTitle>
 
       <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
@@ -30,8 +30,6 @@ export function MasterHomePage() {
               </Button>
             </CardContent>
           </Card>
-
-          {/* <InitiativeTracker /> */}
         </div>
       </div>
     </main>

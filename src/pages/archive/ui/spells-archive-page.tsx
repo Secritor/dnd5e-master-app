@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { SpellsTable } from '@/widgets/spells-table/ui/spells-table';
-import { PageTitle } from '@/shared/ui/page-title';
+import { PageTitle } from '@/shared/ui';
+import { SpellsTable } from './spells-table';
 
 export function SpellsArchivePage() {
   const { t } = useTranslation();

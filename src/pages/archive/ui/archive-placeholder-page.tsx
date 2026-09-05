@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { PageTitle } from '@/shared/ui/page-title';
+import { PageTitle } from '@/shared/ui';
 
 interface ArchivePlaceholderPageProps {
   titleKey: string;

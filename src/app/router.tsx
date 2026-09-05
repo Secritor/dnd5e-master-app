@@ -1,44 +1,49 @@
 import { lazy, Suspense } from 'react';
+import { useTranslation } from 'react-i18next';
 import { createHashRouter } from 'react-router-dom';
+import { ErrorBoundary } from 'react-error-boundary';
+import { RouteError } from './route-error';
 
 const ModeSelectPage = lazy(() =>
-  import('@/pages/mode-select/ui/mode-select-page').then((m) => ({ default: m.ModeSelectPage })),
+  import('@/pages/mode-select').then((m) => ({ default: m.ModeSelectPage }))
 );
 const MasterHomePage = lazy(() =>
-  import('@/pages/master-home/ui/master-home-page').then((m) => ({ default: m.MasterHomePage })),
+  import('@/pages/master-home').then((m) => ({ default: m.MasterHomePage }))
 );
-const CompanyPage = lazy(() =>
-  import('@/pages/company/ui/company-page').then((m) => ({ default: m.CompanyPage })),
-);
-const PlayerPage = lazy(() =>
-  import('@/pages/player/ui/player-page').then((m) => ({ default: m.PlayerPage })),
-);
+const CompanyPage = lazy(() => import('@/pages/company').then((m) => ({ default: m.CompanyPage })));
+const PlayerPage = lazy(() => import('@/pages/player').then((m) => ({ default: m.PlayerPage })));
 const SpellsArchivePage = lazy(() =>
-  import('@/pages/archive/ui/spells-archive-page').then((m) => ({ default: m.SpellsArchivePage })),
+  import('@/pages/archive').then((m) => ({ default: m.SpellsArchivePage }))
 );
 const ArchivePlaceholderPage = lazy(() =>
-  import('@/pages/archive/ui/archive-placeholder-page').then((m) => ({
-    default: m.ArchivePlaceholderPage,
-  })),
+  import('@/pages/archive').then((m) => ({ default: m.ArchivePlaceholderPage }))
 );
 
 function PageLoader() {
+  const { t } = useTranslation();
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <p className="text-muted-foreground">Загрузка...</p>
+      <p className="text-muted-foreground">{t('common.loading')}</p>
     </div>
   );
 }
 
 function withSuspense(element: React.ReactNode) {
-  return <Suspense fallback={<PageLoader />}>{element}</Suspense>;
+  return (
+    <ErrorBoundary FallbackComponent={RouteError}>
+      <Suspense fallback={<PageLoader />}>{element}</Suspense>
+    </ErrorBoundary>
+  );
 }
 
 export const router = createHashRouter([
   { path: '/', element: withSuspense(<ModeSelectPage />) },
   { path: '/master', element: withSuspense(<MasterHomePage />) },
   { path: '/master/spells', element: withSuspense(<SpellsArchivePage />) },
-  { path: '/master/npcs', element: withSuspense(<ArchivePlaceholderPage titleKey="archive.npcTitle" />) },
+  {
+    path: '/master/npcs',
+    element: withSuspense(<ArchivePlaceholderPage titleKey="archive.npcTitle" />),
+  },
   { path: '/player', element: withSuspense(<PlayerPage />) },
   { path: '/company', element: withSuspense(<CompanyPage />) },
 ]);

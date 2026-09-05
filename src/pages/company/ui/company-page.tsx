@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { CampaignFilters } from '@/features/campaign-filters/ui/campaign-filters';
-import { CampaignBoard } from '@/widgets/campaign-board/ui/campaign-board';
-import { PageTitle } from '@/shared/ui/page-title';
+import { PageTitle } from '@/shared/ui';
+import { CampaignFilters } from './campaign-filters';
+import { CampaignBoard } from './campaign-board';
 
 export function CompanyPage() {
   const { t } = useTranslation();

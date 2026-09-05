@@ -2,6 +2,13 @@ export const en = {
   common: {
     inDevelopment: 'In development',
     loading: 'Loading...',
+    ok: 'OK',
+    back: 'Back',
+    scrollUp: 'Scroll up',
+    scrollDown: 'Scroll down',
+    scrollbar: 'Scrollbar',
+    retry: 'Try again',
+    routeError: 'Failed to load the page',
   },
   masterHome: {
     title: 'Master Dashboard',
@@ -18,12 +25,35 @@ export const en = {
   },
   masterAuth: {
     title: 'Master Login',
+    loginDescription: 'Log in to enter the master space',
+    backToLogin: 'Back to login',
+    emailLabel: 'Enter email / login',
+    emailPlaceholder: 'email',
+    passwordLabel: 'Enter password',
+    passwordPlaceholder: 'password',
+    submit: 'Log in',
+    register: 'Register',
+    registerTitle: 'Create an account',
+    registerDescription: 'Fill in the fields to register as a master',
+    registerEmailLabel: 'Enter email',
+    registerConfirmLabel: 'Confirm password',
+    registerSubmit: 'Register',
+    successTitle: 'Success',
+    successDescription: 'Account created (mock)',
   },
   player: {
     title: 'Player Mode',
   },
   company: {
     title: 'DnD: Official Campaigns',
+  },
+  campaignBoard: {
+    loadError: 'Failed to load campaigns',
+    empty: 'Nothing found',
+  },
+  campaignCard: {
+    playerLevels: 'Player levels',
+    mood: 'Mood',
   },
   archive: {
     spellsTitle: 'Spells Archive',
@@ -37,6 +67,7 @@ export const en = {
     empty: 'No campaigns yet',
   },
   createCampaign: {
+    label: 'New campaign name',
     placeholder: 'New campaign name',
     button: 'Create',
   },
@@ -46,5 +77,7 @@ export const en = {
     mood: 'Campaign mood',
     levels: 'Character levels',
     levelsRange: 'from / to',
+    minLevel: 'Minimum level',
+    maxLevel: 'Maximum level',
   },
 } as const;

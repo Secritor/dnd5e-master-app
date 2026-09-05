@@ -2,6 +2,13 @@ export const ru = {
   common: {
     inDevelopment: 'В разработке',
     loading: 'Загрузка...',
+    ok: 'OK',
+    back: 'Назад',
+    scrollUp: 'Прокрутить вверх',
+    scrollDown: 'Прокрутить вниз',
+    scrollbar: 'Полоса прокрутки',
+    retry: 'Попробовать снова',
+    routeError: 'Не удалось загрузить страницу',
   },
   masterHome: {
     title: 'Пространство мастера',
@@ -18,12 +25,35 @@ export const ru = {
   },
   masterAuth: {
     title: 'Вход мастера',
+    loginDescription: 'Войдите, чтобы попасть в пространство мастера',
+    backToLogin: 'Назад ко входу',
+    emailLabel: 'Введите почту / логин',
+    emailPlaceholder: 'email',
+    passwordLabel: 'Введите пароль',
+    passwordPlaceholder: 'password',
+    submit: 'Войти',
+    register: 'Регистрация',
+    registerTitle: 'Создание учётной записи',
+    registerDescription: 'Заполните поля для регистрации мастера',
+    registerEmailLabel: 'Введите почту',
+    registerConfirmLabel: 'Подтвердите пароль',
+    registerSubmit: 'Зарегистрироваться',
+    successTitle: 'Успешно',
+    successDescription: 'Учётная запись создана (mock)',
   },
   player: {
     title: 'Режим игрока',
   },
   company: {
     title: 'DnD: Официальные компании',
+  },
+  campaignBoard: {
+    loadError: 'Не удалось загрузить кампании',
+    empty: 'Ничего не найдено',
+  },
+  campaignCard: {
+    playerLevels: 'Уровни игроков',
+    mood: 'Настроение',
   },
   archive: {
     spellsTitle: 'Архив заклинаний',
@@ -37,6 +67,7 @@ export const ru = {
     empty: 'Пока нет кампаний',
   },
   createCampaign: {
+    label: 'Название новой кампании',
     placeholder: 'Название новой кампании',
     button: 'Создать',
   },
@@ -46,5 +77,7 @@ export const ru = {
     mood: 'Настроение кампании',
     levels: 'Уровни персонажей',
     levelsRange: 'с / по',
+    minLevel: 'Минимальный уровень',
+    maxLevel: 'Максимальный уровень',
   },
 } as const;

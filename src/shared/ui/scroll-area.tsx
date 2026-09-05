@@ -1,13 +1,16 @@
 import {
+  useEffect,
+  useId,
   useRef,
   useState,
   useCallback,
-  useEffect,
-  type ReactNode,
   type CSSProperties,
+  type KeyboardEvent as ReactKeyboardEvent,
   type MouseEvent as ReactMouseEvent,
+  type ReactNode,
 } from 'react';
-import { cn } from '@/shared/lib/utils';
+import { useTranslation } from 'react-i18next';
+import { cn } from '@/shared/lib/cn';
 
 interface ScrollAreaProps {
   children: ReactNode;
@@ -24,25 +27,13 @@ interface ScrollAreaProps {
   arrowClassName?: string;
 
   // --- Render-пропсы для полной замены визуала ---
-  /**
-   * Содержимое кнопки "вверх".
-   * Получает scrollProgress [0..1] — можно анимировать.
-   */
+  /** Содержимое кнопки "вверх". Получает scrollProgress [0..1]. */
   renderArrowUp?: (scrollProgress: number) => ReactNode;
-  /**
-   * Содержимое кнопки "вниз".
-   * Получает scrollProgress [0..1].
-   */
+  /** Содержимое кнопки "вниз". Получает scrollProgress [0..1]. */
   renderArrowDown?: (scrollProgress: number) => ReactNode;
-  /**
-   * Декоративное содержимое внутри трека (рисуется ЗА ползунком).
-   * Получает scrollProgress [0..1] — можно анимировать.
-   */
+  /** Декоративное содержимое внутри трека (рисуется ЗА ползунком). */
   renderTrackDecoration?: (scrollProgress: number) => ReactNode;
-  /**
-   * Полностью заменяет содержимое ползунка.
-   * style с top/height передаётся на обёртку автоматически.
-   */
+  /** Полностью заменяет содержимое ползунка. */
   renderThumb?: () => ReactNode;
 
   // --- Поведение ---
@@ -82,6 +73,8 @@ export function ScrollArea({
   showArrows = true,
   scrollStep = 48,
 }: ScrollAreaProps) {
+  const { t } = useTranslation();
+  const contentId = useId();
   const contentRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -93,6 +86,7 @@ export function ScrollArea({
   const isDragging = useRef(false);
   const dragStartY = useRef(0);
   const dragStartScrollTop = useRef(0);
+  const dragCleanup = useRef<(() => void) | null>(null);
 
   const updateThumb = useCallback(() => {
     const content = contentRef.current;
@@ -108,9 +102,8 @@ export function ScrollArea({
 
     const maxScroll = scrollHeight - clientHeight;
     const newThumbHeight = Math.max((clientHeight / scrollHeight) * trackHeight, 24);
-    const newThumbTop = maxScroll > 0
-      ? (scrollTop / maxScroll) * (trackHeight - newThumbHeight)
-      : 0;
+    const newThumbTop =
+      maxScroll > 0 ? (scrollTop / maxScroll) * (trackHeight - newThumbHeight) : 0;
 
     setThumbHeight(newThumbHeight);
     setThumbTop(newThumbTop);
@@ -133,18 +126,54 @@ export function ScrollArea({
     };
   }, [updateThumb]);
 
+  // Снять слушатели перетаскивания, если компонент размонтируется во время drag.
+  useEffect(() => () => dragCleanup.current?.(), []);
+
   const scrollBy = (delta: number) => {
     contentRef.current?.scrollBy({ top: delta, behavior: 'smooth' });
   };
 
-  const handleTrackClick = (e: ReactMouseEvent<HTMLDivElement>) => {
-    const track = trackRef.current;
+  const scrollToRatio = (ratio: number) => {
     const content = contentRef.current;
-    if (!track || !content) return;
-    const rect = track.getBoundingClientRect();
-    const ratio = (e.clientY - rect.top) / track.clientHeight;
+    if (!content) return;
     const maxScroll = content.scrollHeight - content.clientHeight;
     content.scrollTo({ top: ratio * maxScroll, behavior: 'smooth' });
+  };
+
+  const handleTrackClick = (e: ReactMouseEvent<HTMLDivElement>) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const rect = track.getBoundingClientRect();
+    scrollToRatio((e.clientY - rect.top) / track.clientHeight);
+  };
+
+  const handleTrackKeyDown = (e: ReactKeyboardEvent<HTMLDivElement>) => {
+    const content = contentRef.current;
+    if (!content) return;
+    const page = content.clientHeight * 0.9;
+    switch (e.key) {
+      case 'ArrowDown':
+        scrollBy(scrollStep);
+        break;
+      case 'ArrowUp':
+        scrollBy(-scrollStep);
+        break;
+      case 'PageDown':
+        scrollBy(page);
+        break;
+      case 'PageUp':
+        scrollBy(-page);
+        break;
+      case 'Home':
+        scrollToRatio(0);
+        break;
+      case 'End':
+        scrollToRatio(1);
+        break;
+      default:
+        return;
+    }
+    e.preventDefault();
   };
 
   const handleThumbMouseDown = (e: ReactMouseEvent) => {
@@ -162,25 +191,32 @@ export function ScrollArea({
       const maxScroll = scrollHeight - clientHeight;
       const scrollDelta =
         ((ev.clientY - dragStartY.current) / (track.clientHeight - thumbHeight)) * maxScroll;
-      content.scrollTop = Math.max(0, Math.min(maxScroll, dragStartScrollTop.current + scrollDelta));
+      content.scrollTop = Math.max(
+        0,
+        Math.min(maxScroll, dragStartScrollTop.current + scrollDelta)
+      );
     };
 
-    const onMouseUp = () => {
+    const cleanup = () => {
       isDragging.current = false;
       window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('mouseup', onMouseUp);
+      window.removeEventListener('mouseup', cleanup);
+      dragCleanup.current = null;
     };
 
+    dragCleanup.current = cleanup;
     window.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('mouseup', onMouseUp);
+    window.addEventListener('mouseup', cleanup);
   };
 
   const thumbStyle: CSSProperties = { top: thumbTop, height: thumbHeight };
+  const progressPercent = Math.round(scrollProgress * 100);
 
   return (
     <div className={cn('relative flex overflow-hidden', className)}>
       {/* Скроллируемый контент */}
       <div
+        id={contentId}
         ref={contentRef}
         className="min-h-0 flex-1 overflow-y-scroll scrollbar-none [&::-webkit-scrollbar]:hidden"
       >
@@ -192,7 +228,7 @@ export function ScrollArea({
         className={cn(
           'flex w-2.5 flex-col transition-opacity',
           isScrollable ? 'opacity-100' : 'pointer-events-none opacity-0',
-          scrollbarClassName,
+          scrollbarClassName
         )}
       >
         {/* Стрелка вверх */}
@@ -200,22 +236,35 @@ export function ScrollArea({
           <button
             type="button"
             onClick={() => scrollBy(-scrollStep)}
-            aria-label="Прокрутить вверх"
+            aria-label={t('common.scrollUp')}
+            tabIndex={-1}
             className={cn(
               'flex h-5 shrink-0 items-center justify-center rounded-t-sm',
               'bg-secondary text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground',
-              arrowClassName,
+              arrowClassName
             )}
           >
             {renderArrowUp ? renderArrowUp(scrollProgress) : <DefaultArrowUp />}
           </button>
         )}
 
-        {/* Трек */}
+        {/* Трек = scrollbar */}
         <div
           ref={trackRef}
+          role="scrollbar"
+          aria-orientation="vertical"
+          aria-controls={contentId}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={progressPercent}
+          aria-label={t('common.scrollbar')}
+          tabIndex={isScrollable ? 0 : -1}
           onClick={handleTrackClick}
-          className={cn('relative flex-1 cursor-pointer bg-secondary', trackClassName)}
+          onKeyDown={handleTrackKeyDown}
+          className={cn(
+            'relative flex-1 cursor-pointer bg-secondary focus-visible:outline-2 focus-visible:outline-primary',
+            trackClassName
+          )}
         >
           {/* Декорация трека (за ползунком) */}
           {renderTrackDecoration && (
@@ -226,11 +275,12 @@ export function ScrollArea({
 
           {/* Ползунок */}
           <div
+            aria-hidden="true"
             onMouseDown={handleThumbMouseDown}
             className={cn(
               'absolute inset-x-0 cursor-grab rounded-sm transition-colors active:cursor-grabbing',
               'bg-muted-foreground hover:bg-primary',
-              thumbClassName,
+              thumbClassName
             )}
             style={thumbStyle}
           >
@@ -243,11 +293,12 @@ export function ScrollArea({
           <button
             type="button"
             onClick={() => scrollBy(scrollStep)}
-            aria-label="Прокрутить вниз"
+            aria-label={t('common.scrollDown')}
+            tabIndex={-1}
             className={cn(
               'flex h-5 shrink-0 items-center justify-center rounded-b-sm',
               'bg-secondary text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground',
-              arrowClassName,
+              arrowClassName
             )}
           >
             {renderArrowDown ? renderArrowDown(scrollProgress) : <DefaultArrowDown />}

@@ -3,7 +3,7 @@ import { AppProviders } from './providers/app-providers';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { router } from './router';
 import { LanguageSwitcher } from '@/features/language-switcher';
-import { ScrollArea } from '@/shared/ui/scroll-area';
+import { ScrollArea } from '@/shared/ui';
 
 export function App() {
   return (

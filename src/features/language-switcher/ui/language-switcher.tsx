@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { cn } from '@/shared/lib/utils';
-import { i18n } from '@/shared/config/i18n';
+import { cn } from '@/shared/lib';
+import { i18n } from '@/shared/config';
 
 const LANGUAGES = [
   { code: 'ru', label: 'Ру' },
@@ -21,7 +21,7 @@ export function LanguageSwitcher() {
             'px-3 py-1.5 text-sm font-medium transition-colors',
             current === code
               ? 'bg-primary text-primary-foreground'
-              : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
+              : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
           )}
         >
           {label}

@@ -28,6 +28,6 @@
 }
 
 .buttonInactive:hover {
-  background-color: var(--accent);
-  color: var(--accent-foreground);
+  background-color: var(--surface-hover);
+  color: var(--foreground);
 }

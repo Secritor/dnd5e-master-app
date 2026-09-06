@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Input, Label, ScrollArea } from '@/shared/ui';
+import { Input, Label, ScrollArea, TextField } from '@/shared/ui';
 import { cn } from '@/shared/lib';
 import { CAMPAIGN_MOOD_TAGS, type CampaignMoodTag } from '../model/official-campaign';
 import { useCampaignFiltersStore } from '../model/campaign-filters-store';
@@ -27,23 +27,18 @@ export function CampaignFilters() {
     }
   };
 
-  const handleLevelChange =
-    (setter: (level: number) => void) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      const next = e.target.valueAsNumber;
-      if (Number.isFinite(next)) setter(next);
-    };
+  const handleLevelChange = (setter: (level: number) => void) => (value: string) => {
+    const next = Number(value);
+    if (value !== '' && Number.isFinite(next)) setter(next);
+  };
 
   return (
     <div className={styles.filters}>
       <div className={styles.searchCol}>
-        <Label htmlFor="campaign-search">{t('campaignFilters.search')}</Label>
-        <Input
-          id="campaign-search"
-          type="text"
-          placeholder={t('campaignFilters.searchPlaceholder')}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
+        <TextField value={searchQuery} onChange={setSearchQuery}>
+          <Label>{t('campaignFilters.search')}</Label>
+          <Input placeholder={t('campaignFilters.searchPlaceholder')} />
+        </TextField>
 
         <fieldset>
           <legend className={styles.legend}>{t('campaignFilters.mood')}</legend>
@@ -70,30 +65,24 @@ export function CampaignFilters() {
 
       <fieldset className={styles.levelFields}>
         <legend className={styles.legend}>{t('campaignFilters.levels')}</legend>
-        <div className={styles.field}>
-          <Label htmlFor="min-level">{t('campaignFilters.minLevel')}</Label>
-          <Input
-            id="min-level"
-            type="number"
-            min={MIN_PLAYER_LEVEL}
-            max={MAX_PLAYER_LEVEL}
-            value={minLevel}
-            onChange={handleLevelChange(setMinLevel)}
-            className={styles.levelInput}
-          />
-        </div>
-        <div className={styles.field}>
-          <Label htmlFor="max-level">{t('campaignFilters.maxLevel')}</Label>
-          <Input
-            id="max-level"
-            type="number"
-            min={MIN_PLAYER_LEVEL}
-            max={MAX_PLAYER_LEVEL}
-            value={maxLevel}
-            onChange={handleLevelChange(setMaxLevel)}
-            className={styles.levelInput}
-          />
-        </div>
+        <TextField
+          className={styles.field}
+          type="number"
+          value={String(minLevel)}
+          onChange={handleLevelChange(setMinLevel)}
+        >
+          <Label>{t('campaignFilters.minLevel')}</Label>
+          <Input min={MIN_PLAYER_LEVEL} max={MAX_PLAYER_LEVEL} className={styles.levelInput} />
+        </TextField>
+        <TextField
+          className={styles.field}
+          type="number"
+          value={String(maxLevel)}
+          onChange={handleLevelChange(setMaxLevel)}
+        >
+          <Label>{t('campaignFilters.maxLevel')}</Label>
+          <Input min={MIN_PLAYER_LEVEL} max={MAX_PLAYER_LEVEL} className={styles.levelInput} />
+        </TextField>
       </fieldset>
     </div>
   );

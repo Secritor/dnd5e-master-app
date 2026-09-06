@@ -1,13 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/shared/ui';
+import { Button, Modal } from '@/shared/ui';
 import { LoginForm } from './login-form';
 import { RegisterForm } from './register-form';
 import styles from './master-auth-modal.module.css';
@@ -29,52 +22,47 @@ export function MasterAuthModal({ open, onOpenChange }: MasterAuthModalProps) {
   const { t } = useTranslation();
   const [view, setView] = useState<AuthView>('login');
 
-  const close = () => {
-    onOpenChange(false);
-    setView('login');
+  const handleOpenChange = (next: boolean) => {
+    onOpenChange(next);
+    if (!next) setView('login');
   };
 
+  const close = () => handleOpenChange(false);
   const meta = TITLES[view];
 
   return (
-    <Dialog
-      open={open}
-      onOpenChange={(next) => {
-        if (!next) {
-          close();
-        } else {
-          onOpenChange(true);
-        }
-      }}
-    >
-      <DialogContent className={styles.content}>
-        <DialogHeader>
-          <DialogTitle>{t(meta.title)}</DialogTitle>
-          <DialogDescription>{t(meta.description)}</DialogDescription>
-        </DialogHeader>
+    <Modal.Backdrop isOpen={open} onOpenChange={handleOpenChange}>
+      <Modal.Container size="sm">
+        <Modal.Dialog>
+          <Modal.CloseTrigger />
+          <Modal.Header>
+            <Modal.Heading>{t(meta.title)}</Modal.Heading>
+            <p className={styles.description}>{t(meta.description)}</p>
+          </Modal.Header>
 
-        <div className={styles.body}>
-          {view === 'login' && (
-            <>
-              <LoginForm onSuccess={close} />
-              <Button variant="outline" onClick={() => setView('register')}>
-                {t('masterAuth.register')}
-              </Button>
-            </>
-          )}
+          <Modal.Body className={styles.body}>
+            {view === 'login' && (
+              <>
+                <LoginForm onSuccess={close} />
+                <Button variant="outline" onPress={() => setView('register')}>
+                  {t('masterAuth.register')}
+                </Button>
+              </>
+            )}
 
-          {view === 'register' && (
-            <>
-              <RegisterForm onSuccess={() => setView('success')} />
-              <Button variant="ghost" onClick={() => setView('login')}>
-                {t('masterAuth.backToLogin')}
-              </Button>
-            </>
-          )}
+            {view === 'register' && (
+              <>
+                <RegisterForm onSuccess={() => setView('success')} />
+                <Button variant="ghost" onPress={() => setView('login')}>
+                  {t('masterAuth.backToLogin')}
+                </Button>
+              </>
+            )}
 
-          {view === 'success' && <Button onClick={close}>{t('common.ok')}</Button>}
-        </div>
-      </DialogContent>
-    </Dialog>
+            {view === 'success' && <Button onPress={close}>{t('common.ok')}</Button>}
+          </Modal.Body>
+        </Modal.Dialog>
+      </Modal.Container>
+    </Modal.Backdrop>
   );
 }

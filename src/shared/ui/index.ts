@@ -1,9 +1,15 @@
-export * from './badge';
 export * from './button';
-export * from './card';
-export * from './dialog';
-export * from './input';
-export * from './label';
 export * from './page-title';
 export * from './scroll-area';
-export * from './skeleton';
+
+export {
+  Card,
+  Chip,
+  Modal,
+  TextField,
+  Input,
+  Label,
+  FieldError,
+  Skeleton,
+  ScrollShadow,
+} from '@heroui/react';

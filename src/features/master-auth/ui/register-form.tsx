@@ -1,7 +1,7 @@
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import { Button, Input, Label } from '@/shared/ui';
+import { Button, FieldError, Input, Label, TextField } from '@/shared/ui';
 import { registerSchema, type RegisterFormValues } from '../model/auth';
 import styles from './auth-form.module.css';
 
@@ -12,10 +12,10 @@ interface RegisterFormProps {
 export function RegisterForm({ onSuccess }: RegisterFormProps) {
   const { t } = useTranslation();
   const {
-    register,
+    control,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: { email: '', password: '', confirmPassword: '' },
@@ -28,43 +28,67 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
 
   return (
     <form onSubmit={onSubmit} className={styles.form}>
-      <div className={styles.field}>
-        <Label htmlFor="reg-email">{t('masterAuth.registerEmailLabel')}</Label>
-        <Input
-          id="reg-email"
-          type="email"
-          autoComplete="email"
-          placeholder={t('masterAuth.emailPlaceholder')}
-          {...register('email')}
-        />
-        {errors.email && <p className={styles.error}>{errors.email.message}</p>}
-      </div>
+      <Controller
+        control={control}
+        name="email"
+        render={({ field, fieldState }) => (
+          <TextField
+            name={field.name}
+            value={field.value}
+            onBlur={field.onBlur}
+            onChange={field.onChange}
+            isInvalid={fieldState.invalid}
+            type="email"
+            autoComplete="email"
+          >
+            <Label>{t('masterAuth.registerEmailLabel')}</Label>
+            <Input placeholder={t('masterAuth.emailPlaceholder')} />
+            <FieldError>{fieldState.error?.message}</FieldError>
+          </TextField>
+        )}
+      />
 
-      <div className={styles.field}>
-        <Label htmlFor="reg-password">{t('masterAuth.passwordLabel')}</Label>
-        <Input
-          id="reg-password"
-          type="password"
-          autoComplete="new-password"
-          placeholder={t('masterAuth.passwordPlaceholder')}
-          {...register('password')}
-        />
-        {errors.password && <p className={styles.error}>{errors.password.message}</p>}
-      </div>
+      <Controller
+        control={control}
+        name="password"
+        render={({ field, fieldState }) => (
+          <TextField
+            name={field.name}
+            value={field.value}
+            onBlur={field.onBlur}
+            onChange={field.onChange}
+            isInvalid={fieldState.invalid}
+            type="password"
+            autoComplete="new-password"
+          >
+            <Label>{t('masterAuth.passwordLabel')}</Label>
+            <Input placeholder={t('masterAuth.passwordPlaceholder')} />
+            <FieldError>{fieldState.error?.message}</FieldError>
+          </TextField>
+        )}
+      />
 
-      <div className={styles.field}>
-        <Label htmlFor="reg-confirm">{t('masterAuth.registerConfirmLabel')}</Label>
-        <Input
-          id="reg-confirm"
-          type="password"
-          autoComplete="new-password"
-          placeholder={t('masterAuth.passwordPlaceholder')}
-          {...register('confirmPassword')}
-        />
-        {errors.confirmPassword && <p className={styles.error}>{errors.confirmPassword.message}</p>}
-      </div>
+      <Controller
+        control={control}
+        name="confirmPassword"
+        render={({ field, fieldState }) => (
+          <TextField
+            name={field.name}
+            value={field.value}
+            onBlur={field.onBlur}
+            onChange={field.onChange}
+            isInvalid={fieldState.invalid}
+            type="password"
+            autoComplete="new-password"
+          >
+            <Label>{t('masterAuth.registerConfirmLabel')}</Label>
+            <Input placeholder={t('masterAuth.passwordPlaceholder')} />
+            <FieldError>{fieldState.error?.message}</FieldError>
+          </TextField>
+        )}
+      />
 
-      <Button type="submit" disabled={isSubmitting}>
+      <Button type="submit" isDisabled={isSubmitting}>
         {t('masterAuth.registerSubmit')}
       </Button>
     </form>

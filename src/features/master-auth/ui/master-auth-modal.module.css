@@ -1,7 +1,6 @@
-@media (min-width: 640px) {
-  .content {
-    max-width: 28rem;
-  }
+.description {
+  font-size: var(--text-sm);
+  color: var(--muted);
 }
 
 .body {

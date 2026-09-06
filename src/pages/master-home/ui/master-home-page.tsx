@@ -1,11 +1,12 @@
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { Button, Card, CardContent, CardHeader, CardTitle, PageTitle } from '@/shared/ui';
+import { useNavigate } from 'react-router-dom';
+import { Button, Card, PageTitle } from '@/shared/ui';
 import { MasterCampaignList } from './master-campaign-list';
 import styles from './master-home-page.module.css';
 
 export function MasterHomePage() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <main className={styles.page}>
@@ -16,21 +17,17 @@ export function MasterHomePage() {
 
         <div className={styles.sidebar}>
           <Card>
-            <CardHeader>
-              <CardTitle as="h2">{t('masterHome.archives')}</CardTitle>
-            </CardHeader>
-            <CardContent className={styles.archiveLinks}>
-              <Button variant="outline" asChild>
-                <Link to="/master/spells">
-                  <span aria-hidden="true">📜</span> {t('masterHome.spells')}
-                </Link>
+            <Card.Header>
+              <h2 className={styles.cardTitle}>{t('masterHome.archives')}</h2>
+            </Card.Header>
+            <Card.Content className={styles.archiveLinks}>
+              <Button variant="outline" onPress={() => navigate('/master/spells')}>
+                <span aria-hidden="true">📜</span> {t('masterHome.spells')}
               </Button>
-              <Button variant="outline" asChild>
-                <Link to="/master/npcs">
-                  <span aria-hidden="true">👹</span> {t('masterHome.npcs')}
-                </Link>
+              <Button variant="outline" onPress={() => navigate('/master/npcs')}>
+                <span aria-hidden="true">👹</span> {t('masterHome.npcs')}
               </Button>
-            </CardContent>
+            </Card.Content>
           </Card>
         </div>
       </div>

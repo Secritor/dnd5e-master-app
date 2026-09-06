@@ -1,4 +1,5 @@
 export * from './button';
+export * from './controlled';
 export * from './page-title';
 export * from './scroll-area';
 

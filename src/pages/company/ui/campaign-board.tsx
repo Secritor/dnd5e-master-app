@@ -5,6 +5,7 @@ import { useCampaignFiltersStore } from '../model/campaign-filters-store';
 import { filterOfficialCampaigns } from '../lib/filter-campaigns';
 import { CampaignCard } from './campaign-card';
 import { CampaignCardSkeleton } from './campaign-card-skeleton';
+import styles from './campaign-board.module.css';
 
 const SKELETON_COUNT = 4;
 
@@ -23,7 +24,7 @@ export function CampaignBoard() {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
+      <div className={styles.grid}>
         {Array.from({ length: SKELETON_COUNT }).map((_, i) => (
           <CampaignCardSkeleton key={i} />
         ))}
@@ -32,15 +33,15 @@ export function CampaignBoard() {
   }
 
   if (isError) {
-    return <p className="text-destructive">{t('campaignBoard.loadError')}</p>;
+    return <p className={styles.error}>{t('campaignBoard.loadError')}</p>;
   }
 
   if (filtered.length === 0) {
-    return <p className="text-muted-foreground">{t('campaignBoard.empty')}</p>;
+    return <p className={styles.empty}>{t('campaignBoard.empty')}</p>;
   }
 
   return (
-    <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
+    <div className={styles.grid}>
       {filtered.map((campaign) => (
         <CampaignCard key={campaign.id} campaign={campaign} />
       ))}

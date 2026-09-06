@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchSpells } from '../api/fetch-spells';
 import type { Spell } from '../model/spell';
 import { spellKeys } from '../model/spell-keys';
+import styles from './spells-table.module.css';
 
 const columnHelper = createColumnHelper<Spell>();
 const EMPTY: Spell[] = [];
@@ -37,18 +38,18 @@ export function SpellsTable() {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  if (isLoading) return <p className="text-muted-foreground">{t('common.loading')}</p>;
-  if (isError) return <p className="text-destructive">{t('archive.errorSpells')}</p>;
+  if (isLoading) return <p className={styles.muted}>{t('common.loading')}</p>;
+  if (isError) return <p className={styles.error}>{t('archive.errorSpells')}</p>;
 
   return (
-    <div className="w-full overflow-x-auto rounded-lg border border-border">
-      <table className="w-full text-sm">
-        <caption className="sr-only">{t('archive.spellsTitle')}</caption>
-        <thead className="bg-secondary">
+    <div className={styles.wrapper}>
+      <table className={styles.table}>
+        <caption className={styles.srOnly}>{t('archive.spellsTitle')}</caption>
+        <thead className={styles.head}>
           {table.getHeaderGroups().map((hg) => (
             <tr key={hg.id}>
               {hg.headers.map((header) => (
-                <th key={header.id} scope="col" className="px-4 py-3 text-left font-medium">
+                <th key={header.id} scope="col" className={styles.th}>
                   {flexRender(header.column.columnDef.header, header.getContext())}
                 </th>
               ))}
@@ -57,9 +58,9 @@ export function SpellsTable() {
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id} className="border-t border-border hover:bg-secondary/50">
+            <tr key={row.id} className={styles.row}>
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className="px-4 py-3">
+                <td key={cell.id} className={styles.cell}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}

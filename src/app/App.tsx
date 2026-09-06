@@ -4,11 +4,12 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 import { router } from './router';
 import { LanguageSwitcher } from '@/features/language-switcher';
 import { ScrollArea } from '@/shared/ui';
+import styles from './App.module.css';
 
 export function App() {
   return (
     <AppProviders>
-      <ScrollArea className="h-full">
+      <ScrollArea className={styles.root}>
         <LanguageSwitcher />
         <RouterProvider router={router} />
       </ScrollArea>

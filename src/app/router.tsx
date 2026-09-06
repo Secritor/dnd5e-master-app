@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { createHashRouter } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import { RouteError } from './route-error';
+import styles from './router.module.css';
 
 const ModeSelectPage = lazy(() =>
   import('@/pages/mode-select').then((m) => ({ default: m.ModeSelectPage }))
@@ -22,8 +23,8 @@ const ArchivePlaceholderPage = lazy(() =>
 function PageLoader() {
   const { t } = useTranslation();
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <p className="text-muted-foreground">{t('common.loading')}</p>
+    <div className={styles.loader}>
+      <p className={styles.loaderText}>{t('common.loading')}</p>
     </div>
   );
 }

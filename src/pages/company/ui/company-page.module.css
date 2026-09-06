@@ -1,0 +1,9 @@
+.page {
+  margin-inline: auto;
+  max-width: 1400px;
+  padding: var(--space-6);
+}
+
+.board {
+  margin-top: var(--space-6);
+}

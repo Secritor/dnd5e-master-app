@@ -10,6 +10,7 @@ import {
 } from '@/shared/ui';
 import { LoginForm } from './login-form';
 import { RegisterForm } from './register-form';
+import styles from './master-auth-modal.module.css';
 
 type AuthView = 'login' | 'register' | 'success';
 
@@ -46,13 +47,13 @@ export function MasterAuthModal({ open, onOpenChange }: MasterAuthModalProps) {
         }
       }}
     >
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className={styles.content}>
         <DialogHeader>
           <DialogTitle>{t(meta.title)}</DialogTitle>
           <DialogDescription>{t(meta.description)}</DialogDescription>
         </DialogHeader>
 
-        <div className="flex flex-col items-center gap-6 py-2">
+        <div className={styles.body}>
           {view === 'login' && (
             <>
               <LoginForm onSuccess={close} />

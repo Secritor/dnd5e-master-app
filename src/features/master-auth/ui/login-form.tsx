@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button, Input, Label } from '@/shared/ui';
 import { loginSchema, type LoginFormValues } from '../model/auth';
+import styles from './auth-form.module.css';
 
 interface LoginFormProps {
   onSuccess?: () => void;
@@ -27,8 +28,8 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
   });
 
   return (
-    <form onSubmit={onSubmit} className="flex w-full max-w-sm flex-col gap-6">
-      <div className="space-y-2">
+    <form onSubmit={onSubmit} className={styles.form}>
+      <div className={styles.field}>
         <Label htmlFor="email">{t('masterAuth.emailLabel')}</Label>
         <Input
           id="email"
@@ -37,10 +38,10 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
           placeholder={t('masterAuth.emailPlaceholder')}
           {...register('email')}
         />
-        {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
+        {errors.email && <p className={styles.error}>{errors.email.message}</p>}
       </div>
 
-      <div className="space-y-2">
+      <div className={styles.field}>
         <Label htmlFor="password">{t('masterAuth.passwordLabel')}</Label>
         <Input
           id="password"
@@ -49,10 +50,10 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
           placeholder={t('masterAuth.passwordPlaceholder')}
           {...register('password')}
         />
-        {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
+        {errors.password && <p className={styles.error}>{errors.password.message}</p>}
       </div>
 
-      <Button type="submit" disabled={isSubmitting} className="w-full">
+      <Button type="submit" disabled={isSubmitting} className={styles.submit}>
         {t('masterAuth.submit')}
       </Button>
     </form>

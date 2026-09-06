@@ -3,6 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { Button, Input, Label } from '@/shared/ui';
 import { registerSchema, type RegisterFormValues } from '../model/auth';
+import styles from './auth-form.module.css';
 
 interface RegisterFormProps {
   onSuccess?: () => void;
@@ -26,8 +27,8 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
   });
 
   return (
-    <form onSubmit={onSubmit} className="flex w-full max-w-sm flex-col gap-6">
-      <div className="space-y-2">
+    <form onSubmit={onSubmit} className={styles.form}>
+      <div className={styles.field}>
         <Label htmlFor="reg-email">{t('masterAuth.registerEmailLabel')}</Label>
         <Input
           id="reg-email"
@@ -36,10 +37,10 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
           placeholder={t('masterAuth.emailPlaceholder')}
           {...register('email')}
         />
-        {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
+        {errors.email && <p className={styles.error}>{errors.email.message}</p>}
       </div>
 
-      <div className="space-y-2">
+      <div className={styles.field}>
         <Label htmlFor="reg-password">{t('masterAuth.passwordLabel')}</Label>
         <Input
           id="reg-password"
@@ -48,10 +49,10 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
           placeholder={t('masterAuth.passwordPlaceholder')}
           {...register('password')}
         />
-        {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
+        {errors.password && <p className={styles.error}>{errors.password.message}</p>}
       </div>
 
-      <div className="space-y-2">
+      <div className={styles.field}>
         <Label htmlFor="reg-confirm">{t('masterAuth.registerConfirmLabel')}</Label>
         <Input
           id="reg-confirm"
@@ -60,9 +61,7 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
           placeholder={t('masterAuth.passwordPlaceholder')}
           {...register('confirmPassword')}
         />
-        {errors.confirmPassword && (
-          <p className="text-sm text-destructive">{errors.confirmPassword.message}</p>
-        )}
+        {errors.confirmPassword && <p className={styles.error}>{errors.confirmPassword.message}</p>}
       </div>
 
       <Button type="submit" disabled={isSubmitting}>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Input, Label } from '@/shared/ui';
 import { useMasterCampaignStore } from '../model/master-campaign-store';
+import styles from './create-campaign-form.module.css';
 
 export function CreateCampaignForm() {
   const { t } = useTranslation();
@@ -16,8 +17,8 @@ export function CreateCampaignForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-3">
-      <Label htmlFor="new-campaign-name" className="sr-only">
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <Label htmlFor="new-campaign-name" className={styles.srOnly}>
         {t('createCampaign.label')}
       </Label>
       <Input

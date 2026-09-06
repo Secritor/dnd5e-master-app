@@ -1,0 +1,53 @@
+.muted {
+  color: var(--muted-foreground);
+}
+
+.error {
+  color: var(--destructive);
+}
+
+.wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.table {
+  width: 100%;
+  font-size: var(--text-sm);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.head {
+  background-color: var(--secondary);
+}
+
+.th {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  font-weight: var(--font-weight-medium);
+}
+
+.row {
+  border-top: 1px solid var(--border);
+}
+
+.row:hover {
+  background-color: color-mix(in oklab, var(--secondary) 50%, transparent);
+}
+
+.cell {
+  padding: var(--space-3) var(--space-4);
+}

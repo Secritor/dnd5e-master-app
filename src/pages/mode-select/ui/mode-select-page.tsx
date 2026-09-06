@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { MasterAuthModal } from '@/features/master-auth';
 import { Button } from '@/shared/ui';
+import styles from './mode-select-page.module.css';
 
 export function ModeSelectPage() {
   const { t } = useTranslation();
@@ -10,8 +11,8 @@ export function ModeSelectPage() {
   const [authOpen, setAuthOpen] = useState(false);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-8 px-4">
-      <div className="flex flex-wrap justify-center gap-6">
+    <main className={styles.page}>
+      <div className={styles.actions}>
         <Button variant="outline" size="lg" onClick={() => navigate('/player')}>
           {t('modeSelect.playerRole')}
         </Button>

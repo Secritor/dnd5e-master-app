@@ -1,0 +1,66 @@
+.card {
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-5);
+  height: 400px;
+  overflow: hidden;
+  padding: var(--space-5);
+}
+
+.image {
+  max-height: 360px;
+  width: 270px;
+  flex-shrink: 0;
+  border-radius: var(--radius-2xl);
+  object-fit: cover;
+}
+
+.body {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.header {
+  padding: 0;
+}
+
+.title {
+  font-size: var(--text-lg);
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: 0;
+}
+
+.levels {
+  font-size: var(--text-sm);
+}
+
+.moodRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.moodLabel {
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.descriptionScroll {
+  flex: 1;
+  padding-right: var(--space-3);
+}
+
+.descriptionText {
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-light);
+  line-height: var(--leading-relaxed);
+}

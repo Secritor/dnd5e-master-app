@@ -1,0 +1,68 @@
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-4);
+}
+
+.searchCol {
+  display: flex;
+  min-width: 13.75rem;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.legend {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.moodScroll {
+  height: 4.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.moodList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: var(--space-2);
+}
+
+.moodTag {
+  height: fit-content;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-xs);
+  transition: var(--transition-colors);
+}
+
+.moodTag:not(.moodTagActive):hover {
+  border-color: color-mix(in oklab, var(--primary) 50%, transparent);
+}
+
+.moodTagActive {
+  border-color: var(--primary);
+  background-color: color-mix(in oklab, var(--primary) 20%, transparent);
+  color: var(--primary);
+}
+
+.levelFields {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.levelInput {
+  width: 5rem;
+}

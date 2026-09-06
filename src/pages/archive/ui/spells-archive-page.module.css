@@ -1,0 +1,9 @@
+.page {
+  margin-inline: auto;
+  max-width: 48rem;
+  padding: var(--space-8);
+}
+
+.table {
+  margin-top: var(--space-4);
+}

@@ -1,82 +1,73 @@
 @import 'tailwindcss';
+@import '@heroui/styles';
 @import './tokens.css';
 
-@custom-variant dark (&:is(.dark *));
-
-@theme inline {
-  --font-sans: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-dnd-gold: var(--dnd-gold);
-  --color-dnd-ember: var(--dnd-ember);
-}
-
-:root {
+/**
+ * Тема D&D. HeroUI v3 в dark-режиме (html.dark) уже близка к нужной палитре —
+ * здесь переопределяем только акцент (золото вместо синего) и заводим
+ * project-алиасы токенов, которыми пользуются CSS-модули в app/features/pages.
+ * Селектор :root.dark (специфичность выше heroui-шного .dark) + без @layer,
+ * чтобы гарантированно перебить дефолтную тему.
+ */
+:root.dark {
+  /* --- Переопределения HeroUI --- */
+  --accent: oklch(0.72 0.14 65);
+  --accent-foreground: oklch(0.15 0.02 280);
+  --surface: oklch(0.16 0.015 280);
+  --overlay: oklch(0.16 0.015 280);
   --radius: 0.625rem;
-  --background: oklch(0.12 0.01 280);
-  --foreground: oklch(0.95 0.01 90);
-  --card: oklch(0.16 0.015 280);
-  --card-foreground: oklch(0.95 0.01 90);
-  --popover: oklch(0.16 0.015 280);
-  --popover-foreground: oklch(0.95 0.01 90);
-  --primary: oklch(0.72 0.14 65);
-  --primary-foreground: oklch(0.15 0.02 280);
-  --secondary: oklch(0.22 0.02 280);
-  --secondary-foreground: oklch(0.92 0.01 90);
-  --muted: oklch(0.22 0.02 280);
-  --muted-foreground: oklch(0.65 0.02 90);
-  --accent: oklch(0.55 0.16 35);
-  --accent-foreground: oklch(0.98 0.01 90);
-  --destructive: oklch(0.55 0.2 25);
-  --border: oklch(0.28 0.02 280);
-  --input: oklch(0.28 0.02 280);
-  --ring: oklch(0.72 0.14 65);
+  --skeleton-animation: pulse;
+
+  /* --- Алиасы для CSS-модулей --- */
+  --primary: var(--accent);
+  --primary-foreground: var(--accent-foreground);
+  --card: var(--surface);
+  --card-foreground: var(--surface-foreground);
+  --secondary: var(--default);
+  --muted-foreground: var(--muted);
+  --destructive: var(--danger);
+
+  /* --- Фирменные акценты (используются напрямую) --- */
   --dnd-gold: oklch(0.72 0.14 65);
   --dnd-ember: oklch(0.55 0.16 35);
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
+/* Мост в Tailwind — нужен для утилит в shared/ui (scroll-area, page-title) */
+@theme inline {
+  --font-sans: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-dnd-gold: var(--dnd-gold);
+  --color-dnd-ember: var(--dnd-ember);
+}
 
-  html,
-  body {
-    height: 100%;
-    overflow: hidden;
-  }
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
 
-  body {
-    @apply bg-background text-foreground font-sans antialiased;
-    margin: 0;
-  }
+body {
+  margin: 0;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
 
-  #root {
-    height: 100%;
-  }
+#root {
+  height: 100%;
+}
 
-  button:not(:disabled),
-  [role='button']:not(:disabled) {
-    cursor: pointer;
-  }
+button:not(:disabled),
+[role='button']:not(:disabled) {
+  cursor: pointer;
 }

@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui';
+import { Card } from '@/shared/ui';
 import { useMasterCampaignStore } from '../model/master-campaign-store';
 import { CreateCampaignForm } from './create-campaign-form';
 import styles from './master-campaign-list.module.css';
@@ -11,10 +11,10 @@ export function MasterCampaignList() {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle as="h2">{t('masterHome.campaigns')}</CardTitle>
-      </CardHeader>
-      <CardContent className={styles.content}>
+      <Card.Header>
+        <h2 className={styles.cardTitle}>{t('masterHome.campaigns')}</h2>
+      </Card.Header>
+      <Card.Content className={styles.content}>
         <ul className={styles.list}>
           {campaigns.map((campaign) => (
             <li key={campaign.id}>
@@ -30,7 +30,7 @@ export function MasterCampaignList() {
           {campaigns.length === 0 && <li className={styles.empty}>{t('campaignList.empty')}</li>}
         </ul>
         <CreateCampaignForm />
-      </CardContent>
+      </Card.Content>
     </Card>
   );
 }

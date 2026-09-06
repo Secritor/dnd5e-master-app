@@ -1,8 +1,8 @@
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Button, Input, Label } from '@/shared/ui';
+import { Button, FieldError, Input, Label, TextField } from '@/shared/ui';
 import { loginSchema, type LoginFormValues } from '../model/auth';
 import styles from './auth-form.module.css';
 
@@ -14,9 +14,9 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const {
-    register,
+    control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: '', password: '' },
@@ -29,31 +29,47 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
 
   return (
     <form onSubmit={onSubmit} className={styles.form}>
-      <div className={styles.field}>
-        <Label htmlFor="email">{t('masterAuth.emailLabel')}</Label>
-        <Input
-          id="email"
-          type="email"
-          autoComplete="email"
-          placeholder={t('masterAuth.emailPlaceholder')}
-          {...register('email')}
-        />
-        {errors.email && <p className={styles.error}>{errors.email.message}</p>}
-      </div>
+      <Controller
+        control={control}
+        name="email"
+        render={({ field, fieldState }) => (
+          <TextField
+            name={field.name}
+            value={field.value}
+            onBlur={field.onBlur}
+            onChange={field.onChange}
+            isInvalid={fieldState.invalid}
+            type="email"
+            autoComplete="email"
+          >
+            <Label>{t('masterAuth.emailLabel')}</Label>
+            <Input placeholder={t('masterAuth.emailPlaceholder')} />
+            <FieldError>{fieldState.error?.message}</FieldError>
+          </TextField>
+        )}
+      />
 
-      <div className={styles.field}>
-        <Label htmlFor="password">{t('masterAuth.passwordLabel')}</Label>
-        <Input
-          id="password"
-          type="password"
-          autoComplete="current-password"
-          placeholder={t('masterAuth.passwordPlaceholder')}
-          {...register('password')}
-        />
-        {errors.password && <p className={styles.error}>{errors.password.message}</p>}
-      </div>
+      <Controller
+        control={control}
+        name="password"
+        render={({ field, fieldState }) => (
+          <TextField
+            name={field.name}
+            value={field.value}
+            onBlur={field.onBlur}
+            onChange={field.onChange}
+            isInvalid={fieldState.invalid}
+            type="password"
+            autoComplete="current-password"
+          >
+            <Label>{t('masterAuth.passwordLabel')}</Label>
+            <Input placeholder={t('masterAuth.passwordPlaceholder')} />
+            <FieldError>{fieldState.error?.message}</FieldError>
+          </TextField>
+        )}
+      />
 
-      <Button type="submit" disabled={isSubmitting} className={styles.submit}>
+      <Button type="submit" isDisabled={isSubmitting} fullWidth>
         {t('masterAuth.submit')}
       </Button>
     </form>

@@ -1,8 +1,8 @@
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Button, FieldError, Input, Label, TextField } from '@/shared/ui';
+import { Button, ControlledTextField } from '@/shared/ui';
 import { loginSchema, type LoginFormValues } from '../model/auth';
 import styles from './auth-form.module.css';
 
@@ -29,44 +29,22 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
 
   return (
     <form onSubmit={onSubmit} className={styles.form}>
-      <Controller
+      <ControlledTextField
         control={control}
         name="email"
-        render={({ field, fieldState }) => (
-          <TextField
-            name={field.name}
-            value={field.value}
-            onBlur={field.onBlur}
-            onChange={field.onChange}
-            isInvalid={fieldState.invalid}
-            type="email"
-            autoComplete="email"
-          >
-            <Label>{t('masterAuth.emailLabel')}</Label>
-            <Input placeholder={t('masterAuth.emailPlaceholder')} />
-            <FieldError>{fieldState.error?.message}</FieldError>
-          </TextField>
-        )}
+        type="email"
+        autoComplete="email"
+        label={t('masterAuth.emailLabel')}
+        placeholder={t('masterAuth.emailPlaceholder')}
       />
 
-      <Controller
+      <ControlledTextField
         control={control}
         name="password"
-        render={({ field, fieldState }) => (
-          <TextField
-            name={field.name}
-            value={field.value}
-            onBlur={field.onBlur}
-            onChange={field.onChange}
-            isInvalid={fieldState.invalid}
-            type="password"
-            autoComplete="current-password"
-          >
-            <Label>{t('masterAuth.passwordLabel')}</Label>
-            <Input placeholder={t('masterAuth.passwordPlaceholder')} />
-            <FieldError>{fieldState.error?.message}</FieldError>
-          </TextField>
-        )}
+        type="password"
+        autoComplete="current-password"
+        label={t('masterAuth.passwordLabel')}
+        placeholder={t('masterAuth.passwordPlaceholder')}
       />
 
       <Button type="submit" isDisabled={isSubmitting} fullWidth>

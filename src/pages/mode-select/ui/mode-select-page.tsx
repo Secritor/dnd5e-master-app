@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+
 import { MasterAuthModal } from '@/features/master-auth';
+
 import { Button } from '@/shared/ui';
+
 import styles from './mode-select-page.module.css';
 
 export function ModeSelectPage() {

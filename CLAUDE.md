@@ -9,8 +9,10 @@
 |---|---|
 | `npm run dev` | дев-сервер (Vite, `--host`) |
 | `npm run build` | `tsc -b` + `vite build` — **главная проверка перед завершением задачи** (отдельного typecheck/тестов нет) |
-| `npm run lint` | ESLint |
+| `npm run lint` | ESLint (с информацией о типах) |
+| `npm run lint:fix` | ESLint с автоисправлением |
 | `npm run lint:fsd` | Steiger — границы FSD |
+| `npm run format` | Prettier по всему проекту (`format:check` — только проверка) |
 
 Показывай результат проверки (вывод команды), а не утверждай «готово» без него.
 

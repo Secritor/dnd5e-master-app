@@ -61,10 +61,17 @@ dnd-game-tool/
 │                                   подключение шрифта Montserrat с Google Fonts
 ├── vite.config.ts                 alias @ → src; base './'; build.outDir = 'docs'  (см. §9)
 ├── tsconfig.json / .app.json / .node.json   project references; paths @/* → ./src/*
-├── eslint.config.js               js + typescript-eslint + react-hooks + jsx-a11y (flat config)
+├── eslint.config.js               flat config: typescript-eslint recommendedTypeChecked (any разрешён),
+│                                   react-hooks v7, @eslint-react, jsx-a11y, simple-import-sort
+│                                   (группы по слоям FSD), import-x (no-cycle, no-duplicates),
+│                                   запрет @heroui/react вне shared/ui, @stylistic пустые строки,
+│                                   eslint-config-prettier последним
 ├── steiger.config.ts              FSD-линтер: recommended + послабление для app/**
 ├── components.json                конфиг shadcn — ЛЕГАСИ (shadcn удалён, файл не используется)
 ├── .prettierrc                    singleQuote, semi, printWidth 100, trailingComma es5
+├── .prettierignore                dist, docs, package-lock.json, *.md
+├── .gitattributes                 eol=lf (совпадает с endOfLine в .prettierrc)
+├── .vscode/                       settings.json: Prettier on save + eslint fixAll; extensions.json
 ├── .mcp.json                      MCP-серверы: playwright, browser-tools, context7
 ├── .github/workflows/deploy.yml   GitHub Pages: push в main → npm ci → npm run build → publish ./dist
 ├── public/
@@ -265,7 +272,9 @@ main.tsx
 | `npm run build` | `tsc -b` (project references) затем `vite build` |
 | `npm run preview` | предпросмотр билда |
 | `npm run lint` | ESLint по всему проекту |
+| `npm run lint:fix` | ESLint с автоисправлением (сортировка импортов, пустые строки) |
 | `npm run lint:fsd` | Steiger — проверка границ FSD |
+| `npm run format` / `format:check` | Prettier: отформатировать / проверить |
 | `npm run clean` | удалить `docs/` и `tsconfig.tsbuildinfo` |
 
 **⚠️ Несоответствия сборки/деплоя (учитывать при работе с CI):**

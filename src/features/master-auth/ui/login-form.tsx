@@ -1,9 +1,12 @@
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+
 import { Button, ControlledTextField } from '@/shared/ui';
-import { loginSchema, type LoginFormValues } from '../model/auth';
+
+import { type LoginFormValues, loginSchema } from '../model/auth';
+
 import styles from './auth-form.module.css';
 
 interface LoginFormProps {
@@ -13,6 +16,7 @@ interface LoginFormProps {
 export function LoginForm({ onSuccess }: LoginFormProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
   const {
     control,
     handleSubmit,
@@ -24,7 +28,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
 
   const onSubmit = handleSubmit(() => {
     onSuccess?.();
-    navigate('/master');
+    void navigate('/master');
   });
 
   return (

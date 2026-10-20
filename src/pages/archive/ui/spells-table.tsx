@@ -1,15 +1,17 @@
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useQuery } from '@tanstack/react-query';
 import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
+
 import { fetchSpells } from '../api/fetch-spells';
 import type { Spell } from '../model/spell';
 import { spellKeys } from '../model/spell-keys';
+
 import styles from './spells-table.module.css';
 
 const columnHelper = createColumnHelper<Spell>();
@@ -32,6 +34,8 @@ export function SpellsTable() {
     [t]
   );
 
+  // React Compiler в проекте не используется — предупреждение о пропуске мемоизации неактуально.
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data: data ?? EMPTY,
     columns,

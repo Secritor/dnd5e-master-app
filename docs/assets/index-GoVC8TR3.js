@@ -1,0 +1,1 @@
+import{_ as s,l as e}from"./index-D01Jgi0T.js";import{P as o}from"./page-title-pGDrtwiL.js";const a="_page_1k7n7_1",r="_note_1k7n7_10",t={page:a,note:r};function c(){const{t:n}=s();return e.jsxs("main",{className:t.page,children:[e.jsx(o,{children:n("player.title")}),e.jsx("p",{className:t.note,children:n("common.inDevelopment")})]})}export{c as PlayerPage};

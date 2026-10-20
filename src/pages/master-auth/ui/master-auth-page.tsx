@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { LoginForm, RegisterForm } from '@/features/master-auth';
+
 import { PageTitle } from '@/shared/ui';
+
 import styles from './master-auth-page.module.css';
 
 export function MasterAuthPage() {

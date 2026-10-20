@@ -1,8 +1,11 @@
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+
 import { Button, ControlledTextField } from '@/shared/ui';
-import { registerSchema, type RegisterFormValues } from '../model/auth';
+
+import { type RegisterFormValues, registerSchema } from '../model/auth';
+
 import styles from './auth-form.module.css';
 
 interface RegisterFormProps {
@@ -11,6 +14,7 @@ interface RegisterFormProps {
 
 export function RegisterForm({ onSuccess }: RegisterFormProps) {
   const { t } = useTranslation();
+
   const {
     control,
     handleSubmit,

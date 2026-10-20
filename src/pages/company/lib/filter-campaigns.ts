@@ -15,6 +15,7 @@ export function filterOfficialCampaigns(
 
   return campaigns.filter((campaign) => {
     const matchesTitle = campaign.cardTitle.toLocaleLowerCase().includes(query);
+
     const matchesMood =
       selectedMoods.length === 0 ||
       selectedMoods.every((mood) => campaign.campaignMood.includes(mood));

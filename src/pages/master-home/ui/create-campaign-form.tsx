@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { Button, Input, TextField } from '@/shared/ui';
+
 import { useMasterCampaignStore } from '../model/master-campaign-store';
+
 import styles from './create-campaign-form.module.css';
 
 export function CreateCampaignForm() {

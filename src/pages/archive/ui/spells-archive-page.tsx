@@ -1,6 +1,9 @@
 import { useTranslation } from 'react-i18next';
+
 import { PageTitle } from '@/shared/ui';
+
 import { SpellsTable } from './spells-table';
+
 import styles from './spells-archive-page.module.css';
 
 export function SpellsArchivePage() {

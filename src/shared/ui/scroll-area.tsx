@@ -1,15 +1,16 @@
 import {
-  useEffect,
-  useId,
-  useRef,
-  useState,
-  useCallback,
   type CSSProperties,
   type KeyboardEvent as ReactKeyboardEvent,
   type MouseEvent as ReactMouseEvent,
   type ReactNode,
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { cn } from '@/shared/lib/cn';
 
 interface ScrollAreaProps {
@@ -83,14 +84,15 @@ export function ScrollArea({
   const [isScrollable, setIsScrollable] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  const isDragging = useRef(false);
-  const dragStartY = useRef(0);
-  const dragStartScrollTop = useRef(0);
-  const dragCleanup = useRef<(() => void) | null>(null);
+  const isDraggingRef = useRef(false);
+  const dragStartYRef = useRef(0);
+  const dragStartScrollTopRef = useRef(0);
+  const dragCleanupRef = useRef<(() => void) | null>(null);
 
   const updateThumb = useCallback(() => {
     const content = contentRef.current;
     const track = trackRef.current;
+
     if (!content || !track) return;
 
     const { scrollTop, scrollHeight, clientHeight } = content;
@@ -102,6 +104,7 @@ export function ScrollArea({
 
     const maxScroll = scrollHeight - clientHeight;
     const newThumbHeight = Math.max((clientHeight / scrollHeight) * trackHeight, 24);
+
     const newThumbTop =
       maxScroll > 0 ? (scrollTop / maxScroll) * (trackHeight - newThumbHeight) : 0;
 
@@ -112,12 +115,14 @@ export function ScrollArea({
 
   useEffect(() => {
     const content = contentRef.current;
+
     if (!content) return;
 
     updateThumb();
     content.addEventListener('scroll', updateThumb, { passive: true });
 
     const ro = new ResizeObserver(updateThumb);
+
     ro.observe(content);
 
     return () => {
@@ -127,7 +132,7 @@ export function ScrollArea({
   }, [updateThumb]);
 
   // Снять слушатели перетаскивания, если компонент размонтируется во время drag.
-  useEffect(() => () => dragCleanup.current?.(), []);
+  useEffect(() => () => dragCleanupRef.current?.(), []);
 
   const scrollBy = (delta: number) => {
     contentRef.current?.scrollBy({ top: delta, behavior: 'smooth' });
@@ -135,22 +140,28 @@ export function ScrollArea({
 
   const scrollToRatio = (ratio: number) => {
     const content = contentRef.current;
+
     if (!content) return;
     const maxScroll = content.scrollHeight - content.clientHeight;
+
     content.scrollTo({ top: ratio * maxScroll, behavior: 'smooth' });
   };
 
   const handleTrackClick = (e: ReactMouseEvent<HTMLDivElement>) => {
     const track = trackRef.current;
+
     if (!track) return;
     const rect = track.getBoundingClientRect();
+
     scrollToRatio((e.clientY - rect.top) / track.clientHeight);
   };
 
   const handleTrackKeyDown = (e: ReactKeyboardEvent<HTMLDivElement>) => {
     const content = contentRef.current;
+
     if (!content) return;
     const page = content.clientHeight * 0.9;
+
     switch (e.key) {
       case 'ArrowDown':
         scrollBy(scrollStep);
@@ -173,38 +184,41 @@ export function ScrollArea({
       default:
         return;
     }
+
     e.preventDefault();
   };
 
   const handleThumbMouseDown = (e: ReactMouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    isDragging.current = true;
-    dragStartY.current = e.clientY;
-    dragStartScrollTop.current = contentRef.current?.scrollTop ?? 0;
+    isDraggingRef.current = true;
+    dragStartYRef.current = e.clientY;
+    dragStartScrollTopRef.current = contentRef.current?.scrollTop ?? 0;
 
     const onMouseMove = (ev: MouseEvent) => {
-      if (!isDragging.current || !contentRef.current || !trackRef.current) return;
+      if (!isDraggingRef.current || !contentRef.current || !trackRef.current) return;
       const content = contentRef.current;
       const track = trackRef.current;
       const { scrollHeight, clientHeight } = content;
       const maxScroll = scrollHeight - clientHeight;
+
       const scrollDelta =
-        ((ev.clientY - dragStartY.current) / (track.clientHeight - thumbHeight)) * maxScroll;
+        ((ev.clientY - dragStartYRef.current) / (track.clientHeight - thumbHeight)) * maxScroll;
+
       content.scrollTop = Math.max(
         0,
-        Math.min(maxScroll, dragStartScrollTop.current + scrollDelta)
+        Math.min(maxScroll, dragStartScrollTopRef.current + scrollDelta)
       );
     };
 
     const cleanup = () => {
-      isDragging.current = false;
+      isDraggingRef.current = false;
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mouseup', cleanup);
-      dragCleanup.current = null;
+      dragCleanupRef.current = null;
     };
 
-    dragCleanup.current = cleanup;
+    dragCleanupRef.current = cleanup;
     window.addEventListener('mousemove', onMouseMove);
     window.addEventListener('mouseup', cleanup);
   };

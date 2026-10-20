@@ -1,19 +1,13 @@
-import type { ComponentProps } from 'react';
-import {
-  Controller,
-  type Control,
-  type FieldPath,
-  type FieldValues,
-} from 'react-hook-form';
 import { FieldError, Input, Label, TextField } from '@heroui/react';
+import type { ComponentProps } from 'react';
+import { type Control, Controller, type FieldPath, type FieldValues } from 'react-hook-form';
 
 type TextFieldProps = ComponentProps<typeof TextField>;
 
-interface ControlledTextFieldProps<TFieldValues extends FieldValues>
-  extends Omit<
-    TextFieldProps,
-    'name' | 'value' | 'onChange' | 'onBlur' | 'isInvalid' | 'children'
-  > {
+interface ControlledTextFieldProps<TFieldValues extends FieldValues> extends Omit<
+  TextFieldProps,
+  'name' | 'value' | 'onChange' | 'onBlur' | 'isInvalid' | 'children'
+> {
   /** `control` из `useForm`. */
   control: Control<TFieldValues>;
   /** Имя поля формы (типизировано по значениям формы). */

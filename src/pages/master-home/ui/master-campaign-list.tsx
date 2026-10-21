@@ -1,7 +1,10 @@
 import { useTranslation } from 'react-i18next';
+
 import { Card } from '@/shared/ui';
+
 import { useMasterCampaignStore } from '../model/master-campaign-store';
 import { CreateCampaignForm } from './create-campaign-form';
+
 import styles from './master-campaign-list.module.css';
 
 export function MasterCampaignList() {

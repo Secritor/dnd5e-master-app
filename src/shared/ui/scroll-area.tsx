@@ -1,15 +1,16 @@
 import {
-  useEffect,
-  useId,
-  useRef,
-  useState,
-  useCallback,
   type CSSProperties,
   type KeyboardEvent as ReactKeyboardEvent,
   type MouseEvent as ReactMouseEvent,
   type ReactNode,
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { cn } from '@/shared/lib/cn';
 
 interface ScrollAreaProps {
@@ -91,6 +92,7 @@ export function ScrollArea({
   const updateThumb = useCallback(() => {
     const content = contentRef.current;
     const track = trackRef.current;
+
     if (!content || !track) return;
 
     const { scrollTop, scrollHeight, clientHeight } = content;
@@ -98,6 +100,7 @@ export function ScrollArea({
     const scrollable = scrollHeight > clientHeight + 1;
 
     setIsScrollable(scrollable);
+
     if (!scrollable) return;
 
     const maxScroll = scrollHeight - clientHeight;
@@ -112,12 +115,14 @@ export function ScrollArea({
 
   useEffect(() => {
     const content = contentRef.current;
+
     if (!content) return;
 
     updateThumb();
     content.addEventListener('scroll', updateThumb, { passive: true });
 
     const ro = new ResizeObserver(updateThumb);
+
     ro.observe(content);
 
     return () => {
@@ -135,22 +140,31 @@ export function ScrollArea({
 
   const scrollToRatio = (ratio: number) => {
     const content = contentRef.current;
+
     if (!content) return;
+
     const maxScroll = content.scrollHeight - content.clientHeight;
+
     content.scrollTo({ top: ratio * maxScroll, behavior: 'smooth' });
   };
 
   const handleTrackClick = (e: ReactMouseEvent<HTMLDivElement>) => {
     const track = trackRef.current;
+
     if (!track) return;
+
     const rect = track.getBoundingClientRect();
+
     scrollToRatio((e.clientY - rect.top) / track.clientHeight);
   };
 
   const handleTrackKeyDown = (e: ReactKeyboardEvent<HTMLDivElement>) => {
     const content = contentRef.current;
+
     if (!content) return;
+
     const page = content.clientHeight * 0.9;
+
     switch (e.key) {
       case 'ArrowDown':
         scrollBy(scrollStep);
@@ -173,6 +187,7 @@ export function ScrollArea({
       default:
         return;
     }
+
     e.preventDefault();
   };
 
@@ -185,12 +200,14 @@ export function ScrollArea({
 
     const onMouseMove = (ev: MouseEvent) => {
       if (!isDragging.current || !contentRef.current || !trackRef.current) return;
+
       const content = contentRef.current;
       const track = trackRef.current;
       const { scrollHeight, clientHeight } = content;
       const maxScroll = scrollHeight - clientHeight;
       const scrollDelta =
         ((ev.clientY - dragStartY.current) / (track.clientHeight - thumbHeight)) * maxScroll;
+
       content.scrollTop = Math.max(
         0,
         Math.min(maxScroll, dragStartScrollTop.current + scrollDelta)

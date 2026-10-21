@@ -1,4 +1,4 @@
-import { spellSchema, type Spell } from '../model/spell';
+import { type Spell, spellSchema } from '../model/spell';
 
 const MOCK_DELAY_MS = 200;
 
@@ -13,5 +13,6 @@ const MOCK_SPELLS: Spell[] = [
 
 export async function fetchSpells(): Promise<Spell[]> {
   await delay(MOCK_DELAY_MS);
+
   return MOCK_SPELLS.map((s) => spellSchema.parse(s));
 }

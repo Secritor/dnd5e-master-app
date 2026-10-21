@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+
 import { fetchOfficialCampaigns } from '../api/fetch-official-campaigns';
 import { campaignKeys } from './campaign-keys';
 

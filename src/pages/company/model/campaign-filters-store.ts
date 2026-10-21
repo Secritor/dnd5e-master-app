@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+
 import type { CampaignMoodTag } from './official-campaign';
 
 const MIN_PLAYER_LEVEL = 1;
@@ -30,11 +31,13 @@ export const useCampaignFiltersStore = create<CampaignFiltersState>((set, get) =
   setMinLevel: (level) => {
     const minLevel = clampLevel(level, MIN_PLAYER_LEVEL);
     const { maxLevel } = get();
+
     set({ minLevel, maxLevel: Math.max(minLevel, maxLevel) });
   },
   setMaxLevel: (level) => {
     const maxLevel = clampLevel(level, MAX_PLAYER_LEVEL);
     const { minLevel } = get();
+
     set({ maxLevel, minLevel: Math.min(maxLevel, minLevel) });
   },
 }));

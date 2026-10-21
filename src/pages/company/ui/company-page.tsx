@@ -1,7 +1,10 @@
 import { useTranslation } from 'react-i18next';
+
 import { PageTitle } from '@/shared/ui';
-import { CampaignFilters } from './campaign-filters';
+
 import { CampaignBoard } from './campaign-board';
+import { CampaignFilters } from './campaign-filters';
+
 import styles from './company-page.module.css';
 
 export function CompanyPage() {

@@ -1,6 +1,8 @@
-import { useTranslation } from 'react-i18next';
 import type { FallbackProps } from 'react-error-boundary';
+import { useTranslation } from 'react-i18next';
+
 import { Button } from '@/shared/ui';
+
 import styles from './route-error.module.css';
 
 export function RouteError(_props: FallbackProps) {

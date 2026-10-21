@@ -1,15 +1,17 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useQuery } from '@tanstack/react-query';
 import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { useQuery } from '@tanstack/react-query';
+
 import { fetchSpells } from '../api/fetch-spells';
 import type { Spell } from '../model/spell';
 import { spellKeys } from '../model/spell-keys';
+
 import styles from './spells-table.module.css';
 
 const columnHelper = createColumnHelper<Spell>();
@@ -39,6 +41,7 @@ export function SpellsTable() {
   });
 
   if (isLoading) return <p className={styles.muted}>{t('common.loading')}</p>;
+
   if (isError) return <p className={styles.error}>{t('archive.errorSpells')}</p>;
 
   return (

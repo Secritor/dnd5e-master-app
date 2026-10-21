@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next';
+
 import { PageTitle } from '@/shared/ui';
+
 import styles from './player-page.module.css';
 
 export function PlayerPage() {

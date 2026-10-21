@@ -1,8 +1,10 @@
 import { lazy, Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
 import { createHashRouter } from 'react-router-dom';
-import { ErrorBoundary } from 'react-error-boundary';
+
 import { RouteError } from './route-error';
+
 import styles from './router.module.css';
 
 const ModeSelectPage = lazy(() =>
@@ -22,6 +24,7 @@ const ArchivePlaceholderPage = lazy(() =>
 
 function PageLoader() {
   const { t } = useTranslation();
+
   return (
     <div className={styles.loader}>
       <p className={styles.loaderText}>{t('common.loading')}</p>

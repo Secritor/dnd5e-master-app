@@ -13,6 +13,7 @@ export function PageTitle({ children, backTo = '/' }: PageTitleProps) {
 
   const handleBack = () => {
     const idx = (window.history.state as { idx?: number } | null)?.idx ?? 0;
+
     if (idx > 0) {
       navigate(-1);
     } else {

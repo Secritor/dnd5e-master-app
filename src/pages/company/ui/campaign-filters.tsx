@@ -1,8 +1,11 @@
 import { useTranslation } from 'react-i18next';
-import { Input, Label, ScrollArea, TextField } from '@/shared/ui';
+
 import { cn } from '@/shared/lib';
-import { CAMPAIGN_MOOD_TAGS, type CampaignMoodTag } from '../model/official-campaign';
+import { Input, Label, ScrollArea, TextField } from '@/shared/ui';
+
 import { useCampaignFiltersStore } from '../model/campaign-filters-store';
+import { CAMPAIGN_MOOD_TAGS, type CampaignMoodTag } from '../model/official-campaign';
+
 import styles from './campaign-filters.module.css';
 
 const MIN_PLAYER_LEVEL = 1;
@@ -29,6 +32,7 @@ export function CampaignFilters() {
 
   const handleLevelChange = (setter: (level: number) => void) => (value: string) => {
     const next = Number(value);
+
     if (value !== '' && Number.isFinite(next)) setter(next);
   };
 
@@ -46,6 +50,7 @@ export function CampaignFilters() {
             <div className={styles.moodList}>
               {CAMPAIGN_MOOD_TAGS.map((tag) => {
                 const active = selectedMoods.includes(tag);
+
                 return (
                   <button
                     key={tag}

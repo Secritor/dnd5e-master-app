@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { Button, Modal } from '@/shared/ui';
+
 import { LoginForm } from './login-form';
 import { RegisterForm } from './register-form';
+
 import styles from './master-auth-modal.module.css';
 
 type AuthView = 'login' | 'register' | 'success';
@@ -24,6 +27,7 @@ export function MasterAuthModal({ open, onOpenChange }: MasterAuthModalProps) {
 
   const handleOpenChange = (next: boolean) => {
     onOpenChange(next);
+
     if (!next) setView('login');
   };
 

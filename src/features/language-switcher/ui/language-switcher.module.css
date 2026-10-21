@@ -8,7 +8,9 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   background-color: var(--card);
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  box-shadow:
+    0 4px 6px -1px rgb(0 0 0 / 0.3),
+    0 2px 4px -2px rgb(0 0 0 / 0.3);
 }
 
 .button {

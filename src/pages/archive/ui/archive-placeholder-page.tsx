@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next';
+
 import { PageTitle } from '@/shared/ui';
+
 import styles from './archive-placeholder-page.module.css';
 
 interface ArchivePlaceholderPageProps {

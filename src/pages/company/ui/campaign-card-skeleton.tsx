@@ -1,4 +1,5 @@
 import { Card, Skeleton } from '@/shared/ui';
+
 import styles from './campaign-card-skeleton.module.css';
 
 export function CampaignCardSkeleton() {

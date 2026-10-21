@@ -1,7 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+
 import { Button, Card, PageTitle } from '@/shared/ui';
+
 import { MasterCampaignList } from './master-campaign-list';
+
 import styles from './master-home-page.module.css';
 
 export function MasterHomePage() {

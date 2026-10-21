@@ -1,10 +1,12 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useOfficialCampaigns } from '../model/use-official-campaigns';
-import { useCampaignFiltersStore } from '../model/campaign-filters-store';
+
 import { filterOfficialCampaigns } from '../lib/filter-campaigns';
+import { useCampaignFiltersStore } from '../model/campaign-filters-store';
+import { useOfficialCampaigns } from '../model/use-official-campaigns';
 import { CampaignCard } from './campaign-card';
 import { CampaignCardSkeleton } from './campaign-card-skeleton';
+
 import styles from './campaign-board.module.css';
 
 const SKELETON_COUNT = 4;
@@ -19,6 +21,7 @@ export function CampaignBoard() {
 
   const filtered = useMemo(() => {
     if (!data) return [];
+
     return filterOfficialCampaigns(data, { searchQuery, selectedMoods, minLevel, maxLevel });
   }, [data, searchQuery, selectedMoods, minLevel, maxLevel]);
 

@@ -34,7 +34,8 @@ export function Button({
   onPress,
   ...props
 }: ButtonProps) {
-  const heroVariant = (VARIANT_MAP as Record<string, HeroButtonProps['variant']>)[variant] ?? variant;
+  const heroVariant =
+    (VARIANT_MAP as Record<string, HeroButtonProps['variant']>)[variant] ?? variant;
   const heroSize = (SIZE_MAP as Record<string, HeroButtonProps['size']>)[size] ?? size;
   const isIconOnly = size === 'icon' || props.isIconOnly;
 

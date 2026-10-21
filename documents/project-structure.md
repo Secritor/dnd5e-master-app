@@ -12,20 +12,20 @@ SPA-инструмент для D&D (пространство мастера, п
 
 **Стек:**
 
-| Область | Технология |
-|---|---|
-| UI | React 19, TypeScript 5.9 (strict) |
-| Сборка | Vite 7 (`@vitejs/plugin-react`, `@tailwindcss/vite`) |
-| Архитектура | Feature-Sliced Design (FSD v2.1), линтер — Steiger |
-| Роутинг | `react-router-dom` 7, **hash-роутер** (`createHashRouter`) |
-| Server state | TanStack Query 5 |
-| Таблицы | TanStack Table 8 |
-| Client state | Zustand 5 (+ `persist` для кампаний мастера) |
-| Формы | react-hook-form 7 + `@hookform/resolvers` + Zod 3 |
-| i18n | i18next + react-i18next (`ru` дефолт, `en` fallback) |
-| UI-кит | HeroUI v3 (`@heroui/react`, `@heroui/styles`) |
-| Стили | CSS Modules (основное) + Tailwind v4 (только мост/утилиты в `shared/ui`) |
-| Прочее | `@vercel/speed-insights`, `react-error-boundary`, `clsx` + `tailwind-merge` |
+| Область      | Технология                                                                  |
+| ------------ | --------------------------------------------------------------------------- |
+| UI           | React 19, TypeScript 5.9 (strict)                                           |
+| Сборка       | Vite 7 (`@vitejs/plugin-react`, `@tailwindcss/vite`)                        |
+| Архитектура  | Feature-Sliced Design (FSD v2.1), линтер — Steiger                          |
+| Роутинг      | `react-router-dom` 7, **hash-роутер** (`createHashRouter`)                  |
+| Server state | TanStack Query 5                                                            |
+| Таблицы      | TanStack Table 8                                                            |
+| Client state | Zustand 5 (+ `persist` для кампаний мастера)                                |
+| Формы        | react-hook-form 7 + `@hookform/resolvers` + Zod 3                           |
+| i18n         | i18next + react-i18next (`ru` дефолт, `en` fallback)                        |
+| UI-кит       | HeroUI v3 (`@heroui/react`, `@heroui/styles`)                               |
+| Стили        | CSS Modules (основное) + Tailwind v4 (только мост/утилиты в `shared/ui`)    |
+| Прочее       | `@vercel/speed-insights`, `react-error-boundary`, `clsx` + `tailwind-merge` |
 
 > `react-aria*` в дереве зависимостей — транзитивно через HeroUI, напрямую не импортируется.
 
@@ -61,10 +61,11 @@ dnd-game-tool/
 │                                   подключение шрифта Montserrat с Google Fonts
 ├── vite.config.ts                 alias @ → src; base './'; build.outDir = 'docs'  (см. §9)
 ├── tsconfig.json / .app.json / .node.json   project references; paths @/* → ./src/*
-├── eslint.config.js               js + typescript-eslint + react-hooks + jsx-a11y (flat config)
+├── eslint.config.js               js + typescript-eslint + react-hooks@7 + jsx-a11y + simple-import-sort + @stylistic (пустые строки) + eslint-config-prettier
 ├── steiger.config.ts              FSD-линтер: recommended + послабление для app/**
 ├── components.json                конфиг shadcn — ЛЕГАСИ (shadcn удалён, файл не используется)
-├── .prettierrc                    singleQuote, semi, printWidth 100, trailingComma es5
+├── .prettierrc / .prettierignore  singleQuote, semi, printWidth 100, trailingComma es5, endOfLine lf
+├── .gitattributes                 eol=lf для всех текстовых файлов
 ├── .mcp.json                      MCP-серверы: playwright, browser-tools, context7
 ├── .github/workflows/deploy.yml   GitHub Pages: push в main → npm ci → npm run build → publish ./dist
 ├── public/
@@ -185,14 +186,14 @@ dnd-game-tool/
 
 Хеш-роутер (URL вида `/#/master`). Каждый роут — `lazy()` + `withSuspense()` (обёртка `ErrorBoundary` + `Suspense` c `PageLoader`).
 
-| Путь | Компонент | Экран |
-|---|---|---|
-| `/` | `ModeSelectPage` | выбор роли |
-| `/master` | `MasterHomePage` | пространство мастера |
-| `/master/spells` | `SpellsArchivePage` | архив заклинаний (таблица) |
-| `/master/npcs` | `ArchivePlaceholderPage` (`titleKey="archive.npcTitle"`) | заглушка |
-| `/player` | `PlayerPage` | заглушка |
-| `/company` | `CompanyPage` | каталог официальных кампаний |
+| Путь             | Компонент                                                | Экран                        |
+| ---------------- | -------------------------------------------------------- | ---------------------------- |
+| `/`              | `ModeSelectPage`                                         | выбор роли                   |
+| `/master`        | `MasterHomePage`                                         | пространство мастера         |
+| `/master/spells` | `SpellsArchivePage`                                      | архив заклинаний (таблица)   |
+| `/master/npcs`   | `ArchivePlaceholderPage` (`titleKey="archive.npcTitle"`) | заглушка                     |
+| `/player`        | `PlayerPage`                                             | заглушка                     |
+| `/company`       | `CompanyPage`                                            | каталог официальных кампаний |
 
 Навигация между экранами — `useNavigate()` из кнопок (`ModeSelectPage`, `MasterHomePage`, `LoginForm`). Отдельного роута для логина нет.
 
@@ -219,14 +220,14 @@ main.tsx
 
 ## 6. Состояние
 
-| Тип | Где | Детали |
-|---|---|---|
-| Server state | TanStack Query | `useOfficialCampaigns()` (`pages/company/model`), inline `useQuery` в `spells-table.tsx`. QueryKey-фабрики: `campaignKeys`, `spellKeys`. Клиент: `staleTime 60s`, `retry 1` |
-| Client state (кампании мастера) | `useMasterCampaignStore` — `pages/master-home/model/master-campaign-store.ts` | Zustand + `persist`, ключ localStorage **`dnd-campaign-store`**, `partialize` → только `campaigns` (не `selectedCampaignId`) |
-| Client state (фильтры каталога) | `useCampaignFiltersStore` — `pages/company/model/campaign-filters-store.ts` | Zustand без persist; `setMinLevel/setMaxLevel` делают clamp 1–20 и держат min ≤ max |
-| Form state | react-hook-form + `zodResolver` | `features/master-auth` (login/register). В `create-campaign-form.tsx` — простой `useState` |
-| i18n | инстанс i18next | `shared/config/i18n.ts`, смена языка — `i18n.changeLanguage()` |
-| UI-состояние экранов | локальный `useState` | `authOpen` в `ModeSelectPage`, `view` в `MasterAuthModal`, `registered` в `MasterAuthPage` |
+| Тип                             | Где                                                                           | Детали                                                                                                                                                                      |
+| ------------------------------- | ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Server state                    | TanStack Query                                                                | `useOfficialCampaigns()` (`pages/company/model`), inline `useQuery` в `spells-table.tsx`. QueryKey-фабрики: `campaignKeys`, `spellKeys`. Клиент: `staleTime 60s`, `retry 1` |
+| Client state (кампании мастера) | `useMasterCampaignStore` — `pages/master-home/model/master-campaign-store.ts` | Zustand + `persist`, ключ localStorage **`dnd-campaign-store`**, `partialize` → только `campaigns` (не `selectedCampaignId`)                                                |
+| Client state (фильтры каталога) | `useCampaignFiltersStore` — `pages/company/model/campaign-filters-store.ts`   | Zustand без persist; `setMinLevel/setMaxLevel` делают clamp 1–20 и держат min ≤ max                                                                                         |
+| Form state                      | react-hook-form + `zodResolver`                                               | `features/master-auth` (login/register). В `create-campaign-form.tsx` — простой `useState`                                                                                  |
+| i18n                            | инстанс i18next                                                               | `shared/config/i18n.ts`, смена языка — `i18n.changeLanguage()`                                                                                                              |
+| UI-состояние экранов            | локальный `useState`                                                          | `authOpen` в `ModeSelectPage`, `view` в `MasterAuthModal`, `registered` в `MasterAuthPage`                                                                                  |
 
 ---
 
@@ -259,14 +260,17 @@ main.tsx
 
 **Скрипты (`package.json`):**
 
-| Команда | Действие |
-|---|---|
-| `npm run dev` | Vite dev-сервер (`--host 0.0.0.0`) |
-| `npm run build` | `tsc -b` (project references) затем `vite build` |
-| `npm run preview` | предпросмотр билда |
-| `npm run lint` | ESLint по всему проекту |
-| `npm run lint:fsd` | Steiger — проверка границ FSD |
-| `npm run clean` | удалить `docs/` и `tsconfig.tsbuildinfo` |
+| Команда                           | Действие                                                                                |
+| --------------------------------- | --------------------------------------------------------------------------------------- |
+| `npm run dev`                     | Vite dev-сервер (`--host 0.0.0.0`)                                                      |
+| `npm run build`                   | `tsc -b` (project references) затем `vite build`; `docs/` держим только в `develop`     |
+| `npm run build:check`             | build + `clean` — проверка сборки без следов в `docs/` (для всех веток кроме `develop`) |
+| `npm run preview`                 | предпросмотр билда                                                                      |
+| `npm run lint`                    | ESLint по всему проекту                                                                 |
+| `npm run lint:fsd`                | Steiger — проверка границ FSD                                                           |
+| `npm run lint:fix`                | ESLint с автофиксом                                                                     |
+| `npm run format` / `format:check` | Prettier: отформатировать / проверить                                                   |
+| `npm run clean`                   | удалить `docs/` и `tsconfig.tsbuildinfo`                                                |
 
 **⚠️ Несоответствия сборки/деплоя (учитывать при работе с CI):**
 
@@ -280,24 +284,24 @@ main.tsx
 
 ## 10. Шпаргалка «где что менять»
 
-| Задача | Файлы |
-|---|---|
-| Добавить/изменить роут | `src/app/router.tsx` |
-| Новый экран | новый слайс в `src/pages/<name>/` (`index.ts` + `ui/` + при необходимости `model/`, `api/`, `lib/`) |
-| Текст интерфейса | `src/shared/config/locales/ru.ts` **и** `en.ts` (ключи типизированы — оба файла синхронно) |
-| Тема / цвета | `src/app/styles/index.css` (`:root.dark`) |
-| Отступы / шрифты / радиусы | `src/app/styles/tokens.css` |
-| Общий UI-компонент | `src/shared/ui/` + добавить в `src/shared/ui/index.ts` |
-| Поле формы (rhf + HeroUI) | `src/shared/ui/controlled/` (`ControlledTextField`) |
-| Кнопка «назад» / заголовок экрана | `src/shared/ui/page-title.tsx` |
-| Поведение скролла приложения | `src/shared/ui/scroll-area.tsx` |
-| Логика входа/регистрации | `src/features/master-auth/` (`model/auth.ts` — правила валидации, `ui/*` — формы) |
-| Список кампаний мастера, persist | `src/pages/master-home/model/master-campaign-store.ts` |
-| Каталог официальных кампаний (данные) | `src/pages/company/model/official-campaigns-data.ts` |
-| Логика фильтрации каталога | `src/pages/company/lib/filter-campaigns.ts` + `model/campaign-filters-store.ts` |
-| Замена mock на реальный API | `src/pages/*/api/*` (+ `model/*-keys.ts` при смене ключей) |
-| Провайдеры / QueryClient | `src/app/providers/` |
-| Настройка i18n (языки, дефолт) | `src/shared/config/i18n.ts` |
+| Задача                                | Файлы                                                                                               |
+| ------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Добавить/изменить роут                | `src/app/router.tsx`                                                                                |
+| Новый экран                           | новый слайс в `src/pages/<name>/` (`index.ts` + `ui/` + при необходимости `model/`, `api/`, `lib/`) |
+| Текст интерфейса                      | `src/shared/config/locales/ru.ts` **и** `en.ts` (ключи типизированы — оба файла синхронно)          |
+| Тема / цвета                          | `src/app/styles/index.css` (`:root.dark`)                                                           |
+| Отступы / шрифты / радиусы            | `src/app/styles/tokens.css`                                                                         |
+| Общий UI-компонент                    | `src/shared/ui/` + добавить в `src/shared/ui/index.ts`                                              |
+| Поле формы (rhf + HeroUI)             | `src/shared/ui/controlled/` (`ControlledTextField`)                                                 |
+| Кнопка «назад» / заголовок экрана     | `src/shared/ui/page-title.tsx`                                                                      |
+| Поведение скролла приложения          | `src/shared/ui/scroll-area.tsx`                                                                     |
+| Логика входа/регистрации              | `src/features/master-auth/` (`model/auth.ts` — правила валидации, `ui/*` — формы)                   |
+| Список кампаний мастера, persist      | `src/pages/master-home/model/master-campaign-store.ts`                                              |
+| Каталог официальных кампаний (данные) | `src/pages/company/model/official-campaigns-data.ts`                                                |
+| Логика фильтрации каталога            | `src/pages/company/lib/filter-campaigns.ts` + `model/campaign-filters-store.ts`                     |
+| Замена mock на реальный API           | `src/pages/*/api/*` (+ `model/*-keys.ts` при смене ключей)                                          |
+| Провайдеры / QueryClient              | `src/app/providers/`                                                                                |
+| Настройка i18n (языки, дефолт)        | `src/shared/config/i18n.ts`                                                                         |
 
 ---
 

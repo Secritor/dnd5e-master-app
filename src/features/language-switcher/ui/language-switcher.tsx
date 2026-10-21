@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { cn } from '@/shared/lib';
+
 import { i18n } from '@/shared/config';
+import { cn } from '@/shared/lib';
+
 import styles from './language-switcher.module.css';
 
 const LANGUAGES = [
@@ -18,7 +20,10 @@ export function LanguageSwitcher() {
         <button
           key={code}
           onClick={() => void i18n.changeLanguage(code)}
-          className={cn(styles.button, current === code ? styles.buttonActive : styles.buttonInactive)}
+          className={cn(
+            styles.button,
+            current === code ? styles.buttonActive : styles.buttonInactive
+          )}
         >
           {label}
         </button>

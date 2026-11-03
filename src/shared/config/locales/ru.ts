@@ -4,6 +4,7 @@ export const ru = {
     loading: 'Загрузка...',
     ok: 'OK',
     back: 'Назад',
+    close: 'Закрыть',
     scrollUp: 'Прокрутить вверх',
     scrollDown: 'Прокрутить вниз',
     scrollbar: 'Полоса прокрутки',

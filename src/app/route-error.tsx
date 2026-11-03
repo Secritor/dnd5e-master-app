@@ -11,7 +11,7 @@ export function RouteError(_props: FallbackProps) {
   return (
     <div role="alert" className={styles.container}>
       <p className={styles.message}>{t('common.routeError')}</p>
-      <Button variant="outline" onClick={() => window.location.reload()}>
+      <Button variant="outline" onPress={() => window.location.reload()}>
         {t('common.retry')}
       </Button>
     </div>

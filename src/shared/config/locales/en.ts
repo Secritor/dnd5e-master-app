@@ -4,6 +4,7 @@ export const en = {
     loading: 'Loading...',
     ok: 'OK',
     back: 'Back',
+    close: 'Close',
     scrollUp: 'Scroll up',
     scrollDown: 'Scroll down',
     scrollbar: 'Scrollbar',

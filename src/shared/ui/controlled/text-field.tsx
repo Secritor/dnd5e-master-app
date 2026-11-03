@@ -1,8 +1,6 @@
-import type { ComponentProps } from 'react';
 import { type Control, Controller, type FieldPath, type FieldValues } from 'react-hook-form';
-import { FieldError, Input, Label, TextField } from '@heroui/react';
 
-type TextFieldProps = ComponentProps<typeof TextField>;
+import { FieldError, Input, Label, TextField, type TextFieldProps } from '../text-field';
 
 interface ControlledTextFieldProps<TFieldValues extends FieldValues> extends Omit<
   TextFieldProps,
@@ -19,7 +17,7 @@ interface ControlledTextFieldProps<TFieldValues extends FieldValues> extends Omi
 }
 
 /**
- * `react-hook-form` Controller + HeroUI `TextField` (`Label` / `Input` / `FieldError`).
+ * `react-hook-form` Controller + `TextField` (`Label` / `Input` / `FieldError`).
  * Снимает дублирование обвязки Controller в формах — см. `features/master-auth`.
  */
 export function ControlledTextField<TFieldValues extends FieldValues>({

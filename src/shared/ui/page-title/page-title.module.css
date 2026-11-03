@@ -1,0 +1,33 @@
+.root {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-bottom: 1.5625rem;
+}
+
+.back {
+  display: flex;
+  width: 2.25rem;
+  height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--card);
+  color: var(--muted-foreground);
+  transition: var(--transition-colors);
+
+  &:hover {
+    background-color: var(--accent);
+    color: var(--accent-foreground);
+  }
+}
+
+.title {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 2.25rem;
+  letter-spacing: 0.025em;
+  color: var(--dnd-gold);
+  filter: drop-shadow(var(--shadow-drop));
+}

@@ -12,22 +12,20 @@ SPA-инструмент для D&D (пространство мастера, п
 
 **Стек:**
 
-| Область      | Технология                                                                  |
-| ------------ | --------------------------------------------------------------------------- |
-| UI           | React 19, TypeScript 5.9 (strict)                                           |
-| Сборка       | Vite 7 (`@vitejs/plugin-react`, `@tailwindcss/vite`)                        |
-| Архитектура  | Feature-Sliced Design (FSD v2.1), линтер — Steiger                          |
-| Роутинг      | `react-router-dom` 7, **hash-роутер** (`createHashRouter`)                  |
-| Server state | TanStack Query 5                                                            |
-| Таблицы      | TanStack Table 8                                                            |
-| Client state | Zustand 5 (+ `persist` для кампаний мастера)                                |
-| Формы        | react-hook-form 7 + `@hookform/resolvers` + Zod 3                           |
-| i18n         | i18next + react-i18next (`ru` дефолт, `en` fallback)                        |
-| UI-кит       | HeroUI v3 (`@heroui/react`, `@heroui/styles`)                               |
-| Стили        | CSS Modules (основное) + Tailwind v4 (только мост/утилиты в `shared/ui`)    |
-| Прочее       | `@vercel/speed-insights`, `react-error-boundary`, `clsx` + `tailwind-merge` |
-
-> `react-aria*` в дереве зависимостей — транзитивно через HeroUI, напрямую не импортируется.
+| Область      | Технология                                                    |
+| ------------ | ------------------------------------------------------------- |
+| UI           | React 19, TypeScript 5.9 (strict)                             |
+| Сборка       | Vite 7 (`@vitejs/plugin-react`)                               |
+| Архитектура  | Feature-Sliced Design (FSD v2.1), линтер — Steiger            |
+| Роутинг      | `react-router-dom` 7, **hash-роутер** (`createHashRouter`)    |
+| Server state | TanStack Query 5                                              |
+| Таблицы      | TanStack Table 8                                              |
+| Client state | Zustand 5 (+ `persist` для кампаний мастера)                  |
+| Формы        | react-hook-form 7 + `@hookform/resolvers` + Zod 3             |
+| i18n         | i18next + react-i18next (`ru` дефолт, `en` fallback)          |
+| UI-кит       | Свой, в `shared/ui`; поведение/a11y — `react-aria-components` |
+| Стили        | Только CSS Modules + CSS-переменные (`app/styles/tokens.css`) |
+| Прочее       | `@vercel/speed-insights`, `react-error-boundary`, `clsx`      |
 
 ---
 
@@ -89,10 +87,10 @@ dnd-game-tool/
     │   │   ├── app-providers.tsx  I18nextProvider → QueryProvider
     │   │   └── query-provider.tsx QueryClient (staleTime 60s, retry 1)
     │   └── styles/
-    │       ├── index.css          @import tailwindcss + @heroui/styles + tokens.css;
-    │       │                      :root.dark — переопределение палитры HeroUI под D&D (золото/эмбер),
-    │       │                      алиасы токенов для CSS-модулей, @theme inline — мост в Tailwind
-    │       └── tokens.css         дизайн-токены для CSS-модулей: типографика, отступы, радиусы (шкала = Tailwind)
+    │       ├── index.css          точка входа: @import tokens.css + base.css
+    │       ├── tokens.css         дизайн-токены: палитра D&D (золото/эмбер) + алиасы (--primary, --card, …),
+    │       │                      типографика, отступы, радиусы, тени, длительности
+    │       └── base.css           reset (замена Tailwind preflight) + стили html/body/#root, :focus-visible
     │
     ├── pages/                     ─────────── слой PAGES ───────────
     │   ├── mode-select/           «/» — выбор роли (Игрок / Мастер / Компании)
@@ -149,7 +147,7 @@ dnd-game-tool/
     │   │   ├── index.ts           экспорт: LoginForm, RegisterForm, MasterAuthModal
     │   │   ├── model/auth.ts      zod-схемы loginSchema / registerSchema + выводимые типы
     │   │   └── ui/
-    │   │       ├── master-auth-modal.{tsx,module.css}   Modal (HeroUI) с 3 состояниями: login | register | success
+    │   │       ├── master-auth-modal.{tsx,module.css}   Modal (shared/ui) с 3 состояниями: login | register | success
     │   │       ├── login-form.tsx                        rhf + zodResolver → onSuccess + navigate('/master')
     │   │       ├── register-form.tsx                     rhf + zodResolver → onSuccess (переход на success)
     │   │       └── auth-form.module.css                  общие стили обеих форм
@@ -160,18 +158,23 @@ dnd-game-tool/
     │
     └── shared/                    ─────────── слой SHARED ───────────
         ├── ui/
-        │   ├── index.ts           public API: реэкспорт локальных + из @heroui/react
-        │   │                      (Card, Chip, Modal, TextField, Input, Label, FieldError, Skeleton, ScrollShadow)
-        │   ├── button.tsx         адаптер: старый shadcn-API (variant/size/onClick) → HeroUI Button (onPress)
-        │   ├── controlled/        обвязка react-hook-form ⇄ HeroUI-поля
+        │   ├── index.ts           public API: реэкспорт всех компонентов (каждый — папка <name>/{tsx,module.css,index.ts})
+        │   ├── button/            RAC Button: variant primary|secondary|outline|ghost|danger, size sm|md|lg,
+        │   │                      fullWidth, isIconOnly; события — onPress
+        │   ├── text-field/        RAC TextField + Label / Input / FieldError
+        │   ├── modal/             RAC ModalOverlay+Modal+Dialog; части Modal.Header/Heading/Body/CloseTrigger
+        │   ├── card/              div-поверхность; части Card.Header/Title/Content
+        │   ├── chip/              метка: variant solid|soft|accent, size sm|md|lg
+        │   ├── skeleton/          плейсхолдер загрузки (pulse), размеры через className
+        │   ├── controlled/        обвязка react-hook-form ⇄ поля
         │   │   ├── index.ts       реэкспорт
         │   │   └── text-field.tsx ControlledTextField: Controller + TextField/Label/Input/FieldError по props
-        │   ├── page-title.tsx     заголовок экрана + кнопка «Назад» (history-aware, fallback backTo)
-        │   └── scroll-area.tsx    кастомный скроллбар: drag thumb, стрелки, клавиатура, ARIA role="scrollbar",
+        │   ├── page-title/        заголовок экрана + кнопка «Назад» (history-aware, fallback backTo)
+        │   └── scroll-area/       кастомный скроллбар: drag thumb, стрелки, клавиатура, ARIA role="scrollbar",
         │                          render-пропсы, ResizeObserver
         ├── lib/
         │   ├── index.ts           экспорт cn
-        │   └── cn.ts              clsx + tailwind-merge
+        │   └── cn.ts              обёртка над clsx
         └── config/
             ├── index.ts           экспорт i18n
             ├── i18n.ts            init i18next (lng 'ru', fallback 'en')
@@ -247,11 +250,10 @@ main.tsx
 
 **Основной способ — CSS Modules** (`*.module.css` рядом с компонентом) во всех слоях `app / features / pages`.
 
-- **Токены:** `app/styles/tokens.css` — типографика, отступы (`--space-*`), радиусы; шкала 1:1 с Tailwind.
-  Цвета и алиасы (`--primary`, `--card`, `--muted-foreground`, `--dnd-gold`, `--dnd-ember`, …) — в `app/styles/index.css`, блок `:root.dark`.
-- **Tailwind v4** подключён (`@import 'tailwindcss'` + `@theme inline` мост), но утилитарные классы остались **только в `shared/ui`** — `scroll-area.tsx` и `page-title.tsx`. Новый код пишем на CSS-модулях + токенах.
-- **Тема жёстко тёмная:** `<html class="dark">` в `index.html`, переключателя светлой темы нет. Палитра — D&D (золотой акцент вместо синего HeroUI).
-- **HeroUI v3** — базовый UI-кит; `@heroui/styles` импортируется в `index.css`. Компоненты реэкспортируются через `shared/ui/index.ts`, а не импортируются из `@heroui/react` напрямую по экранам.
+- **Токены:** `app/styles/tokens.css` — палитра и алиасы (`--primary`, `--card`, `--muted-foreground`, `--dnd-gold`, `--dnd-ember`, …), типографика, отступы (`--space-*`), радиусы, тени, длительности.
+- **Reset:** `app/styles/base.css` (Tailwind и его preflight удалены). Нативная вложенность CSS (`&:hover`) допустима.
+- **Тема жёстко тёмная:** `<html class="dark">` в `index.html`, переключателя светлой темы нет. Палитра — D&D (золотой акцент).
+- **UI-кит — свой** (`shared/ui`), поведение и доступность — `react-aria-components`; состояния стилизуются через data-атрибуты RAC (`[data-hovered]`, `[data-pressed]`, `[data-focus-visible]`, `[data-invalid]`). Экраны импортируют только из `@/shared/ui`.
 - `components.json` (shadcn) — мёртвый файл, shadcn удалён (коммит `DNDAPP-6`/`DNDAPP-7`).
 
 ---
@@ -292,9 +294,9 @@ main.tsx
 | Тема / цвета                          | `src/app/styles/index.css` (`:root.dark`)                                                           |
 | Отступы / шрифты / радиусы            | `src/app/styles/tokens.css`                                                                         |
 | Общий UI-компонент                    | `src/shared/ui/` + добавить в `src/shared/ui/index.ts`                                              |
-| Поле формы (rhf + HeroUI)             | `src/shared/ui/controlled/` (`ControlledTextField`)                                                 |
-| Кнопка «назад» / заголовок экрана     | `src/shared/ui/page-title.tsx`                                                                      |
-| Поведение скролла приложения          | `src/shared/ui/scroll-area.tsx`                                                                     |
+| Поле формы (rhf + TextField)          | `src/shared/ui/controlled/` (`ControlledTextField`)                                                 |
+| Кнопка «назад» / заголовок экрана     | `src/shared/ui/page-title/`                                                                         |
+| Поведение скролла приложения          | `src/shared/ui/scroll-area/`                                                                        |
 | Логика входа/регистрации              | `src/features/master-auth/` (`model/auth.ts` — правила валидации, `ui/*` — формы)                   |
 | Список кампаний мастера, persist      | `src/pages/master-home/model/master-campaign-store.ts`                                              |
 | Каталог официальных кампаний (данные) | `src/pages/company/model/official-campaigns-data.ts`                                                |
@@ -322,9 +324,9 @@ pages/player         → shared/ui
 features/master-auth      → shared/ui (ControlledTextField), react-hook-form, zod, react-router-dom
 features/language-switcher → shared/lib (cn), shared/config (i18n)
 
-shared/ui      → @heroui/react, react-hook-form (controlled/), shared/lib (cn), react-i18next, react-router-dom
+shared/ui      → react-aria-components, react-hook-form (controlled/), shared/lib (cn), react-i18next, react-router-dom
 shared/config  → i18next, react-i18next
-shared/lib     → clsx, tailwind-merge
+shared/lib     → clsx
 ```
 
 Кросс-импортов между слайсами одного слоя нет. `pages/master-auth` не импортируется никем.

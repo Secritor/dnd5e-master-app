@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
+import styles from './page-title.module.css';
+
 interface PageTitleProps {
   children: string;
   /** Куда вести, если истории для «назад» нет (открыт deep-link). Дефолт: '/'. */
@@ -22,11 +24,11 @@ export function PageTitle({ children, backTo = '/' }: PageTitleProps) {
   };
 
   return (
-    <div className="flex items-center gap-3 pb-6.25">
+    <div className={styles.root}>
       <button
         type="button"
         onClick={handleBack}
-        className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-card text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+        className={styles.back}
         aria-label={t('common.back')}
       >
         <svg
@@ -44,7 +46,7 @@ export function PageTitle({ children, backTo = '/' }: PageTitleProps) {
         </svg>
       </button>
 
-      <h1 className="text-3xl font-bold tracking-wide text-dnd-gold drop-shadow">{children}</h1>
+      <h1 className={styles.title}>{children}</h1>
     </div>
   );
 }

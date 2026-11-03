@@ -1,0 +1,89 @@
+.root {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+}
+
+.content {
+  min-height: 0;
+  flex: 1;
+  overflow-y: scroll;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.scrollbar {
+  display: flex;
+  width: 0.625rem;
+  flex-direction: column;
+  transition: opacity var(--duration-fast);
+}
+
+.scrollbarHidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.arrow {
+  display: flex;
+  height: 1.25rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--secondary);
+  color: var(--muted-foreground);
+  transition: var(--transition-colors);
+
+  &:hover {
+    background-color: var(--accent);
+    color: var(--accent-foreground);
+  }
+}
+
+.arrowUp {
+  border-top-left-radius: var(--radius-sm);
+  border-top-right-radius: var(--radius-sm);
+}
+
+.arrowDown {
+  border-bottom-left-radius: var(--radius-sm);
+  border-bottom-right-radius: var(--radius-sm);
+}
+
+.track {
+  position: relative;
+  flex: 1;
+  background-color: var(--secondary);
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 0;
+  }
+}
+
+.decoration {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.thumb {
+  position: absolute;
+  inset-inline: 0;
+  border-radius: var(--radius-sm);
+  background-color: var(--muted-foreground);
+  cursor: grab;
+  transition: background-color var(--duration-fast);
+
+  &:hover {
+    background-color: var(--primary);
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+}

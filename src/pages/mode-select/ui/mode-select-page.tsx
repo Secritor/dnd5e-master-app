@@ -15,13 +15,13 @@ export function ModeSelectPage() {
   return (
     <main className={styles.page}>
       <div className={styles.actions}>
-        <Button variant="outline" size="lg" onClick={() => navigate('/player')}>
+        <Button variant="outline" size="lg" onPress={() => navigate('/player')}>
           {t('modeSelect.playerRole')}
         </Button>
-        <Button size="lg" onClick={() => setAuthOpen(true)}>
+        <Button size="lg" onPress={() => setAuthOpen(true)}>
           {t('modeSelect.masterRole')}
         </Button>
-        <Button variant="outline" size="lg" onClick={() => navigate('/company')}>
+        <Button variant="outline" size="lg" onPress={() => navigate('/company')}>
           {t('modeSelect.company')}
         </Button>
       </div>

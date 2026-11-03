@@ -11,7 +11,9 @@ import {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { cn } from '@/shared/lib/cn';
+import { cn } from '@/shared/lib';
+
+import styles from './scroll-area.module.css';
 
 interface ScrollAreaProps {
   children: ReactNode;
@@ -230,21 +232,17 @@ export function ScrollArea({
   const progressPercent = Math.round(scrollProgress * 100);
 
   return (
-    <div className={cn('relative flex overflow-hidden', className)}>
+    <div className={cn(styles.root, className)}>
       {/* Скроллируемый контент */}
-      <div
-        id={contentId}
-        ref={contentRef}
-        className="min-h-0 flex-1 overflow-y-scroll scrollbar-none [&::-webkit-scrollbar]:hidden"
-      >
+      <div id={contentId} ref={contentRef} className={styles.content}>
         {children}
       </div>
 
       {/* Скроллбар */}
       <div
         className={cn(
-          'flex w-2.5 flex-col transition-opacity',
-          isScrollable ? 'opacity-100' : 'pointer-events-none opacity-0',
+          styles.scrollbar,
+          !isScrollable && styles.scrollbarHidden,
           scrollbarClassName
         )}
       >
@@ -255,11 +253,7 @@ export function ScrollArea({
             onClick={() => scrollBy(-scrollStep)}
             aria-label={t('common.scrollUp')}
             tabIndex={-1}
-            className={cn(
-              'flex h-5 shrink-0 items-center justify-center rounded-t-sm',
-              'bg-secondary text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground',
-              arrowClassName
-            )}
+            className={cn(styles.arrow, styles.arrowUp, arrowClassName)}
           >
             {renderArrowUp ? renderArrowUp(scrollProgress) : <DefaultArrowUp />}
           </button>
@@ -278,27 +272,18 @@ export function ScrollArea({
           tabIndex={isScrollable ? 0 : -1}
           onClick={handleTrackClick}
           onKeyDown={handleTrackKeyDown}
-          className={cn(
-            'relative flex-1 cursor-pointer bg-secondary focus-visible:outline-2 focus-visible:outline-primary',
-            trackClassName
-          )}
+          className={cn(styles.track, trackClassName)}
         >
           {/* Декорация трека (за ползунком) */}
           {renderTrackDecoration && (
-            <div className="pointer-events-none absolute inset-0">
-              {renderTrackDecoration(scrollProgress)}
-            </div>
+            <div className={styles.decoration}>{renderTrackDecoration(scrollProgress)}</div>
           )}
 
           {/* Ползунок */}
           <div
             aria-hidden="true"
             onMouseDown={handleThumbMouseDown}
-            className={cn(
-              'absolute inset-x-0 cursor-grab rounded-sm transition-colors active:cursor-grabbing',
-              'bg-muted-foreground hover:bg-primary',
-              thumbClassName
-            )}
+            className={cn(styles.thumb, thumbClassName)}
             style={thumbStyle}
           >
             {renderThumb?.()}
@@ -312,11 +297,7 @@ export function ScrollArea({
             onClick={() => scrollBy(scrollStep)}
             aria-label={t('common.scrollDown')}
             tabIndex={-1}
-            className={cn(
-              'flex h-5 shrink-0 items-center justify-center rounded-b-sm',
-              'bg-secondary text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground',
-              arrowClassName
-            )}
+            className={cn(styles.arrow, styles.arrowDown, arrowClassName)}
           >
             {renderArrowDown ? renderArrowDown(scrollProgress) : <DefaultArrowDown />}
           </button>

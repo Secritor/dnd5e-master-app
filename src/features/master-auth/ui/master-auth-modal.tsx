@@ -35,38 +35,34 @@ export function MasterAuthModal({ open, onOpenChange }: MasterAuthModalProps) {
   const meta = TITLES[view];
 
   return (
-    <Modal.Backdrop isOpen={open} onOpenChange={handleOpenChange}>
-      <Modal.Container size="sm">
-        <Modal.Dialog>
-          <Modal.CloseTrigger />
-          <Modal.Header>
-            <Modal.Heading>{t(meta.title)}</Modal.Heading>
-            <p className={styles.description}>{t(meta.description)}</p>
-          </Modal.Header>
+    <Modal isOpen={open} onOpenChange={handleOpenChange} size="sm">
+      <Modal.CloseTrigger />
+      <Modal.Header>
+        <Modal.Heading>{t(meta.title)}</Modal.Heading>
+        <p className={styles.description}>{t(meta.description)}</p>
+      </Modal.Header>
 
-          <Modal.Body className={styles.body}>
-            {view === 'login' && (
-              <>
-                <LoginForm onSuccess={close} />
-                <Button variant="outline" onPress={() => setView('register')}>
-                  {t('masterAuth.register')}
-                </Button>
-              </>
-            )}
+      <Modal.Body className={styles.body}>
+        {view === 'login' && (
+          <>
+            <LoginForm onSuccess={close} />
+            <Button variant="outline" onPress={() => setView('register')}>
+              {t('masterAuth.register')}
+            </Button>
+          </>
+        )}
 
-            {view === 'register' && (
-              <>
-                <RegisterForm onSuccess={() => setView('success')} />
-                <Button variant="ghost" onPress={() => setView('login')}>
-                  {t('masterAuth.backToLogin')}
-                </Button>
-              </>
-            )}
+        {view === 'register' && (
+          <>
+            <RegisterForm onSuccess={() => setView('success')} />
+            <Button variant="ghost" onPress={() => setView('login')}>
+              {t('masterAuth.backToLogin')}
+            </Button>
+          </>
+        )}
 
-            {view === 'success' && <Button onPress={close}>{t('common.ok')}</Button>}
-          </Modal.Body>
-        </Modal.Dialog>
-      </Modal.Container>
-    </Modal.Backdrop>
+        {view === 'success' && <Button onPress={close}>{t('common.ok')}</Button>}
+      </Modal.Body>
+    </Modal>
   );
 }

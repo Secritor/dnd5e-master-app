@@ -40,8 +40,8 @@
 ## Стиль и гочи
 
 - Тема жёстко тёмная (`<html class="dark">`), переключателя светлой нет.
-- Новый UI — CSS Modules + токены из `src/app/styles/tokens.css`; Tailwind-утилиты только в `shared/ui` (легаси, не расширять).
-- UI-компоненты бери из `@/shared/ui` (реэкспорт HeroUI v3), а не из `@heroui/react` напрямую по экранам.
+- Стили — только CSS Modules + токены из `src/app/styles/tokens.css` (Tailwind и HeroUI удалены, не возвращать). Препроцессоры (Less/Sass) не используем.
+- UI-компоненты — свои, в `@/shared/ui` (папка `<name>/` с `.tsx` + `.module.css`), поведение/a11y на `react-aria-components`. Экраны импортируют только из `@/shared/ui`.
 - Любая строка интерфейса — сразу в оба локаля: `src/shared/config/locales/ru.ts` и `en.ts` (ключи типизированы, файлы держим синхронными).
 - `components.json` (shadcn) и папка `dist/` — мёртвый легаси, не опираться на них.
 - `docs/` — артефакт сборки, живёт только в ветке `develop`. В остальных ветках не создавать и не коммитить: сборку проверять через `npm run build:check`; если `docs/` всё же появился — `npm run clean`.

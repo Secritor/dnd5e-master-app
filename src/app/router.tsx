@@ -1,7 +1,9 @@
 import { lazy, Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
-import { createHashRouter } from 'react-router-dom';
+import { createHashRouter, Outlet, useLocation } from 'react-router-dom';
+
+import { LanguageSwitcher } from '@/features/language-switcher';
 
 import { RouteError } from './route-error';
 
@@ -32,6 +34,17 @@ function PageLoader() {
   );
 }
 
+function AppShell() {
+  const { pathname } = useLocation();
+
+  return (
+    <>
+      {pathname !== '/' && <LanguageSwitcher />}
+      <Outlet />
+    </>
+  );
+}
+
 function withSuspense(element: React.ReactNode) {
   return (
     <ErrorBoundary FallbackComponent={RouteError}>
@@ -41,13 +54,22 @@ function withSuspense(element: React.ReactNode) {
 }
 
 export const router = createHashRouter([
-  { path: '/', element: withSuspense(<ModeSelectPage />) },
-  { path: '/master', element: withSuspense(<MasterHomePage />) },
-  { path: '/master/spells', element: withSuspense(<SpellsArchivePage />) },
   {
-    path: '/master/npcs',
-    element: withSuspense(<ArchivePlaceholderPage titleKey="archive.npcTitle" />),
+    element: <AppShell />,
+    children: [
+      { path: '/', element: withSuspense(<ModeSelectPage />) },
+      { path: '/master', element: withSuspense(<MasterHomePage />) },
+      { path: '/master/spells', element: withSuspense(<SpellsArchivePage />) },
+      {
+        path: '/master/npcs',
+        element: withSuspense(<ArchivePlaceholderPage titleKey="archive.npcTitle" />),
+      },
+      {
+        path: '/master/items',
+        element: withSuspense(<ArchivePlaceholderPage titleKey="archive.itemsTitle" />),
+      },
+      { path: '/player', element: withSuspense(<PlayerPage />) },
+      { path: '/company', element: withSuspense(<CompanyPage />) },
+    ],
   },
-  { path: '/player', element: withSuspense(<PlayerPage />) },
-  { path: '/company', element: withSuspense(<CompanyPage />) },
 ]);

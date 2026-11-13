@@ -77,7 +77,7 @@ dnd-game-tool/
     │
     ├── app/                       ─────────── слой APP ───────────
     │   ├── main.tsx               createRoot + <StrictMode><App/></StrictMode>; import './styles/index.css'
-    │   ├── App.tsx                <AppProviders> → <ScrollArea> [ <LanguageSwitcher/> + <RouterProvider/> ] + <SpeedInsights/>
+    │   ├── App.tsx                <AppProviders> → <ScrollArea> [ <RouterProvider/> ] + <SpeedInsights/>
     │   ├── App.module.css         .root { height: 100% }
     │   ├── router.tsx             createHashRouter; все страницы через lazy() + withSuspense (ErrorBoundary + Suspense + PageLoader)
     │   ├── router.module.css      стили .loader / .loaderText
@@ -93,10 +93,10 @@ dnd-game-tool/
     │       └── base.css           reset (замена Tailwind preflight) + стили html/body/#root, :focus-visible
     │
     ├── pages/                     ─────────── слой PAGES ───────────
-    │   ├── mode-select/           «/» — выбор роли (Игрок / Мастер / Компании)
+    │   ├── mode-select/           «/» — главная: описание, вход/регистрация, после сессии ссылки на разделы
     │   │   ├── index.ts
     │   │   └── ui/mode-select-page.{tsx,module.css}
-    │   │           3 кнопки: navigate('/player'), открыть <MasterAuthModal>, navigate('/company')
+    │   │           шапка (язык + вход или разделы), заголовок и абзац; <MasterAuthModal>
     │   │
     │   ├── master-home/           «/master» — пространство мастера
     │   │   ├── index.ts
@@ -124,7 +124,7 @@ dnd-game-tool/
     │   │       ├── campaign-card.{tsx,module.css}         презентационная карточка (img + Chip + ScrollArea)
     │   │       └── campaign-card-skeleton.{tsx,module.css}
     │   │
-    │   ├── archive/               «/master/spells» и «/master/npcs»
+    │   ├── archive/               «/master/spells», «/master/npcs», «/master/items»
     │   │   ├── index.ts
     │   │   ├── api/fetch-spells.ts               mock MOCK_SPELLS + zod + задержка 200мс
     │   │   ├── model/spell.ts                    zod-схема Spell (level 0–9)
@@ -132,7 +132,7 @@ dnd-game-tool/
     │   │   └── ui/
     │   │       ├── spells-archive-page.{tsx,module.css}   PageTitle + SpellsTable
     │   │       ├── spells-table.{tsx,module.css}          TanStack Table + inline useQuery(fetchSpells)
-    │   │       └── archive-placeholder-page.{tsx,module.css}  «в разработке», принимает titleKey (для NPC)
+    │   │       └── archive-placeholder-page.{tsx,module.css}  «в разработке», принимает titleKey (NPC, предметы)
     │   │
     │   ├── player/                «/player» — заглушка «в разработке»
     │   │   ├── index.ts
@@ -144,17 +144,18 @@ dnd-game-tool/
     │
     ├── features/                  ─────────── слой FEATURES ───────────
     │   ├── master-auth/           вход/регистрация мастера (мок, без реального бэкенда)
-    │   │   ├── index.ts           экспорт: LoginForm, RegisterForm, MasterAuthModal
+    │   │   ├── index.ts           экспорт: LoginForm, RegisterForm, MasterAuthModal, useSessionStore
     │   │   ├── model/auth.ts      zod-схемы loginSchema / registerSchema + выводимые типы
+    │   │   ├── model/session.ts   Zustand + persist('dnd-session'): isAuthenticated, signIn, signOut
     │   │   └── ui/
-    │   │       ├── master-auth-modal.{tsx,module.css}   Modal (shared/ui) с 3 состояниями: login | register | success
-    │   │       ├── login-form.tsx                        rhf + zodResolver → onSuccess + navigate('/master')
-    │   │       ├── register-form.tsx                     rhf + zodResolver → onSuccess (переход на success)
+    │   │       ├── master-auth-modal.{tsx,module.css}   Modal (shared/ui): login | register, initialView
+    │   │       ├── login-form.tsx                        rhf + zodResolver → signIn + onSuccess (остаётся на /)
+    │   │       ├── register-form.tsx                     rhf + zodResolver → signIn + onSuccess
     │   │       └── auth-form.module.css                  общие стили обеих форм
     │   │
     │   └── language-switcher/     переключатель Ру/En
     │       ├── index.ts
-    │       └── ui/language-switcher.{tsx,module.css}     fixed top-right; i18n.changeLanguage
+    │       └── ui/language-switcher.{tsx,module.css}     placement fixed | inline; i18n.changeLanguage
     │
     └── shared/                    ─────────── слой SHARED ───────────
         ├── ui/
@@ -191,14 +192,15 @@ dnd-game-tool/
 
 | Путь             | Компонент                                                | Экран                        |
 | ---------------- | -------------------------------------------------------- | ---------------------------- |
-| `/`              | `ModeSelectPage`                                         | выбор роли                   |
+| `/`              | `ModeSelectPage`                                         | главная: описание и вход     |
 | `/master`        | `MasterHomePage`                                         | пространство мастера         |
 | `/master/spells` | `SpellsArchivePage`                                      | архив заклинаний (таблица)   |
-| `/master/npcs`   | `ArchivePlaceholderPage` (`titleKey="archive.npcTitle"`) | заглушка                     |
+| `/master/npcs`   | `ArchivePlaceholderPage` (`titleKey="archive.npcTitle"`) | заглушка персонажей          |
+| `/master/items`  | `ArchivePlaceholderPage` (`titleKey="archive.itemsTitle"`) | заглушка предметов         |
 | `/player`        | `PlayerPage`                                             | заглушка                     |
 | `/company`       | `CompanyPage`                                            | каталог официальных кампаний |
 
-Навигация между экранами — `useNavigate()` из кнопок (`ModeSelectPage`, `MasterHomePage`, `LoginForm`). Отдельного роута для логина нет.
+Корень роутера — `AppShell`: фиксированный `LanguageSwitcher`, кроме `/` (там он в шапке). Навигация между экранами — `useNavigate()` из кнопок. Отдельного роута для логина нет. Вход и регистрация ставят мок-сессию и оставляют пользователя на `/`.
 
 ---
 
@@ -212,12 +214,11 @@ main.tsx
          └─ <I18nextProvider i18n>       shared/config
             └─ <QueryProvider>           app/providers/query-provider.tsx (QueryClient)
                ├─ <ScrollArea>           shared/ui — кастомный скролл всего приложения
-               │  ├─ <LanguageSwitcher/> features/language-switcher (fixed)
-               │  └─ <RouterProvider router={router}/>   → страницы
+               │  └─ <RouterProvider router={router}/>   → AppShell → страницы
                └─ <SpeedInsights/>       @vercel/speed-insights
 ```
 
-**Вход мастера:** `ModeSelectPage` держит локальный `authOpen` и рендерит `<MasterAuthModal>` из `features/master-auth`. Модалка переключает внутренние состояния `login → register → success`; `LoginForm` при успехе делает `navigate('/master')`. Страница `pages/master-auth` — это ранняя нероутовая версия того же, оставлена как легаси.
+**Вход мастера:** `ModeSelectPage` держит `authOpen` и `initialView` (`login` | `register`) и рендерит `<MasterAuthModal>`. Успешные вход и регистрация вызывают `signIn()` и закрывают модалку, не уходя с `/`. Сессия — `useSessionStore` (`dnd-session`). Пока она есть, шапка показывает разделы и «Выйти». Страница `pages/master-auth` — ранняя нероутовая версия, легаси.
 
 ---
 
@@ -227,10 +228,11 @@ main.tsx
 | ------------------------------- | ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Server state                    | TanStack Query                                                                | `useOfficialCampaigns()` (`pages/company/model`), inline `useQuery` в `spells-table.tsx`. QueryKey-фабрики: `campaignKeys`, `spellKeys`. Клиент: `staleTime 60s`, `retry 1` |
 | Client state (кампании мастера) | `useMasterCampaignStore` — `pages/master-home/model/master-campaign-store.ts` | Zustand + `persist`, ключ localStorage **`dnd-campaign-store`**, `partialize` → только `campaigns` (не `selectedCampaignId`)                                                |
+| Client state (сессия)           | `useSessionStore` — `features/master-auth/model/session.ts`                   | Zustand + `persist`, ключ localStorage **`dnd-session`**: `isAuthenticated`, `signIn`, `signOut`                                                                          |
 | Client state (фильтры каталога) | `useCampaignFiltersStore` — `pages/company/model/campaign-filters-store.ts`   | Zustand без persist; `setMinLevel/setMaxLevel` делают clamp 1–20 и держат min ≤ max                                                                                         |
 | Form state                      | react-hook-form + `zodResolver`                                               | `features/master-auth` (login/register). В `create-campaign-form.tsx` — простой `useState`                                                                                  |
 | i18n                            | инстанс i18next                                                               | `shared/config/i18n.ts`, смена языка — `i18n.changeLanguage()`                                                                                                              |
-| UI-состояние экранов            | локальный `useState`                                                          | `authOpen` в `ModeSelectPage`, `view` в `MasterAuthModal`, `registered` в `MasterAuthPage`                                                                                  |
+| UI-состояние экранов            | локальный `useState`                                                          | `authOpen` и `authView` в `ModeSelectPage`, `view` в `MasterAuthModal`, `registered` в `MasterAuthPage`                                                                      |
 
 ---
 
@@ -297,7 +299,7 @@ main.tsx
 | Поле формы (rhf + TextField)          | `src/shared/ui/controlled/` (`ControlledTextField`)                                                 |
 | Кнопка «назад» / заголовок экрана     | `src/shared/ui/page-title/`                                                                         |
 | Поведение скролла приложения          | `src/shared/ui/scroll-area/`                                                                        |
-| Логика входа/регистрации              | `src/features/master-auth/` (`model/auth.ts` — правила валидации, `ui/*` — формы)                   |
+| Логика входа/регистрации              | `src/features/master-auth/` (`model/auth.ts` — валидация, `model/session.ts` — мок-сессия, `ui/*` — формы) |
 | Список кампаний мастера, persist      | `src/pages/master-home/model/master-campaign-store.ts`                                              |
 | Каталог официальных кампаний (данные) | `src/pages/company/model/official-campaigns-data.ts`                                                |
 | Логика фильтрации каталога            | `src/pages/company/lib/filter-campaigns.ts` + `model/campaign-filters-store.ts`                     |
@@ -311,17 +313,17 @@ main.tsx
 
 ```
 app/App.tsx
-  → app/providers, app/router, features/language-switcher, shared/ui
+  → app/providers, app/router, shared/ui
 
-app/router.tsx  → pages/{mode-select, master-home, company, player, archive}
+app/router.tsx  → pages/{mode-select, master-home, company, player, archive}, features/language-switcher
 
-pages/mode-select    → features/master-auth (MasterAuthModal), shared/ui
+pages/mode-select    → features/master-auth, features/language-switcher, shared/ui
 pages/master-home    → shared/ui  (+ внутренний model/master-campaign-store)
 pages/company        → shared/ui, shared/lib (cn)  (+ внутренние model/api/lib)
 pages/archive        → shared/ui  (+ внутренние model/api)
 pages/player         → shared/ui
 
-features/master-auth      → shared/ui (ControlledTextField), react-hook-form, zod, react-router-dom
+features/master-auth      → shared/ui (ControlledTextField), react-hook-form, zod, zustand
 features/language-switcher → shared/lib (cn), shared/config (i18n)
 
 shared/ui      → react-aria-components, react-hook-form (controlled/), shared/lib (cn), react-i18next, react-router-dom

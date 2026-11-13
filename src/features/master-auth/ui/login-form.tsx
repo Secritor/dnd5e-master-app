@@ -1,11 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Button, ControlledTextField } from '@/shared/ui';
 
 import { type LoginFormValues, loginSchema } from '../model/auth';
+import { useSessionStore } from '../model/session';
 
 import styles from './auth-form.module.css';
 
@@ -15,7 +15,7 @@ interface LoginFormProps {
 
 export function LoginForm({ onSuccess }: LoginFormProps) {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const signIn = useSessionStore((state) => state.signIn);
   const {
     control,
     handleSubmit,
@@ -25,13 +25,19 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
     defaultValues: { email: '', password: '' },
   });
 
-  const onSubmit = handleSubmit(() => {
+  const submit = handleSubmit(() => {
+    signIn();
     onSuccess?.();
-    navigate('/master');
   });
 
   return (
-    <form onSubmit={onSubmit} className={styles.form}>
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        void submit(event);
+      }}
+      className={styles.form}
+    >
       <ControlledTextField
         control={control}
         name="email"
@@ -50,7 +56,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
         placeholder={t('masterAuth.passwordPlaceholder')}
       />
 
-      <Button type="submit" isDisabled={isSubmitting} fullWidth>
+      <Button type="button" onPress={() => void submit()} isDisabled={isSubmitting} fullWidth>
         {t('masterAuth.submit')}
       </Button>
     </form>

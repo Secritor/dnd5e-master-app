@@ -19,6 +19,20 @@ export const ru = {
     spells: 'Заклинания и умения',
     npcs: 'NPC',
   },
+  home: {
+    brand: 'D&D инструмент',
+    nav: 'Навигация',
+    title: 'Инструмент мастера',
+    description:
+      'Приватное место для кампаний, персонажей, предметов и заклинаний. Ведите свои записи, не выкладывая их в общий доступ.',
+    signIn: 'Войти',
+    register: 'Регистрация',
+    signOut: 'Выйти',
+    campaigns: 'Кампании',
+    spells: 'Заклинания',
+    characters: 'Персонажи',
+    items: 'Предметы',
+  },
   modeSelect: {
     playerRole: 'Игрок',
     masterRole: 'Мастер',
@@ -59,6 +73,7 @@ export const ru = {
   archive: {
     spellsTitle: 'Архив заклинаний',
     npcTitle: 'Архив NPC',
+    itemsTitle: 'Предметы',
     errorSpells: 'Не удалось загрузить заклинания',
     colName: 'Название',
     colLevel: 'Уровень',

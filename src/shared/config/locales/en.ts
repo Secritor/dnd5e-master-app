@@ -19,6 +19,20 @@ export const en = {
     spells: 'Spells & Skills',
     npcs: 'NPCs',
   },
+  home: {
+    brand: 'D&D tool',
+    nav: 'Navigation',
+    title: 'A tool for the game master',
+    description:
+      'A private place for campaigns, characters, items, and spells. Keep your notes without publishing them.',
+    signIn: 'Log in',
+    register: 'Register',
+    signOut: 'Log out',
+    campaigns: 'Campaigns',
+    spells: 'Spells',
+    characters: 'Characters',
+    items: 'Items',
+  },
   modeSelect: {
     playerRole: 'Player',
     masterRole: 'Master',
@@ -59,6 +73,7 @@ export const en = {
   archive: {
     spellsTitle: 'Spells Archive',
     npcTitle: 'NPC Archive',
+    itemsTitle: 'Items',
     errorSpells: 'Failed to load spells',
     colName: 'Name',
     colLevel: 'Level',

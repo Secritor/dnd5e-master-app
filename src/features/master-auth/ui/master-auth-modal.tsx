@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Modal } from '@/shared/ui';
@@ -8,27 +8,33 @@ import { RegisterForm } from './register-form';
 
 import styles from './master-auth-modal.module.css';
 
-type AuthView = 'login' | 'register' | 'success';
+type AuthView = 'login' | 'register';
 
 interface MasterAuthModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  initialView?: AuthView;
 }
 
 const TITLES: Record<AuthView, { title: string; description: string }> = {
   login: { title: 'masterAuth.title', description: 'masterAuth.loginDescription' },
   register: { title: 'masterAuth.registerTitle', description: 'masterAuth.registerDescription' },
-  success: { title: 'masterAuth.successTitle', description: 'masterAuth.successDescription' },
 };
 
-export function MasterAuthModal({ open, onOpenChange }: MasterAuthModalProps) {
+export function MasterAuthModal({
+  open,
+  onOpenChange,
+  initialView = 'login',
+}: MasterAuthModalProps) {
   const { t } = useTranslation();
-  const [view, setView] = useState<AuthView>('login');
+  const [view, setView] = useState<AuthView>(initialView);
+
+  useEffect(() => {
+    if (open) setView(initialView);
+  }, [open, initialView]);
 
   const handleOpenChange = (next: boolean) => {
     onOpenChange(next);
-
-    if (!next) setView('login');
   };
 
   const close = () => handleOpenChange(false);
@@ -54,14 +60,12 @@ export function MasterAuthModal({ open, onOpenChange }: MasterAuthModalProps) {
 
         {view === 'register' && (
           <>
-            <RegisterForm onSuccess={() => setView('success')} />
+            <RegisterForm onSuccess={close} />
             <Button variant="ghost" onPress={() => setView('login')}>
               {t('masterAuth.backToLogin')}
             </Button>
           </>
         )}
-
-        {view === 'success' && <Button onPress={close}>{t('common.ok')}</Button>}
       </Modal.Body>
     </Modal>
   );

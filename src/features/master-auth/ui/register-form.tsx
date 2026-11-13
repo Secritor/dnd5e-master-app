@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, ControlledTextField } from '@/shared/ui';
 
 import { type RegisterFormValues, registerSchema } from '../model/auth';
+import { useSessionStore } from '../model/session';
 
 import styles from './auth-form.module.css';
 
@@ -14,6 +15,7 @@ interface RegisterFormProps {
 
 export function RegisterForm({ onSuccess }: RegisterFormProps) {
   const { t } = useTranslation();
+  const signIn = useSessionStore((state) => state.signIn);
   const {
     control,
     handleSubmit,
@@ -24,13 +26,20 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
     defaultValues: { email: '', password: '', confirmPassword: '' },
   });
 
-  const onSubmit = handleSubmit(() => {
+  const submit = handleSubmit(() => {
     reset();
+    signIn();
     onSuccess?.();
   });
 
   return (
-    <form onSubmit={onSubmit} className={styles.form}>
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        void submit(event);
+      }}
+      className={styles.form}
+    >
       <ControlledTextField
         control={control}
         name="email"
@@ -58,7 +67,7 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
         placeholder={t('masterAuth.passwordPlaceholder')}
       />
 
-      <Button type="submit" isDisabled={isSubmitting}>
+      <Button type="button" onPress={() => void submit()} isDisabled={isSubmitting}>
         {t('masterAuth.registerSubmit')}
       </Button>
     </form>

@@ -10,12 +10,16 @@ const LANGUAGES = [
   { code: 'en', label: 'En' },
 ] as const;
 
-export function LanguageSwitcher() {
+interface LanguageSwitcherProps {
+  placement?: 'fixed' | 'inline';
+}
+
+export function LanguageSwitcher({ placement = 'fixed' }: LanguageSwitcherProps) {
   const { i18n: i18nInstance } = useTranslation();
   const current = i18nInstance.language;
 
   return (
-    <div className={styles.switcher}>
+    <div className={cn(styles.switcher, placement === 'inline' && styles.switcherInline)}>
       {LANGUAGES.map(({ code, label }) => (
         <button
           key={code}

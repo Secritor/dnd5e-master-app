@@ -26,6 +26,7 @@ export function AuthCodeStep({
   const { t } = useTranslation();
   const cellsRef = useRef<Array<HTMLInputElement | null>>([]);
   const shownEmail = email.length > 0 ? email : t('auth.emailFallback');
+  const codeHints = t('auth.codePlaceholder');
 
   const focusCell = (index: number) => {
     cellsRef.current[index]?.focus();
@@ -59,6 +60,7 @@ export function AuthCodeStep({
             maxLength={1}
             autoComplete="off"
             aria-label={t('auth.digit', { n: index + 1 })}
+            placeholder={codeHints[index]}
             value={digit}
             onChange={(event) => {
               const next = digitsAfterEntry(digits, index, event.target.value);

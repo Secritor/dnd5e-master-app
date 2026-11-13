@@ -105,6 +105,7 @@ export const ru = {
     emailFallback: 'name@mail.ru',
     changeEmail: 'Изменить',
     codeLegend: 'Код из письма',
+    codePlaceholder: '47',
     digit: 'Цифра {{n}}',
     submit: 'Войти',
     resend: 'Отправить код повторно через 0:59',

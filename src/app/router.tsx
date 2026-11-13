@@ -18,6 +18,9 @@ const MasterHomePage = lazy(() =>
 );
 const CompanyPage = lazy(() => import('@/pages/company').then((m) => ({ default: m.CompanyPage })));
 const PlayerPage = lazy(() => import('@/pages/player').then((m) => ({ default: m.PlayerPage })));
+const CharacterPage = lazy(() =>
+  import('@/pages/character').then((m) => ({ default: m.CharacterPage }))
+);
 const SpellsArchivePage = lazy(() =>
   import('@/pages/archive').then((m) => ({ default: m.SpellsArchivePage }))
 );
@@ -38,10 +41,11 @@ function PageLoader() {
 function AppShell() {
   const { pathname } = useLocation();
   const isPublic = pathname === '/' || pathname === '/company';
+  const showFixedLanguage = !isPublic && pathname !== '/character';
 
   return (
     <>
-      {!isPublic && <LanguageSwitcher />}
+      {showFixedLanguage && <LanguageSwitcher />}
       <Outlet />
     </>
   );
@@ -77,6 +81,7 @@ export const router = createHashRouter([
         element: withSuspense(<ArchivePlaceholderPage titleKey="archive.itemsTitle" />),
       },
       { path: '/player', element: withSuspense(<PlayerPage />) },
+      { path: '/character', element: withSuspense(<CharacterPage />) },
     ],
   },
 ]);

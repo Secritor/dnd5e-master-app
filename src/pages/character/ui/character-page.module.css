@@ -1,0 +1,858 @@
+.page {
+  min-height: 100%;
+  overflow-x: clip;
+  background: var(--scroll-bg);
+  color: var(--scroll-text);
+  font-family: var(--scroll-font-ui);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--scroll-accent);
+  outline-offset: 2px;
+}
+
+.page a:hover {
+  color: var(--scroll-accent-hover);
+}
+
+.page input::placeholder,
+.page textarea::placeholder {
+  color: var(--scroll-muted);
+  opacity: 1;
+}
+
+.page input,
+.page textarea,
+.page select {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--scroll-bg);
+  border-bottom: 1px solid var(--scroll-border);
+}
+
+.headerRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-sizing: border-box;
+  max-width: var(--scroll-content);
+  min-height: 72px;
+  margin: 0 auto;
+  padding: 12px var(--scroll-pad);
+}
+
+.headerStart {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.headerEnd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0;
+  background: transparent;
+  color: var(--scroll-muted);
+  font-family: var(--scroll-font-ui);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.sheetTitle {
+  color: var(--scroll-text);
+  font-family: var(--scroll-font-display);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 36px;
+}
+
+.quiet,
+.create {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  border-radius: 8px;
+  font-family: var(--scroll-font-ui);
+  font-size: 15px;
+}
+
+.quiet {
+  padding: 0 20px;
+  border: 1px solid var(--scroll-border);
+  background: transparent;
+  color: var(--scroll-text);
+  font-weight: 500;
+}
+
+.create {
+  padding: 0 24px;
+  border: none;
+  background: var(--scroll-accent);
+  color: var(--scroll-bg);
+  font-weight: 600;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  box-sizing: border-box;
+  max-width: var(--scroll-content);
+  margin: 0 auto;
+  padding: 32px var(--scroll-pad) 96px;
+}
+
+.basics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 24px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 12px;
+  background: var(--scroll-card);
+}
+
+.nameField {
+  display: flex;
+  flex: 1 1 320px;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.nameCaption {
+  color: var(--scroll-muted);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+
+.nameInput {
+  width: 100%;
+  height: 64px;
+  padding: 0 16px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 8px;
+  background: var(--scroll-field);
+  color: var(--scroll-text);
+  font: 600 28px var(--scroll-font-display);
+}
+
+.basicsGrid {
+  display: grid;
+  flex: 2 1 520px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px 16px;
+  min-width: 0;
+}
+
+.shortField,
+.lookField,
+.spellField,
+.hpField,
+.coin {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.shortField,
+.hpField,
+.spellField,
+.coin {
+  gap: 6px;
+}
+
+.lookField {
+  gap: 6px;
+}
+
+.shortCaption,
+.spellCaption {
+  color: var(--scroll-muted);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.lookCaption {
+  color: var(--scroll-muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.shortInput,
+.lookInput,
+.select,
+.spellMod,
+.spellDc {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--scroll-border);
+  border-radius: 8px;
+  background: var(--scroll-field);
+  color: var(--scroll-text);
+}
+
+.shortInput {
+  height: 40px;
+  padding: 0 12px;
+  font: 400 15px var(--scroll-font-ui);
+}
+
+.lookInput {
+  height: 40px;
+  padding: 0 10px;
+  font: 400 14px var(--scroll-font-ui);
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  border-bottom: 1px solid var(--scroll-border);
+}
+
+.tab {
+  height: 48px;
+  margin-bottom: -1px;
+  padding: 0 20px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--scroll-muted);
+  font: 500 15px var(--scroll-font-ui);
+}
+
+.tab[aria-selected='true'] {
+  border-bottom-color: var(--scroll-accent);
+  color: var(--scroll-text);
+  font-weight: 600;
+}
+
+.sheetGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.columnTight {
+  gap: 16px;
+}
+
+.columnLoose {
+  gap: 20px;
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.flag,
+.bonus {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 10px;
+  background: var(--scroll-card);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.flag {
+  gap: 10px;
+  padding: 0 14px;
+}
+
+.bonus {
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 8px 0 14px;
+}
+
+.bonus > span {
+  min-width: 0;
+}
+
+.bonusInput {
+  width: 48px;
+  height: 32px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 6px;
+  background: var(--scroll-field);
+  color: var(--scroll-text);
+  font: 600 14px var(--scroll-font-ui);
+  text-align: center;
+}
+
+.ability {
+  overflow: hidden;
+  border: 1px solid var(--scroll-border);
+  border-radius: 12px;
+  background: var(--scroll-card);
+}
+
+.abilityHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--scroll-border);
+  background: var(--scroll-ability-head);
+}
+
+.abilityNames {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.abilityName {
+  color: var(--scroll-text);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+.abilityCode {
+  color: var(--scroll-muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 16px;
+}
+
+.score,
+.modifier,
+.skillInput {
+  border: 1px solid var(--scroll-border);
+  background: var(--scroll-field);
+  color: var(--scroll-text);
+  text-align: center;
+}
+
+.score {
+  width: 56px;
+  height: 44px;
+  border-radius: 8px;
+  font: 600 22px var(--scroll-font-ui);
+}
+
+.modifier {
+  width: 52px;
+  height: 32px;
+  border: 1px solid var(--scroll-accent);
+  border-radius: 999px;
+  background: var(--scroll-bg);
+  color: var(--scroll-accent);
+  font: 600 14px var(--scroll-font-ui);
+}
+
+.abilityBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 14px 10px;
+}
+
+.skillRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 34px;
+}
+
+.skillInput {
+  width: 44px;
+  height: 28px;
+  border-radius: 6px;
+  font: 500 13px var(--scroll-font-ui);
+}
+
+.saveLabel {
+  color: var(--scroll-text);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.skillLabel {
+  color: var(--scroll-text);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 12px;
+  background: var(--scroll-card);
+}
+
+.notes {
+  padding: 20px;
+}
+
+.blockLabel,
+.legend {
+  padding: 0;
+  color: var(--scroll-muted);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.legend {
+  padding: 0 6px;
+}
+
+.area {
+  width: 100%;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 8px;
+  background: var(--scroll-field);
+  color: var(--scroll-text);
+  font: 400 14px/20px var(--scroll-font-ui);
+  resize: vertical;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 14px 8px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 12px;
+  background: var(--scroll-card);
+}
+
+.statLabel {
+  display: flex;
+  min-height: 32px;
+  align-items: center;
+  justify-content: center;
+  color: var(--scroll-muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.statInput,
+.centerLarge,
+.hpInput,
+.spellMod,
+.spellDc {
+  text-align: center;
+}
+
+.statInput {
+  width: 64px;
+  height: 48px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 8px;
+  background: var(--scroll-field);
+  color: var(--scroll-text);
+  font: 600 24px var(--scroll-font-ui);
+}
+
+.statSpeed {
+  font-size: 18px;
+}
+
+.panel {
+  min-width: 0;
+  margin: 0;
+  border: 1px solid var(--scroll-border);
+  border-radius: 12px;
+  background: var(--scroll-card);
+}
+
+.hp {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding: 16px;
+}
+
+.hpField {
+  color: var(--scroll-muted);
+  font-size: 12px;
+}
+
+.hpInput,
+.centerLarge {
+  height: 44px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 8px;
+  background: var(--scroll-field);
+  color: var(--scroll-text);
+  font: 600 18px var(--scroll-font-ui);
+}
+
+.hpInput,
+.centerLarge {
+  width: 100%;
+}
+
+.hpCurrent {
+  border-color: var(--scroll-accent);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.death {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  font-size: 13px;
+}
+
+.deathRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.deathChecks {
+  display: flex;
+  gap: 8px;
+}
+
+.attacks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+}
+
+.attackGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1.6fr);
+  gap: 8px;
+}
+
+.attackHead {
+  color: var(--scroll-muted);
+  font-size: 12px;
+}
+
+.lineInput,
+.coinInput {
+  width: 100%;
+  min-width: 0;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 6px;
+  background: var(--scroll-field);
+  color: var(--scroll-text);
+  font: 400 14px var(--scroll-font-ui);
+}
+
+.coinInput {
+  padding: 0;
+  font-weight: 500;
+  text-align: center;
+}
+
+.centerInput {
+  text-align: center;
+}
+
+.addRow {
+  align-self: flex-start;
+  min-height: 44px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--scroll-accent);
+  font: 500 14px var(--scroll-font-ui);
+}
+
+.gear {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+}
+
+.coins {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.coinLabel {
+  color: var(--scroll-muted);
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.bioGrid {
+  container: bio / inline-size;
+}
+
+.bioStory {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  grid-column: span 2;
+  min-width: 0;
+}
+
+@container bio (max-width: 703px) {
+  .bioStory {
+    grid-column: auto;
+  }
+}
+
+.portrait {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border: 1px dashed var(--scroll-border);
+  border-radius: 12px;
+  background: var(--scroll-card);
+  color: var(--scroll-muted);
+  font: 500 15px var(--scroll-font-ui);
+}
+
+.portraitIcon {
+  width: 32px;
+  height: 32px;
+  color: var(--scroll-accent);
+}
+
+.looks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.spells {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+.spellStats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+.select {
+  height: 48px;
+  padding: 0 12px;
+  font: 500 15px var(--scroll-font-ui);
+}
+
+.spellMod,
+.spellDc {
+  height: 48px;
+  font: 600 20px var(--scroll-font-ui);
+}
+
+.spellMod {
+  border-color: var(--scroll-accent);
+  background: var(--scroll-bg);
+  color: var(--scroll-accent);
+}
+
+.slots,
+.spellList {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.slots {
+  gap: 12px;
+}
+
+.spellList {
+  gap: 10px;
+}
+
+.slotsHelp {
+  margin: 0;
+  color: var(--scroll-muted);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.slotGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+  gap: 10px;
+}
+
+.slotCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 10px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 10px;
+  background: var(--scroll-field);
+}
+
+.slotLevel {
+  color: var(--scroll-accent);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.slotRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.slotButton {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--scroll-border);
+  border-radius: 6px;
+  background: var(--scroll-card);
+  color: var(--scroll-text);
+  font: 600 16px var(--scroll-font-ui);
+}
+
+.slotCount {
+  min-width: 28px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.spent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  min-height: 18px;
+}
+
+.tableScroll {
+  min-width: 0;
+  overflow-x: auto;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 760px;
+}
+
+.spellGrid {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 2.2fr) minmax(0, 1.2fr) minmax(0, 1fr) 40px 40px 40px;
+  gap: 8px;
+  align-items: center;
+}
+
+.spellHead {
+  align-items: end;
+  color: var(--scroll-muted);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.abbr {
+  justify-self: center;
+  text-align: center;
+  text-decoration: none;
+}
+
+.checkCell {
+  justify-self: center;
+}
+
+.spellLegend {
+  margin: 0;
+  color: var(--scroll-muted);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.check {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin: 0;
+  accent-color: var(--scroll-accent);
+}
+
+.checkSuccess {
+  accent-color: var(--scroll-easy-text);
+}
+
+.checkFailure {
+  accent-color: var(--scroll-hard-text);
+}

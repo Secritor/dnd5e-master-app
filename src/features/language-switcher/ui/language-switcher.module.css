@@ -16,7 +16,18 @@
 .switcherInline {
   position: static;
   z-index: auto;
+  border-color: var(--scroll-border);
+  background-color: transparent;
   box-shadow: none;
+}
+
+.switcherInline .button {
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.switcherInline .buttonInactive {
+  color: var(--scroll-muted);
 }
 
 .button {

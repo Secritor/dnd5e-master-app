@@ -1,8 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
+import type { OfficialCampaign } from '@/entities/campaign';
 import { Card, Chip, ScrollArea } from '@/shared/ui';
-
-import type { OfficialCampaign } from '../model/official-campaign';
 
 import styles from './campaign-card.module.css';
 

@@ -21,6 +21,8 @@ export interface ModalProps {
   /** Закрывать по клику на фон (Esc закрывает всегда). Дефолт: true. */
   isDismissable?: boolean;
   className?: string;
+  overlayClassName?: string;
+  panelClassName?: string;
   children: ReactNode;
 }
 
@@ -34,6 +36,8 @@ function ModalRoot({
   size = 'md',
   isDismissable = true,
   className,
+  overlayClassName,
+  panelClassName,
   children,
 }: ModalProps) {
   return (
@@ -41,9 +45,9 @@ function ModalRoot({
       isOpen={isOpen}
       onOpenChange={onOpenChange}
       isDismissable={isDismissable}
-      className={styles.overlay}
+      className={cn(styles.overlay, overlayClassName)}
     >
-      <AriaModal className={cn(styles.modal, styles[size])}>
+      <AriaModal className={cn(styles.modal, styles[size], panelClassName)}>
         <Dialog className={cn(styles.dialog, className)}>{children}</Dialog>
       </AriaModal>
     </ModalOverlay>

@@ -1,0 +1,124 @@
+.card {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--scroll-border);
+  border-radius: 12px;
+  background: var(--scroll-card);
+}
+
+a.card:any-link,
+a.card:hover {
+  color: var(--scroll-text);
+}
+
+.cover {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  background: var(--scroll-field);
+}
+
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.coverLabel {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  color: var(--scroll-muted);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 10px;
+  border: 1px solid var(--scroll-accent);
+  border-radius: 999px;
+  background: var(--scroll-bg);
+  color: var(--scroll-accent);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+}
+
+.body {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+}
+
+.title {
+  margin: 0;
+  color: var(--scroll-text);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.source {
+  margin: 0;
+  color: var(--scroll-muted);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.description {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: var(--scroll-muted);
+  font-size: 15px;
+  line-height: 22px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.chips {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 8px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--scroll-field);
+  color: var(--scroll-text);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.easy {
+  background: var(--scroll-easy-bg);
+  color: var(--scroll-easy-text);
+  font-weight: 500;
+}
+
+.normal {
+  background: var(--scroll-accent-soft);
+  color: var(--scroll-accent);
+  font-weight: 500;
+}
+
+.hard {
+  background: var(--scroll-hard-bg);
+  color: var(--scroll-hard-text);
+  font-weight: 500;
+}

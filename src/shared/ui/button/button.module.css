@@ -82,6 +82,57 @@
   --button-fg: var(--danger-foreground);
 }
 
+.accent {
+  --button-bg: var(--scroll-accent);
+  --button-bg-hover: var(--scroll-accent);
+  --button-fg: var(--scroll-bg);
+
+  height: 48px;
+  padding: 0 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: none;
+  transition: none;
+}
+
+.quiet {
+  --button-bg: transparent;
+  --button-bg-hover: transparent;
+  --button-fg: var(--scroll-text);
+
+  height: 48px;
+  padding: 0 28px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  box-shadow: none;
+  transition: none;
+}
+
+a.accent:any-link,
+.accent:hover,
+a.quiet:any-link,
+.quiet:hover {
+  color: var(--button-fg);
+}
+
+.accent[data-pressed],
+.quiet[data-pressed] {
+  transform: none;
+}
+
+.accent:focus-visible,
+.quiet:focus-visible,
+.accent[data-focus-visible],
+.quiet[data-focus-visible] {
+  outline: 2px solid var(--scroll-accent);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
 /* --- Размеры --- */
 .sm {
   height: 2rem;

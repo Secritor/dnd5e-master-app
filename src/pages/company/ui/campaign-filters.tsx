@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next';
 
+import { CAMPAIGN_MOOD_TAGS, type CampaignMoodTag } from '@/entities/campaign';
 import { cn } from '@/shared/lib';
 import { Input, Label, ScrollArea, TextField } from '@/shared/ui';
 
 import { useCampaignFiltersStore } from '../model/campaign-filters-store';
-import { CAMPAIGN_MOOD_TAGS, type CampaignMoodTag } from '../model/official-campaign';
 
 import styles from './campaign-filters.module.css';
 

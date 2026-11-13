@@ -1,12 +1,253 @@
-.description {
-  font-size: var(--text-sm);
-  color: var(--muted);
+.overlay {
+  padding: 24px;
+  background: var(--scroll-overlay);
+  animation: none;
 }
 
-.body {
+.overlay[data-entering],
+.overlay[data-exiting],
+.panel[data-entering],
+.panel[data-exiting] {
+  animation: none;
+}
+
+.panel {
+  max-width: 440px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 16px;
+  background: var(--scroll-field);
+  color: var(--scroll-text);
+  box-shadow: none;
+  animation: none;
+}
+
+.dialog {
+  gap: 24px;
+  padding: 40px 32px 32px;
+  font-family: var(--scroll-font-ui);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.dialog :focus-visible {
+  outline: 2px solid var(--scroll-accent);
+  outline-offset: 2px;
+}
+
+.close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--scroll-muted);
+}
+
+.step {
   display: flex;
   flex-direction: column;
+  gap: 24px;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title {
+  margin: 0;
+  color: var(--scroll-text);
+  font-family: var(--scroll-font-display);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 40px;
+}
+
+.lead {
+  margin: 0;
+  color: var(--scroll-muted);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.providers {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.provider {
+  display: flex;
+  height: 48px;
   align-items: center;
-  gap: var(--space-6);
-  padding-block: var(--space-2);
+  justify-content: center;
+  gap: 12px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 8px;
+  background: var(--scroll-card);
+  color: var(--scroll-text);
+  font-family: var(--scroll-font-ui);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.mark {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: var(--scroll-border);
+  color: var(--scroll-text);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.mark[data-size='vk'] {
+  font-size: 10px;
+}
+
+.mark[data-size='mail'] {
+  font-size: 13px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--scroll-muted);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.dividerLine {
+  height: 1px;
+  flex-grow: 1;
+  background: var(--scroll-border);
+}
+
+.emailBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.emailLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--scroll-text);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.emailInput {
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 8px;
+  background: var(--scroll-card);
+  color: var(--scroll-text);
+  font-family: var(--scroll-font-ui);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.legal {
+  margin: 0;
+  color: var(--scroll-muted);
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+}
+
+.legalLink {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--scroll-accent);
+  font: inherit;
+}
+
+.legalLink:hover {
+  color: var(--scroll-accent-hover);
+}
+
+.changeEmail {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--scroll-accent);
+  font-family: var(--scroll-font-ui);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.changeEmail:hover {
+  color: var(--scroll-accent-hover);
+}
+
+.codeFields {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.digit {
+  height: 56px;
+  min-width: 0;
+  border: 1px solid var(--scroll-border);
+  border-radius: 8px;
+  background: var(--scroll-card);
+  color: var(--scroll-text);
+  font-family: var(--scroll-font-ui);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 28px;
+  text-align: center;
+}
+
+.digit:focus,
+.digit:focus-visible {
+  border: 2px solid var(--scroll-accent);
+  outline: none;
+}
+
+.resend {
+  margin: 0;
+  color: var(--scroll-muted);
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

@@ -120,4 +120,28 @@
     border-color var(--duration-fast);
 
   --z-modal: 50;
+
+  /* Палитра экранов «Свиток». Старые переменные выше не заменять. */
+  --scroll-bg: #1c1915;
+  --scroll-section: #211e19;
+  --scroll-card: #26221c;
+  --scroll-field: #302a22;
+  --scroll-ability-head: #2b261f;
+  --scroll-border: #3d362c;
+  --scroll-text: #ede4d6;
+  --scroll-muted: #a89c8a;
+  --scroll-accent: #d9a35b;
+  --scroll-accent-hover: #e6b676;
+  --scroll-accent-soft: #3a3022;
+  --scroll-community: #c47a4e;
+  --scroll-easy-bg: #2c3024;
+  --scroll-easy-text: #8fa876;
+  --scroll-hard-bg: #3a2620;
+  --scroll-hard-text: #d27560;
+  --scroll-placeholder-stroke: #5a5043;
+  --scroll-overlay: rgba(12, 10, 8, 0.72);
+  --scroll-font-display: 'Cormorant Garamond', Georgia, serif;
+  --scroll-font-ui: Inter, system-ui, sans-serif;
+  --scroll-content: 1200px;
+  --scroll-pad: 24px;
 }

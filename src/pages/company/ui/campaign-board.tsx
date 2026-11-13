@@ -1,9 +1,10 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useOfficialCampaigns } from '@/entities/campaign';
+
 import { filterOfficialCampaigns } from '../lib/filter-campaigns';
 import { useCampaignFiltersStore } from '../model/campaign-filters-store';
-import { useOfficialCampaigns } from '../model/use-official-campaigns';
 import { CampaignCard } from './campaign-card';
 import { CampaignCardSkeleton } from './campaign-card-skeleton';
 

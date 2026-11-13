@@ -1,10 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import type { OfficialCampaign } from '@/entities/campaign';
+import { campaignDifficulty, type OfficialCampaign } from '@/entities/campaign';
 import { cn } from '@/shared/lib';
-
-import { campaignDifficulty } from '../lib/campaign-difficulty';
 
 import styles from './home-campaign-card.module.css';
 

@@ -1,0 +1,26 @@
+.tablist {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--scroll-border);
+  flex-wrap: wrap;
+}
+
+.tab {
+  height: 48px;
+  margin-bottom: -1px;
+  padding: 0 20px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--scroll-muted);
+  font-family: var(--scroll-font-ui);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.tab[aria-selected='true'] {
+  border-bottom-color: var(--scroll-accent);
+  color: var(--scroll-text);
+  font-weight: 600;
+}

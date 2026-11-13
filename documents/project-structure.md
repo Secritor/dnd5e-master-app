@@ -79,7 +79,7 @@ dnd-game-tool/
     │   ├── main.tsx               createRoot + <StrictMode><App/></StrictMode>; import './styles/index.css'
     │   ├── App.tsx                <AppProviders> → <ScrollArea> [ <RouterProvider/> ] + <SpeedInsights/>
     │   ├── App.module.css         .root { height: 100% }
-    │   ├── public-layout.tsx      шапка и подвал для `/` и `/company` (логотип, навигация, вход, язык)
+    │   ├── public-layout.tsx      шапка для `/` и `/company` (логотип, навигация, вход, язык); подвалы рисуют страницы
     │   ├── public-layout.module.css
     │   ├── router.tsx             createHashRouter; публичная оболочка только на `/` и `/company`
     │   ├── router.module.css      стили .loader / .loaderText
@@ -95,16 +95,16 @@ dnd-game-tool/
     │       └── base.css           reset (замена Tailwind preflight) + стили html/body/#root, :focus-visible
     │
     ├── pages/                     ─────────── слой PAGES ───────────
-    │   ├── mode-select/           «/» — главная «Свиток»: герой, «С чего начать», превью кампаний, мастерская
+    │   ├── mode-select/           «/» — главная «Свиток»: герой, «С чего начать», превью кампаний, мастерская, свой подвал
     │   │   ├── index.ts
-    │   │   ├── lib/campaign-difficulty.ts   лёгко / нормально / сложно только для чипа на карточке
     │   │   └── ui/
     │   │       ├── mode-select-page.tsx
     │   │       ├── home-hero.tsx
     │   │       ├── home-paths.tsx
     │   │       ├── home-campaigns.tsx
     │   │       ├── home-campaign-card.tsx
-    │   │       └── home-workshop.tsx
+    │   │       ├── home-workshop.tsx
+    │   │       └── home-footer.tsx          подвал главной: «Свиток», дисклеймер, «[Контакты]»
     │   │
     │   ├── master-home/           «/master» — пространство мастера
     │   │   ├── index.ts
@@ -115,17 +115,23 @@ dnd-game-tool/
     │   │       ├── master-campaign-list.{tsx,module.css}   список кампаний из стора + форма создания
     │   │       └── create-campaign-form.{tsx,module.css}   локальный useState + addCampaign
     │   │
-    │   ├── company/               «/company» — каталог официальных кампаний (фильтры остаются здесь)
+    │   ├── company/               «/company» — каталог официальных кампаний (фильтры и подвал остаются здесь)
     │   │   ├── index.ts
-    │   │   ├── lib/filter-campaigns.ts           фильтрация по названию / настроению / уровням
+    │   │   ├── lib/
+    │   │   │   ├── catalog-options.ts        варианты «Игроки» / уровень / «Время»
+    │   │   │   └── filter-campaigns.ts       вкладка, поиск, уровень, сложность; игроки и время режут только если поля есть
     │   │   ├── model/
-    │   │   │   └── campaign-filters-store.ts     Zustand (без persist): поиск, moods, min/maxLevel + clamp
+    │   │   │   └── campaign-filters-store.ts Zustand (без persist): вкладка, поиск, популярные, игроки, уровень, время, сложность, открытый список
     │   │   └── ui/
-    │   │       ├── company-page.{tsx,module.css}          PageTitle + CampaignFilters + CampaignBoard
-    │   │       ├── campaign-filters.{tsx,module.css}      читает/пишет campaign-filters-store
-    │   │       ├── campaign-board.{tsx,module.css}        useOfficialCampaigns + filter → грид карточек / скелетоны / ошибка / пусто
-    │   │       ├── campaign-card.{tsx,module.css}         презентационная карточка (img + Chip + ScrollArea)
-    │   │       └── campaign-card-skeleton.{tsx,module.css}
+    │   │       ├── company-page.{tsx,module.css}          main: заголовок, вкладки, фильтры, «Найдено», доска
+    │   │       ├── catalog-tabs.{tsx,module.css}          Все / Официальные / Сообщество
+    │   │       ├── campaign-filters.{tsx,module.css}      поиск и ряд пилюль
+    │   │       ├── catalog-select.{tsx,module.css}        один выпадающий список
+    │   │       ├── campaign-board.{tsx,module.css}        сетка / скелетоны / ошибка / пусто / «Показать ещё»
+    │   │       ├── campaign-card.{tsx,module.css}         обложка, локальная звезда, бейдж, чипы
+    │   │       ├── campaign-card-skeleton.{tsx,module.css}
+    │   │       ├── catalog-icons.tsx
+    │   │       └── catalog-footer.{tsx,module.css}        подвал каталога, без слова «Свиток» и без «Контакты»
     │   │
     │   ├── archive/               «/master/spells», «/master/npcs», «/master/items»
     │   │   ├── index.ts
@@ -170,6 +176,7 @@ dnd-game-tool/
     │       ├── api/fetch-official-campaigns.ts   mock: slugify(id) + zod + задержка 300мс
     │       └── model/
     │           ├── official-campaign.ts          zod-схема + CAMPAIGN_MOOD_TAGS
+    │           ├── campaign-difficulty.ts        легко / нормально / сложно по настроению и верхней границе уровня
     │           ├── official-campaigns-data.ts    OFFICIAL_CAMPAIGNS (20 шт.)
     │           ├── campaign-keys.ts              фабрика queryKey
     │           └── use-official-campaigns.ts     useQuery-обёртка
@@ -217,7 +224,7 @@ dnd-game-tool/
 | `/player`        | `PlayerPage`                                             | заглушка                     |
 | `/company`       | `PublicLayout` → `CompanyPage`                           | каталог официальных кампаний |
 
-Корень роутера — `AppShell`: фиксированный `LanguageSwitcher` на всех путях, кроме `/` и `/company` (там переключатель в публичной шапке). `PublicLayout` без своего пути оборачивает только эти два маршрута. Отдельного роута для логина нет. Вход из шапки — модалка: шаг почты, затем код; `signIn()` и переход на `/master`.
+Корень роутера — `AppShell`: фиксированный `LanguageSwitcher` на всех путях, кроме `/` и `/company` (там переключатель в публичной шапке). `PublicLayout` без своего пути оборачивает только эти два маршрута и рисует только шапку. Подвал главной — в `ModeSelectPage`, подвал каталога — в `CompanyPage`. Отдельного роута для логина нет. Вход из шапки — модалка: шаг почты, затем код; `signIn()` и переход на `/master`.
 
 ---
 
@@ -235,7 +242,7 @@ main.tsx
                └─ <SpeedInsights/>       @vercel/speed-insights
 ```
 
-**Вход мастера:** `PublicLayout` держит модалку. Без сессии «Войти» и «Мастер» открывают её на шаге почты. «Получить код» переключает на шаг кода без проверки. «Войти» вызывает `signIn()` и уводит на `/master`. Сессия — `useSessionStore` (`dnd-session`). Пока она есть, кнопка шапки — ссылка «Мастерская» на `/master`. Страница `pages/master-auth` — ранняя нероутовая версия, легаси; старые формы с паролем остаются только там.
+**Вход мастера:** `PublicLayout` держит модалку. Без сессии «Войти» и «Мастер» (в шапке и в подвалах страниц) открывают её на шаге почты. «Получить код» переключает на шаг кода без проверки. «Войти» вызывает `signIn()` и уводит на `/master`. Сессия — `useSessionStore` (`dnd-session`). Пока она есть, кнопка шапки — ссылка «Мастерская» на `/master`, а пункт «Мастер» тоже ведёт на `/master`. Страница `pages/master-auth` — ранняя нероутовая версия, легаси; старые формы с паролем остаются только там.
 
 ---
 
@@ -246,10 +253,10 @@ main.tsx
 | Server state                    | TanStack Query                                                                | `useOfficialCampaigns()` (`entities/campaign`), inline `useQuery` в `spells-table.tsx`. QueryKey-фабрики: `campaignKeys`, `spellKeys`. Клиент: `staleTime 60s`, `retry 1` |
 | Client state (кампании мастера) | `useMasterCampaignStore` — `pages/master-home/model/master-campaign-store.ts` | Zustand + `persist`, ключ localStorage **`dnd-campaign-store`**, `partialize` → только `campaigns` (не `selectedCampaignId`)                                                |
 | Client state (сессия)           | `useSessionStore` — `features/master-auth/model/session.ts`                   | Zustand + `persist`, ключ localStorage **`dnd-session`**: `isAuthenticated`, `signIn`, `signOut`                                                                          |
-| Client state (фильтры каталога) | `useCampaignFiltersStore` — `pages/company/model/campaign-filters-store.ts`   | Zustand без persist; `setMinLevel/setMaxLevel` делают clamp 1–20 и держат min ≤ max                                                                                         |
+| Client state (фильтры каталога) | `useCampaignFiltersStore` — `pages/company/model/campaign-filters-store.ts`   | Zustand без persist: вкладка, поиск, «Популярные», игроки, рекомендуемый уровень, время, сложность, открытый список. «Сбросить» не чистит поиск |
 | Form state                      | react-hook-form + `zodResolver`                                               | `features/master-auth` (login/register). В `create-campaign-form.tsx` — простой `useState`                                                                                  |
 | i18n                            | инстанс i18next                                                               | `shared/config/i18n.ts`, смена языка — `i18n.changeLanguage()`                                                                                                              |
-| UI-состояние экранов            | локальный `useState`                                                          | `authOpen` в `PublicLayout`, шаг почта/код в `MasterAuthModal`, `registered` в `MasterAuthPage`                                                                              |
+| UI-состояние экранов            | локальный `useState`                                                          | `authOpen` в `PublicLayout`, шаг почта/код в `MasterAuthModal`, `registered` в `MasterAuthPage`; на каталоге — счётчики звёзд и порция «Показать ещё» (не в localStorage) |
 
 ---
 
@@ -319,7 +326,7 @@ main.tsx
 | Логика входа/регистрации              | `src/features/master-auth/` (`model/auth.ts` — валидация, `model/session.ts` — мок-сессия, `ui/*` — формы) |
 | Список кампаний мастера, persist      | `src/pages/master-home/model/master-campaign-store.ts`                                              |
 | Каталог официальных кампаний (данные) | `src/entities/campaign/`                                                                            |
-| Логика фильтрации каталога            | `src/pages/company/lib/filter-campaigns.ts` + `model/campaign-filters-store.ts`                     |
+| Логика фильтрации каталога            | `src/pages/company/lib/filter-campaigns.ts` + `model/campaign-filters-store.ts`; сложность — `entities/campaign/model/campaign-difficulty.ts` |
 | Замена mock на реальный API           | `src/pages/*/api/*` (+ `model/*-keys.ts` при смене ключей)                                          |
 | Провайдеры / QueryClient              | `src/app/providers/`                                                                                |
 | Настройка i18n (языки, дефолт)        | `src/shared/config/i18n.ts`                                                                         |
@@ -338,7 +345,7 @@ app/public-layout → features/master-auth, features/language-switcher
 
 pages/mode-select    → entities/campaign, features/master-auth, shared/ui
 pages/master-home    → shared/ui  (+ внутренний model/master-campaign-store)
-pages/company        → entities/campaign, shared/ui, shared/lib (cn)  (+ фильтры каталога)
+pages/company        → entities/campaign, features/master-auth, shared/lib (cn)  (+ фильтры каталога)
 pages/archive        → shared/ui  (+ внутренние model/api)
 pages/player         → shared/ui
 

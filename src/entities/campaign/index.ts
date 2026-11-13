@@ -1,4 +1,5 @@
 export { fetchOfficialCampaigns } from './api/fetch-official-campaigns';
+export { type CampaignDifficulty, campaignDifficulty } from './model/campaign-difficulty';
 export { campaignKeys } from './model/campaign-keys';
 export {
   CAMPAIGN_MOOD_TAGS,

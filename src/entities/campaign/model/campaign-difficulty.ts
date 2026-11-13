@@ -1,4 +1,4 @@
-import type { OfficialCampaign } from '@/entities/campaign';
+import type { OfficialCampaign } from './official-campaign';
 
 const EASY_MOODS = new Set(['Для новичков', 'Немного экшена']);
 const HARD_MOODS = new Set(['Опасное', 'Хоррор', 'Жуткая']);

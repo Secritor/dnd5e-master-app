@@ -1,0 +1,43 @@
+.footer {
+  border-top: 1px solid var(--scroll-border);
+}
+
+.inner {
+  display: flex;
+  max-width: var(--scroll-content);
+  justify-content: space-between;
+  gap: 24px;
+  margin: 0 auto;
+  padding: 40px var(--scroll-pad) 48px;
+  color: var(--scroll-muted);
+  font-size: 14px;
+  line-height: 20px;
+  flex-wrap: wrap;
+}
+
+.disclaimer {
+  margin: 0;
+}
+
+.nav {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+}
+
+a.link:any-link,
+button.link {
+  color: var(--scroll-muted);
+}
+
+a.link:hover,
+button.link:hover {
+  color: var(--scroll-accent-hover);
+}

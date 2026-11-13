@@ -101,6 +101,10 @@ button.navLink {
   color: var(--scroll-text);
 }
 
+a.navLink[aria-current='page'] {
+  color: var(--scroll-accent);
+}
+
 a.navLink:hover,
 button.navLink:hover {
   color: var(--scroll-accent-hover);
@@ -127,57 +131,5 @@ button.signIn {
 
 a.signIn:hover,
 button.signIn:hover {
-  color: var(--scroll-accent-hover);
-}
-
-.footer {
-  display: flex;
-  max-width: var(--scroll-content);
-  justify-content: space-between;
-  gap: 32px;
-  margin: 0 auto;
-  padding: 48px var(--scroll-pad) 56px;
-  color: var(--scroll-muted);
-  font-size: 14px;
-  line-height: 20px;
-  flex-wrap: wrap;
-}
-
-.footerBrand {
-  display: flex;
-  max-width: 420px;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.footerName {
-  margin: 0;
-  color: var(--scroll-text);
-  font-family: var(--scroll-font-display);
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-.footerNav {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-.footerLink {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  font: inherit;
-}
-
-a.footerLink:any-link,
-button.footerLink {
-  color: var(--scroll-muted);
-}
-
-a.footerLink:hover,
-button.footerLink:hover {
   color: var(--scroll-accent-hover);
 }

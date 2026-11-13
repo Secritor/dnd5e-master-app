@@ -23,7 +23,6 @@ export function PublicLayout() {
       <OpenAuthProvider openAuth={openAuth}>
         <Outlet />
       </OpenAuthProvider>
-      <PublicFooter isAuthenticated={isAuthenticated} onMaster={openAuth} />
       <MasterAuthModal open={authOpen} onOpenChange={setAuthOpen} />
     </div>
   );
@@ -101,39 +100,6 @@ function AccountLink({
     <button type="button" className={styles.signIn} onClick={onSignIn}>
       {t('chrome.signIn')}
     </button>
-  );
-}
-
-function PublicFooter({ isAuthenticated, onMaster }: ChromeProps) {
-  const { t } = useTranslation();
-
-  return (
-    <footer className={styles.footer}>
-      <div className={styles.footerBrand}>
-        <p className={styles.footerName}>{t('chrome.brand')}</p>
-        <p>{t('chrome.disclaimer')}</p>
-      </div>
-      <nav className={styles.footerNav} aria-label={t('chrome.footerNav')}>
-        <Link className={styles.footerLink} to="/character">
-          {t('chrome.character')}
-        </Link>
-        <Link className={styles.footerLink} to="/company">
-          {t('chrome.campaigns')}
-        </Link>
-        {isAuthenticated ? (
-          <Link className={styles.footerLink} to="/master">
-            {t('chrome.master')}
-          </Link>
-        ) : (
-          <button type="button" className={styles.footerLink} onClick={onMaster}>
-            {t('chrome.master')}
-          </button>
-        )}
-        <button type="button" className={styles.footerLink}>
-          {t('chrome.contacts')}
-        </button>
-      </nav>
-    </footer>
   );
 }
 

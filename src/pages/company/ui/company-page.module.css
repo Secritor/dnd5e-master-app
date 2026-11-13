@@ -1,9 +1,37 @@
-.page {
-  margin-inline: auto;
-  max-width: 1400px;
-  padding: var(--space-6);
+.main {
+  display: flex;
+  max-width: var(--scroll-content);
+  flex-direction: column;
+  gap: 32px;
+  margin: 0 auto;
+  padding: 56px var(--scroll-pad) 96px;
 }
 
-.board {
-  margin-top: var(--space-6);
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.heading h1 {
+  margin: 0;
+  color: var(--scroll-text);
+  font-family: var(--scroll-font-display);
+  font-size: 56px;
+  font-weight: 600;
+  line-height: 64px;
+}
+
+.heading p {
+  margin: 0;
+  color: var(--scroll-muted);
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.found {
+  margin: 0;
+  color: var(--scroll-muted);
+  font-size: 14px;
+  line-height: 20px;
 }

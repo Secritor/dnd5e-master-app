@@ -1,66 +1,149 @@
 .card {
   display: flex;
-  flex-direction: row;
-  gap: var(--space-5);
-  height: 400px;
+  flex-direction: column;
   overflow: hidden;
-  padding: var(--space-5);
+  border: 1px solid var(--scroll-border);
+  border-radius: 12px;
+  background: var(--scroll-card);
+  color: var(--scroll-text);
 }
 
-.image {
-  max-height: 360px;
-  width: 270px;
-  flex-shrink: 0;
-  border-radius: var(--radius-2xl);
+.cover {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  background: var(--scroll-field);
+}
+
+.cover img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+}
+
+.coverLabel {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  color: var(--scroll-muted);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 10px;
+  border: 1px solid var(--scroll-accent);
+  border-radius: 999px;
+  background: var(--scroll-bg);
+  color: var(--scroll-accent);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+}
+
+.star,
+.starOn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: inline-flex;
+  height: 36px;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 999px;
+  background: var(--scroll-bg);
+  color: var(--scroll-text);
+  font-family: var(--scroll-font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.starOn {
+  border-color: var(--scroll-accent);
+  color: var(--scroll-accent);
+  font-weight: 600;
 }
 
 .body {
   display: flex;
-  min-width: 0;
-  flex: 1;
+  flex-grow: 1;
   flex-direction: column;
-  gap: var(--space-3);
-}
-
-.header {
-  padding: 0;
+  gap: 12px;
+  padding: 24px;
 }
 
 .title {
-  font-size: var(--text-lg);
+  margin: 0;
+  color: var(--scroll-text);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
 }
 
-.content {
+.source,
+.description {
+  margin: 0;
+  color: var(--scroll-muted);
+}
+
+.source {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.description {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 15px;
+  line-height: 22px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.chips {
   display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: var(--space-2);
-  padding: 0;
-}
-
-.levels {
-  font-size: var(--text-sm);
-}
-
-.moodRow {
-  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 8px;
+  font-size: 13px;
+  line-height: 18px;
   flex-wrap: wrap;
-  gap: var(--space-1);
 }
 
-.moodLabel {
-  font-size: var(--text-sm);
-  font-weight: var(--font-weight-medium);
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--scroll-field);
+  color: var(--scroll-text);
 }
 
-.descriptionScroll {
-  flex: 1;
-  padding-right: var(--space-3);
+.easy {
+  background: var(--scroll-easy-bg);
+  color: var(--scroll-easy-text);
+  font-weight: 500;
 }
 
-.descriptionText {
-  font-size: var(--text-sm);
-  font-weight: var(--font-weight-light);
-  line-height: var(--leading-relaxed);
+.normal {
+  background: var(--scroll-accent-soft);
+  color: var(--scroll-accent);
+  font-weight: 500;
+}
+
+.hard {
+  background: var(--scroll-hard-bg);
+  color: var(--scroll-hard-text);
+  font-weight: 500;
 }

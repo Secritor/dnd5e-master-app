@@ -1,19 +1,66 @@
 .grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-5);
-}
-
-@media (min-width: 1280px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
 }
 
 .error {
+  margin: 0;
   color: var(--destructive);
 }
 
 .empty {
-  color: var(--muted-foreground);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 64px 24px;
+  border: 1px dashed var(--scroll-border);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.emptyTitle {
+  margin: 0;
+  color: var(--scroll-text);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.emptyText {
+  margin: 0;
+  color: var(--scroll-muted);
+}
+
+.emptyButton {
+  height: 44px;
+  padding: 0 24px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--scroll-text);
+  font-family: var(--scroll-font-ui);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.more {
+  display: flex;
+  justify-content: center;
+  padding-top: 16px;
+}
+
+.moreButton {
+  height: 48px;
+  padding: 0 32px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--scroll-text);
+  font-family: var(--scroll-font-ui);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
 }

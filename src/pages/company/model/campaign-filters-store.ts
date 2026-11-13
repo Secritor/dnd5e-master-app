@@ -1,43 +1,55 @@
 import { create } from 'zustand';
 
-import type { CampaignMoodTag } from '@/entities/campaign';
+import type { CampaignDifficulty } from '@/entities/campaign';
 
-const MIN_PLAYER_LEVEL = 1;
-const MAX_PLAYER_LEVEL = 20;
+import type { CatalogSource, LevelFilter, PlayerFilter, TimeFilter } from '../lib/catalog-options';
 
-const clampLevel = (level: number, fallback: number): number =>
-  Number.isFinite(level)
-    ? Math.min(Math.max(Math.round(level), MIN_PLAYER_LEVEL), MAX_PLAYER_LEVEL)
-    : fallback;
+export type OpenList = 'players' | 'level' | 'time' | null;
 
 interface CampaignFiltersState {
+  source: CatalogSource;
   searchQuery: string;
-  selectedMoods: CampaignMoodTag[];
-  minLevel: number;
-  maxLevel: number;
-  setSearchQuery: (q: string) => void;
-  setSelectedMoods: (moods: CampaignMoodTag[]) => void;
-  setMinLevel: (level: number) => void;
-  setMaxLevel: (level: number) => void;
+  popular: boolean;
+  players: PlayerFilter | null;
+  level: LevelFilter | null;
+  time: TimeFilter | null;
+  difficulty: CampaignDifficulty | null;
+  openList: OpenList;
+  setSource: (source: CatalogSource) => void;
+  setSearchQuery: (searchQuery: string) => void;
+  togglePopular: () => void;
+  selectPlayers: (players: PlayerFilter) => void;
+  selectLevel: (level: LevelFilter) => void;
+  selectTime: (time: TimeFilter) => void;
+  toggleDifficulty: (difficulty: CampaignDifficulty) => void;
+  toggleList: (list: Exclude<OpenList, null>) => void;
+  resetFilters: () => void;
+  resetAll: () => void;
 }
 
+const clearedFilters = {
+  source: 'all' as const,
+  popular: false,
+  players: null,
+  level: null,
+  time: null,
+  difficulty: null,
+  openList: null,
+};
+
 export const useCampaignFiltersStore = create<CampaignFiltersState>((set, get) => ({
+  ...clearedFilters,
   searchQuery: '',
-  selectedMoods: [],
-  minLevel: MIN_PLAYER_LEVEL,
-  maxLevel: MAX_PLAYER_LEVEL,
+  setSource: (source) => set({ source }),
   setSearchQuery: (searchQuery) => set({ searchQuery }),
-  setSelectedMoods: (selectedMoods) => set({ selectedMoods }),
-  setMinLevel: (level) => {
-    const minLevel = clampLevel(level, MIN_PLAYER_LEVEL);
-    const { maxLevel } = get();
-
-    set({ minLevel, maxLevel: Math.max(minLevel, maxLevel) });
-  },
-  setMaxLevel: (level) => {
-    const maxLevel = clampLevel(level, MAX_PLAYER_LEVEL);
-    const { minLevel } = get();
-
-    set({ maxLevel, minLevel: Math.min(maxLevel, minLevel) });
-  },
+  togglePopular: () => set({ popular: !get().popular }),
+  selectPlayers: (players) =>
+    set({ players: get().players === players ? null : players, openList: null }),
+  selectLevel: (level) => set({ level: get().level === level ? null : level, openList: null }),
+  selectTime: (time) => set({ time: get().time === time ? null : time, openList: null }),
+  toggleDifficulty: (difficulty) =>
+    set({ difficulty: get().difficulty === difficulty ? null : difficulty }),
+  toggleList: (list) => set({ openList: get().openList === list ? null : list }),
+  resetFilters: () => set(clearedFilters),
+  resetAll: () => set({ ...clearedFilters, searchQuery: '' }),
 }));

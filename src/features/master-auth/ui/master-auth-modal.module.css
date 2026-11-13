@@ -166,6 +166,11 @@
   line-height: 24px;
 }
 
+.emailInput::placeholder {
+  color: var(--scroll-muted);
+  opacity: 1;
+}
+
 .legal {
   margin: 0;
   color: var(--scroll-muted);
@@ -224,6 +229,11 @@
   font-weight: 600;
   line-height: 28px;
   text-align: center;
+}
+
+.digit::placeholder {
+  color: var(--scroll-muted);
+  opacity: 1;
 }
 
 .digit:focus,

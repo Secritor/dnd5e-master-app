@@ -69,7 +69,14 @@ export function MasterAuthModal({ open, onOpenChange }: MasterAuthModalProps) {
       </AriaButton>
 
       {step === 'email' ? (
-        <AuthEmailStep email={email} onEmailChange={setEmail} onGetCode={() => setStep('code')} />
+        <AuthEmailStep
+          email={email}
+          onEmailChange={setEmail}
+          onGetCode={() => {
+            setDigits(emptyCode());
+            setStep('code');
+          }}
+        />
       ) : (
         <AuthCodeStep
           email={email}

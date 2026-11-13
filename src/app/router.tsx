@@ -5,6 +5,7 @@ import { createHashRouter, Outlet, useLocation } from 'react-router-dom';
 
 import { LanguageSwitcher } from '@/features/language-switcher';
 
+import { PublicLayout } from './public-layout';
 import { RouteError } from './route-error';
 
 import styles from './router.module.css';
@@ -36,10 +37,11 @@ function PageLoader() {
 
 function AppShell() {
   const { pathname } = useLocation();
+  const isPublic = pathname === '/' || pathname === '/company';
 
   return (
     <>
-      {pathname !== '/' && <LanguageSwitcher />}
+      {!isPublic && <LanguageSwitcher />}
       <Outlet />
     </>
   );
@@ -57,7 +59,13 @@ export const router = createHashRouter([
   {
     element: <AppShell />,
     children: [
-      { path: '/', element: withSuspense(<ModeSelectPage />) },
+      {
+        element: <PublicLayout />,
+        children: [
+          { path: '/', element: withSuspense(<ModeSelectPage />) },
+          { path: '/company', element: withSuspense(<CompanyPage />) },
+        ],
+      },
       { path: '/master', element: withSuspense(<MasterHomePage />) },
       { path: '/master/spells', element: withSuspense(<SpellsArchivePage />) },
       {
@@ -69,7 +77,6 @@ export const router = createHashRouter([
         element: withSuspense(<ArchivePlaceholderPage titleKey="archive.itemsTitle" />),
       },
       { path: '/player', element: withSuspense(<PlayerPage />) },
-      { path: '/company', element: withSuspense(<CompanyPage />) },
     ],
   },
 ]);

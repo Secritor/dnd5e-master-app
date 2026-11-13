@@ -1,4 +1,4 @@
-import type { CampaignMoodTag, OfficialCampaign } from '../model/official-campaign';
+import type { CampaignMoodTag, OfficialCampaign } from '@/entities/campaign';
 
 export interface CampaignFilterParams {
   searchQuery: string;

@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import type { CampaignMoodTag } from './official-campaign';
+import type { CampaignMoodTag } from '@/entities/campaign';
 
 const MIN_PLAYER_LEVEL = 1;
 const MAX_PLAYER_LEVEL = 20;

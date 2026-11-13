@@ -1,0 +1,90 @@
+.section {
+  background: var(--scroll-section);
+  border-top: 1px solid var(--scroll-border);
+  border-bottom: 1px solid var(--scroll-border);
+}
+
+.inner {
+  display: flex;
+  max-width: var(--scroll-content);
+  flex-direction: column;
+  gap: 40px;
+  margin: 0 auto;
+  padding: 80px var(--scroll-pad);
+}
+
+.title {
+  margin: 0;
+  color: var(--scroll-text);
+  font-family: var(--scroll-font-display);
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 48px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.card {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 12px;
+  background: var(--scroll-card);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+a.card:any-link,
+button.card {
+  color: var(--scroll-text);
+}
+
+a.card:hover {
+  color: var(--scroll-text);
+}
+
+.cardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.cardText {
+  margin: 0;
+  color: var(--scroll-muted);
+}
+
+.cardLink {
+  margin-top: auto;
+  color: var(--scroll-accent);
+  font-weight: 500;
+}
+
+.card:hover .cardLink {
+  color: var(--scroll-accent-hover);
+}
+
+.badge {
+  padding: 4px 10px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 999px;
+  color: var(--scroll-muted);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}

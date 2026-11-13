@@ -1,0 +1,65 @@
+.hero {
+  display: flex;
+  max-width: var(--scroll-content);
+  align-items: center;
+  gap: 48px;
+  margin: 0 auto;
+  padding: 96px var(--scroll-pad) 112px;
+  flex-wrap: wrap;
+}
+
+.copy {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 560px;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.kicker {
+  margin: 0;
+  color: var(--scroll-accent);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  color: var(--scroll-text);
+  font-family: var(--scroll-font-display);
+  font-size: 64px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 68px;
+}
+
+.text {
+  max-width: 520px;
+  margin: 0;
+  color: var(--scroll-muted);
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  padding-top: 8px;
+  flex-wrap: wrap;
+}
+
+.markWrap {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 360px;
+  justify-content: center;
+}
+
+.mark {
+  width: 380px;
+  max-width: 100%;
+  height: auto;
+}

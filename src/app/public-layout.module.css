@@ -1,0 +1,183 @@
+.shell {
+  min-height: 100%;
+  overflow-x: hidden;
+  background: var(--scroll-bg);
+  color: var(--scroll-text);
+  font-family: var(--scroll-font-ui);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.shell a {
+  color: var(--scroll-accent);
+  text-decoration: none;
+}
+
+.shell a:hover {
+  color: var(--scroll-accent-hover);
+}
+
+.shell :focus-visible {
+  outline: 2px solid var(--scroll-accent);
+  outline-offset: 2px;
+}
+
+.shell input::placeholder,
+.shell textarea::placeholder {
+  color: var(--scroll-muted);
+}
+
+.header {
+  background: var(--scroll-bg);
+  border-bottom: 1px solid var(--scroll-border);
+}
+
+.headerRow {
+  display: flex;
+  max-width: var(--scroll-content);
+  min-height: 72px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 auto;
+  padding: 0 var(--scroll-pad);
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+a.brand:any-link {
+  color: var(--scroll-text);
+}
+
+a.brand:hover {
+  color: var(--scroll-accent-hover);
+}
+
+.brandName {
+  color: var(--scroll-text);
+  font-family: var(--scroll-font-display);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+a.brand:hover .brandName {
+  color: var(--scroll-accent-hover);
+}
+
+.headerTools {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.nav {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+a.navLink:any-link,
+button.navLink {
+  color: var(--scroll-text);
+}
+
+a.navLink:hover,
+button.navLink:hover {
+  color: var(--scroll-accent-hover);
+}
+
+.signIn {
+  display: inline-flex;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 8px;
+  background: transparent;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+a.signIn:any-link,
+button.signIn {
+  color: var(--scroll-text);
+}
+
+a.signIn:hover,
+button.signIn:hover {
+  color: var(--scroll-accent-hover);
+}
+
+.footer {
+  display: flex;
+  max-width: var(--scroll-content);
+  justify-content: space-between;
+  gap: 32px;
+  margin: 0 auto;
+  padding: 48px var(--scroll-pad) 56px;
+  color: var(--scroll-muted);
+  font-size: 14px;
+  line-height: 20px;
+  flex-wrap: wrap;
+}
+
+.footerBrand {
+  display: flex;
+  max-width: 420px;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footerName {
+  margin: 0;
+  color: var(--scroll-text);
+  font-family: var(--scroll-font-display);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.footerNav {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footerLink {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+}
+
+a.footerLink:any-link,
+button.footerLink {
+  color: var(--scroll-muted);
+}
+
+a.footerLink:hover,
+button.footerLink:hover {
+  color: var(--scroll-accent-hover);
+}

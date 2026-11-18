@@ -18,7 +18,7 @@ interface ControlledTextFieldProps<TFieldValues extends FieldValues> extends Omi
 
 /**
  * `react-hook-form` Controller + `TextField` (`Label` / `Input` / `FieldError`).
- * Снимает дублирование обвязки Controller в формах — см. `features/master-auth`.
+ * Снимает дублирование обвязки Controller в формах. Живых форм пока нет.
  */
 export function ControlledTextField<TFieldValues extends FieldValues>({
   control,

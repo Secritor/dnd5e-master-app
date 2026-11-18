@@ -41,7 +41,7 @@ function PageLoader() {
 function AppShell() {
   const { pathname } = useLocation();
   const isPublic = pathname === '/' || pathname === '/company';
-  const showFixedLanguage = !isPublic && pathname !== '/character';
+  const showFixedLanguage = !isPublic && pathname !== '/character' && pathname !== '/master';
 
   return (
     <>

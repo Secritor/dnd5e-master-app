@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+/** Обзор `/master` этот стор не читает. Файл оставлен для будущего экрана кампаний. */
+
 export interface MasterCampaign {
   id: string;
   name: string;
